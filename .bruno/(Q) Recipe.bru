@@ -1,0 +1,21 @@
+meta {
+  name: (Q) Recipe
+  type: graphql
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/graphql
+  body: graphql
+  auth: none
+}
+
+body:graphql {
+  query Recipe {
+    recipe(withId: "KDYxYg") {
+      id
+      title
+      description
+    }
+  }
+}

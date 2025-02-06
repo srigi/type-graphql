@@ -1,0 +1,29 @@
+meta {
+  name: (M) AddRecipe
+  type: graphql
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/graphql
+  body: graphql
+  auth: none
+}
+
+body:graphql {
+  mutation AddRecipe($recipe: AddRecipeInput!) {
+    addRecipe(recipe: $recipe) {
+      title
+      description
+    }
+  }
+}
+
+body:graphql:vars {
+  {
+    "recipe": {
+      "title": "Baked lemon pudding",
+      "description": "Mňam 😋"
+    }
+  }
+}

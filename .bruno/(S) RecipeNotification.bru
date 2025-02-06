@@ -1,0 +1,25 @@
+meta {
+  name: (S) RecipeNotification
+  type: graphql
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/graphql
+  body: graphql
+  auth: none
+}
+
+body:graphql {
+  subscription RecipeNotification {
+    recipeUpdates {
+      type
+      issuedAt
+      recipe {
+        id
+        title
+        description
+      }
+    }
+  }
+}

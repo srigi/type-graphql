@@ -1,0 +1,13 @@
+{
+  "version": "1",
+  "name": "type-graphql",
+  "type": "collection",
+  "ignore": [
+    ".git",
+    "node_modules"
+  ],
+  "presets": {
+    "requestType": "graphql",
+    "requestUrl": ""
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "type-graphql",
+  "private": true,
+  "scripts": {
+    "dev": "tsx --watch-path src src/server.ts",
+    "tsc": "tsc -noEmit"
+  },
+  "dependencies": {
+    "@graphql-yoga/subscription": "~5.0",
+    "class-validator": "~0.14",
+    "graphql": "~16.10",
+    "graphql-scalars": "~1.24",
+    "graphql-yoga": "~5.11",
+    "reflect-metadata": "~0.2",
+    "type-graphql": "2.0.0-rc.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "prettier": "~3.4",
+    "tsx": "~4.19",
+    "typescript": "~5.7"
+  },
+  "packageManager": "pnpm@10.2.1+sha512.398035c7bd696d0ba0b10a688ed558285329d27ea994804a52bad9167d8e3a72bcb993f9699585d3ca25779ac64949ef422757a6c31102c12ab932e5cbe5cc92"
+}
