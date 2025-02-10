@@ -28,7 +28,7 @@ Also original examples are more like snippets, not full project that has everyth
 3. run in dev mode
 
    ```
-   pnpm dev
+   pnpm api dev
    ```
 
 After starting the GraphQL server wisit `localhost:3000/graphql` from you your browser to play with API using [graphiql](https://github.com/graphql/graphiql/tree/main?tab=readme-ov-file#graphiql).

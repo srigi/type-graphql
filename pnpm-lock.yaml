@@ -7,6 +7,21 @@ settings:
 importers:
 
   .:
+    devDependencies:
+      '@types/node':
+        specifier: ^22
+        version: 22.13.1
+      prettier:
+        specifier: ~3.4
+        version: 3.4.2
+      tsx:
+        specifier: ~4.19
+        version: 4.19.2
+      typescript:
+        specifier: ~5.7
+        version: 5.7.3
+
+  api:
     dependencies:
       '@graphql-yoga/subscription':
         specifier: ~5.0
@@ -29,19 +44,6 @@ importers:
       type-graphql:
         specifier: 2.0.0-rc.2
         version: 2.0.0-rc.2(class-validator@0.14.1)(graphql-scalars@1.24.1(graphql@16.10.0))(graphql@16.10.0)
-    devDependencies:
-      '@types/node':
-        specifier: ^22
-        version: 22.13.1
-      prettier:
-        specifier: ~3.4
-        version: 3.4.2
-      tsx:
-        specifier: ~4.19
-        version: 4.19.2
-      typescript:
-        specifier: ~5.7
-        version: 5.7.3
 
 packages:
 

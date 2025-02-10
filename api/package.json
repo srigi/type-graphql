@@ -1,0 +1,18 @@
+{
+  "name": "api",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "tsx --watch-path src src/server.ts",
+    "tsc": "tsc -noEmit"
+  },
+  "dependencies": {
+    "@graphql-yoga/subscription": "~5.0",
+    "class-validator": "~0.14",
+    "graphql": "~16.10",
+    "graphql-scalars": "~1.24",
+    "graphql-yoga": "~5.11",
+    "reflect-metadata": "~0.2",
+    "type-graphql": "2.0.0-rc.2"
+  },
+  "devDependencies": {}
+}
