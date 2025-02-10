@@ -16,7 +16,11 @@ async function createServer() {
     resolvers: [RecipeResolver],
   });
 
-  const yoga = createYoga({ graphqlEndpoint: '/graphql', schema });
+  const yoga = createYoga({
+    graphqlEndpoint: '/graphql',
+    healthCheckEndpoint: '/health',
+    schema,
+  });
 
   return http.createServer(yoga);
 }
