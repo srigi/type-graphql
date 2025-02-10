@@ -4,7 +4,7 @@ import http from 'node:http';
 import path from 'node:path';
 import { buildSchema } from 'type-graphql';
 
-import { RecipeResolver } from '~/recipe/resolver';
+import { RecipeResolver } from '~/Recipe/resolver';
 import { pubSub } from '~/pubsub';
 
 const port = +(process.env.PORT || 3000);
