@@ -2,7 +2,8 @@
   "name": "type-graphql",
   "private": true,
   "scripts": {
-    "api": "pnpm --filter api"
+    "api": "pnpm --filter api",
+    "webapp": "pnpm --filter webapp"
   },
   "devDependencies": {
     "@types/node": "^22",
