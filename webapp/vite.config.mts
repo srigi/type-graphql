@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { defineConfig } from 'vite';
 import preact from '@preact/preset-vite';
 import tailwindcss from '@tailwindcss/vite';
@@ -9,6 +10,11 @@ export default defineConfig({
   },
   plugins: [preact(), tailwindcss()],
   root: 'src',
+  resolve: {
+    alias: {
+      '~gql': path.resolve(__dirname, 'src/.gql'),
+    },
+  },
   server: {
     ...(process.env.WEBAPP_HOST && { allowedHosts: [process.env.WEBAPP_HOST] }),
     host: '127.0.0.1',
