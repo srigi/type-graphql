@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "tsx --watch-path src src/server.ts",
-    "tsc": "tsc -noEmit"
+    "tsc": "tsc -noEmit",
+    "prisma": "prisma"
   },
   "dependencies": {
     "@graphql-yoga/subscription": "~5.0",
@@ -12,7 +13,10 @@
     "graphql-scalars": "~1.24",
     "graphql-yoga": "~5.11",
     "reflect-metadata": "~0.2",
-    "type-graphql": "2.0.0-rc.2"
+    "type-graphql": "2.0.0-rc.2",
+    "@prisma/client": "~6.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prisma": "~6.3"
+  }
 }
