@@ -1,29 +1,81 @@
-generator client {
-  provider = "prisma-client-js"
-  output   = "./client"
-}
-
 datasource db {
   provider = "sqlite"
   url      = "file:../.data/movies.sqlite3"
 }
 
-model movie {
-  id       Int      @id @default(autoincrement())
-  publicId String   @unique()
-  name     String
-  slug     String   @unique()
-  released String
-  rating   rating[]
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
 }
 
-model rating {
-  id        Int    @id @default(autoincrement())
-  publicId  String @unique()
-  score     Int
-  createdAt Int
-  movieId   Int
-  movie     movie  @relation(fields: [movieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+model Figure {
+  id       Int    @id @default(autoincrement())
+  publicId String @unique()
+  slug     String @unique()
+  name     String
+  birthday String
+  country  String
 
-  @@index([movieId])
+  movieActor     movie_actor[]
+  movieProducers movie_producer[]
+}
+
+model movie_actor {
+  movieId  Int
+  figureId Int
+  rank     String
+
+  movie  Movie  @relation(fields: [movieId], references: [id])
+  figure Figure @relation(fields: [figureId], references: [id])
+
+  @@id([movieId, figureId])
+}
+
+model movie_producer {
+  movieId  Int
+  figureId Int
+  role     String
+
+  movie  Movie  @relation(fields: [movieId], references: [id])
+  figure Figure @relation(fields: [figureId], references: [id])
+
+  @@id([movieId, figureId])
+}
+
+model Movie {
+  id         Int     @id @default(autoincrement())
+  publicId   String  @unique()
+  name       String
+  releasedIn String
+  story      String
+  avgRating  Decimal
+
+  rating        Rating[]
+  movieActor    movie_actor[]
+  movieProducer movie_producer[]
+}
+
+model Rating {
+  id        Int      @id @default(autoincrement())
+  publicId  String   @unique()
+  movieId   Int
+  userId    Int
+  score     Decimal
+  text      String
+  createdAt DateTime @default(now())
+
+  movie Movie @relation(fields: movieId, references: id)
+  user  User  @relation(fields: userId, references: id)
+
+  @@index(movieId)
+  @@index(userId)
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  publicId  String   @unique()
+  username  String   @unique()
+  createdAt DateTime @default(now())
+
+  rating Rating[]
 }

@@ -3,19 +3,20 @@
   "version": "0.0.1",
   "scripts": {
     "build:schema": "tsx src/schema.ts",
+    "db:seed": "tsx prisma/seed.ts",
     "dev": "tsx --watch-path src src/server.ts",
     "tsc": "tsc -noEmit",
     "prisma": "prisma"
   },
   "dependencies": {
     "@graphql-yoga/subscription": "~5.0",
+    "@prisma/client": "~6.3",
     "class-validator": "~0.14",
     "graphql": "~16.10",
     "graphql-scalars": "~1.24",
     "graphql-yoga": "~5.11",
     "reflect-metadata": "~0.2",
-    "type-graphql": "2.0.0-rc.2",
-    "@prisma/client": "~6.3"
+    "type-graphql": "2.0.0-rc.2"
   },
   "devDependencies": {
     "prisma": "~6.3"

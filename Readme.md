@@ -46,7 +46,21 @@ Server is using Sqlite3 database located at [`api/.data`](./api/.data) in this p
 
    _please note, this command will also generate [Prisma query engine](https://www.prisma.io/docs/orm/overview/databases/database-drivers) in `api/prisma/client`_
 
-2. start [`api`](./api/) in dev mode
+2. seed the database
+
+   ```sh
+   pnpm api db:seed
+   ```
+
+- (optional) manage your database using [`Prisma Studio`](https://www.prisma.io/docs/orm/tools/prisma-studio)
+
+  ```sh
+  pnpm api prisma studio
+  ```
+
+  _explore all available prisma commands with `pnpm api prisma`_
+
+3. start [`api`](./api/) in dev mode
 
    ```sh
    pnpm api dev
@@ -61,14 +75,6 @@ Server is using Sqlite3 database located at [`api/.data`](./api/.data) in this p
   ```
 
   _please note, starting the api server, generates `schema.graphql` automatically_
-
-- manage your database using [`Prisma Studio`](https://www.prisma.io/docs/orm/tools/prisma-studio)
-
-  ```sh
-  pnpm api prisma studio
-  ```
-
-  _explore all available prisma commands with `pnpm api prisma`_
 
 ## webapp
 
