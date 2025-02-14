@@ -6,7 +6,8 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "~prisma/*": ["./prisma/*"]
     },
     "skipLibCheck": true,
     "strict": true,
