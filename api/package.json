@@ -2,6 +2,7 @@
   "name": "api",
   "version": "0.0.1",
   "scripts": {
+    "build:schema": "tsx src/schema.ts",
     "dev": "tsx --watch-path src src/server.ts",
     "tsc": "tsc -noEmit",
     "prisma": "prisma"
