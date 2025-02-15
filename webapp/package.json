@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "preact": "~10.25",
+    "react-router-dom": "~7.1",
     "urql": "~4.2"
   },
   "devDependencies": {

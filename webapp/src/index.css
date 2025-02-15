@@ -7,7 +7,6 @@
 
 :root {
   background-color: #242424;
-  color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   text-rendering: optimizeLegibility;
@@ -15,14 +14,44 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  min-height: 100vh;
-  padding: 2rem 0;
+@font-face {
+  font-family: 'BunkenSansPro';
+  font-weight: 200;
+  display: swap;
+  src: url('/BunkenTechSansPro/light.woff2');
 }
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+@font-face {
+  font-family: 'BunkenSansPro';
+  font-weight: 200;
+  font-style: italic;
+  display: swap;
+  src: url('/BunkenTechSansPro/lightIt.woff2');
+}
+@font-face {
+  font-family: 'BunkenSansPro';
+  font-weight: normal;
+  display: swap;
+  src: url('/BunkenTechSansPro/regular.woff2');
+}
+@font-face {
+  font-family: 'BunkenSansPro';
+  font-weight: normal;
+  font-style: italic;
+  display: swap;
+  src: url('/BunkenTechSansPro/regularIt.woff2');
+}
+@font-face {
+  font-family: 'BunkenSansPro';
+  font-weight: bold;
+  display: swap;
+  src: url('/BunkenTechSansPro/bold.woff2');
+}
+@font-face {
+  font-family: 'BunkenSansPro';
+  font-weight: bold;
+  font-style: italic;
+  display: swap;
+  src: url('/BunkenTechSansPro/boldIt.woff2');
 }
 
 button {
@@ -36,16 +65,5 @@ button {
 
   &:hover {
     background-color: #505050;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    background-color: #f0f0f0;
-    color: #202020;
-  }
-
-  button {
-    background-color: #fcfcfc;
   }
 }
