@@ -3,7 +3,7 @@ import http from 'node:http';
 
 import { schemaPromise } from './schema';
 
-const port = +(process.env.PORT || 3000);
+const port = Number(process.env.PORT || 3001);
 
 schemaPromise
   .then((schema) => {

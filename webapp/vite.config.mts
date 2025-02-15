@@ -16,8 +16,8 @@ export default defineConfig({
     },
   },
   server: {
-    ...(process.env.WEBAPP_HOST && { allowedHosts: [process.env.WEBAPP_HOST] }),
-    host: '127.0.0.1',
-    port: process.env.WEB_PORT != null ? +process.env.WEB_PORT : 8000,
+    ...(process.env.WEBAPP_ALLOWED_HOSTS && { allowedHosts: [process.env.WEBAPP_ALLOWED_HOSTS] }),
+    host: process.env.WEBAPP_HOST || '127.0.0.1',
+    port: Number(process.env.WEBAPP_PORT || 3000),
   },
 });

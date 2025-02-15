@@ -6,7 +6,7 @@ This is a monorepo with workspaces managed by PNPM!
 
 ## Requirements
 
-- Node.js 18+
+- Node.js 20+
 - pnpm
 - [direnv](https://direnv.net/#docs)
 - for zero-conf code-formatting in **VSCode** install [**Prettier**](https://marketplace.cursorapi.com/items?itemName=esbenp.prettier-vscode) and [**Prisma**](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma) extensions

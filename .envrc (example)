@@ -1,2 +1,2 @@
-export API_BASE_URL=http://localhost:3000
-export WEBAPP_HOST=localdev.io
+export API_BASE_URL=http://localhost:3001
+export WEBAPP_ALLOWED_HOSTS=localdev.io
