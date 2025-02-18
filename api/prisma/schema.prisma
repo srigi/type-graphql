@@ -16,22 +16,10 @@ model Figure {
   birthday String
   country  String
 
-  movieActor     movie_actor[]
-  movieProducers movie_producer[]
+  movieFigure movie_figure[]
 }
 
-model movie_actor {
-  movieId  Int
-  figureId Int
-  rank     String
-
-  movie  Movie  @relation(fields: [movieId], references: [id])
-  figure Figure @relation(fields: [figureId], references: [id])
-
-  @@id([movieId, figureId])
-}
-
-model movie_producer {
+model movie_figure {
   movieId  Int
   figureId Int
   role     String
@@ -39,7 +27,7 @@ model movie_producer {
   movie  Movie  @relation(fields: [movieId], references: [id])
   figure Figure @relation(fields: [figureId], references: [id])
 
-  @@id([movieId, figureId])
+  @@id([movieId, figureId, role])
 }
 
 model Movie {
@@ -50,9 +38,8 @@ model Movie {
   story      String
   avgRating  Decimal
 
-  rating        Rating[]
-  movieActor    movie_actor[]
-  movieProducer movie_producer[]
+  rating      Rating[]
+  movieFigure movie_figure[]
 }
 
 model Rating {

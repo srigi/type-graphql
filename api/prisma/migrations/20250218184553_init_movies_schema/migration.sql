@@ -9,25 +9,14 @@ CREATE TABLE "Figure" (
 );
 
 -- CreateTable
-CREATE TABLE "movie_actor" (
-    "movieId" INTEGER NOT NULL,
-    "figureId" INTEGER NOT NULL,
-    "rank" TEXT NOT NULL,
-
-    PRIMARY KEY ("movieId", "figureId"),
-    CONSTRAINT "movie_actor_movieId_fkey" FOREIGN KEY ("movieId") REFERENCES "Movie" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "movie_actor_figureId_fkey" FOREIGN KEY ("figureId") REFERENCES "Figure" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
--- CreateTable
-CREATE TABLE "movie_producer" (
+CREATE TABLE "movie_figure" (
     "movieId" INTEGER NOT NULL,
     "figureId" INTEGER NOT NULL,
     "role" TEXT NOT NULL,
 
-    PRIMARY KEY ("movieId", "figureId"),
-    CONSTRAINT "movie_producer_movieId_fkey" FOREIGN KEY ("movieId") REFERENCES "Movie" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "movie_producer_figureId_fkey" FOREIGN KEY ("figureId") REFERENCES "Figure" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    PRIMARY KEY ("movieId", "figureId", "role"),
+    CONSTRAINT "movie_figure_movieId_fkey" FOREIGN KEY ("movieId") REFERENCES "Movie" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "movie_figure_figureId_fkey" FOREIGN KEY ("figureId") REFERENCES "Figure" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable

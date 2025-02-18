@@ -19,6 +19,10 @@ async function main() {
       { publicId: '7oQJAjr3d', name: 'Laurence Fishburne', slug: 'laurence-fishburne', birthday: '1961-07-30', country: 'USA' },
       { publicId: 'QAlObd8hT', name: 'Carrie-Anne Moss', slug: 'carrie-anne-moss', birthday: '1967-08-21', country: 'Canada' },
       { publicId: 'YTZhbTIBt', name: 'Hugo Weaving', slug: 'hugo-weaving', birthday: '1960-04-04', country: 'Niger' },
+
+      { publicId: 'TcVGxm3y8', name: 'Bradley Cooper', slug: 'bradley-cooper', birthday: '1975-01-05', country: 'USA' },
+      { publicId: '8SKQ9cF69', name: 'Clint Eastwood', slug: 'clint-eastwood', birthday: '1930-05-31', country: 'USA' },
+      { publicId: 'QeaE6j39v', name: 'Lady Gaga', slug: 'lady-gaga', birthday: '1986-03-28', country: 'USA' },
     ],
   });
 
@@ -50,37 +54,76 @@ async function main() {
       },
       {
         publicId: 'J3NzhVqI',
-        name: 'Star Wars: Episode VII - The Force Awakens',
+        name: `Star Wars: Episode VII
+The Force Awakens`,
         releasedIn: '2015-12-16',
         story:
           'As a new threat to the galaxy rises, Rey, a desert scavenger, and Finn, an ex-stormtrooper, must join Han Solo and Chewbacca to search for the one hope of restoring peace.',
         avgRating: '7.8',
       },
+      {
+        publicId: '5DqkWYtQ6s',
+        name: 'Silver Linings Playbook',
+        releasedIn: '2012-11-16',
+        story:
+          'After a stint in a mental institution, former teacher Pat Solitano moves back in with his parents and tries to reconcile with his ex-wife. Things get more challenging when Pat meets Tiffany',
+        avgRating: '7.7',
+      },
+      {
+        publicId: 'UOVc5DqkWY',
+        name: 'American Sniper',
+        releasedIn: '2014-12-25',
+        story:
+          "A biographical war drama film directed and co-produced by Clint Eastwood and written and executive-produced by Jason Hall, based on the memoir of the same name by Chris Kyle with Scott McEwen and Jim DeFelice. The film follows the life of Kyle, who became the deadliest marksman in U.S. military history with 255 kills from four tours in the Iraq War, 160 of which were officially confirmed by the Department of Defense.[5] While Kyle was celebrated for his military successes, his tours of duty took a heavy toll on his personal and family life. It stars Bradley Cooper as Kyle and Sienna Miller as his wife Taya, with Luke Grimes, Jake McDorman, Cory Hardrict, Kevin Lacz, Navid Negahban, and Keir O'Donnell in supporting roles.",
+        avgRating: '7.3',
+      },
+      {
+        publicId: '5Mu7oPmMbo',
+        name: 'Million Dollar Baby',
+        releasedIn: '2004-12-15',
+        story:
+          'American sports drama film starring Hilary Swank. It is directed, co-produced, scored by and starring Clint Eastwood from a screenplay written by Paul Haggis, based on stories from the 2000 collection Rope Burns: Stories from the Corner by F.X. Toole, the pen name of fight manager and cutman Jerry Boyd. It also stars Morgan Freeman. The film follows Margaret "Maggie" Fitzgerald (Swank), an underdog amateur boxer who is helped by an underappreciated boxing trainer (Eastwood) to achieve her dream of becoming a professional.',
+        avgRating: '8.1',
+      },
+      {
+        publicId: 'wLDejMW2CyFD',
+        name: 'A Star Is Born',
+        releasedIn: '2018-10-05',
+        story:
+          'Musical romantic drama produced and directed by Bradley Cooper (in his directorial debut) with a screenplay by Cooper, Eric Roth and Will Fetters. It stars Cooper and Lady Gaga in lead roles, with Dave Chappelle, Andrew Dice Clay and Sam Elliott in supporting roles. It follows an alcoholic musician (Cooper) who discovers and falls in love with a young singer (Gaga). It is the fourth American movie made of the story, after the original 1937 romantic drama and its 1954 and 1976 remakes. Principal photography began at the Coachella Valley Music and Arts Festival in April 2017.',
+        avgRating: '7.7',
+      },
     ],
   });
 
-  const movieProducers = await prisma.movie_producer.createManyAndReturn({
+  const movieFigures = await prisma.movie_figure.createManyAndReturn({
     data: [
-      { movieId: 1, figureId: 1, role: 'director' },
-      { movieId: 1, figureId: 2, role: 'director of photography' },
+      { movieId: 1, figureId: 1, role: 'director' }, // The Shawshank Redemption / Frank Darabont
+      { movieId: 1, figureId: 2, role: 'director of photography' }, // The Shawshank Redemption / Roger Deakins
+      { movieId: 1, figureId: 3, role: 'main character' }, // The Shawshank Redemption / Tim Robbins
+      { movieId: 1, figureId: 4, role: 'main character' }, // The Shawshank Redemption / Morgan Freeman
+      { movieId: 1, figureId: 5, role: 'side character' }, // The Shawshank Redemption / Bob Gunton
 
-      { movieId: 2, figureId: 6, role: 'director' },
-      { movieId: 2, figureId: 7, role: 'director' },
-      { movieId: 2, figureId: 8, role: 'director of photography' },
-      { movieId: 2, figureId: 9, role: 'music director' },
-    ],
-  });
+      { movieId: 2, figureId: 6, role: 'director' }, // The Matrix / Lana Wachowski
+      { movieId: 2, figureId: 7, role: 'director' }, // The Matrix / Lilly Wachowski
+      { movieId: 2, figureId: 8, role: 'director of photography' }, // The Matrix / Bill Pope
+      { movieId: 2, figureId: 9, role: 'music director' }, // The Matrix / Don Davis
+      { movieId: 2, figureId: 10, role: 'main character' }, // The Matrix / Keanu Reeves
+      { movieId: 2, figureId: 11, role: 'side character' }, // The Matrix / Laurence Fishburne
+      { movieId: 2, figureId: 12, role: 'side character' }, // The Matrix / Carrie-Anne Moss
+      { movieId: 2, figureId: 13, role: 'side character' }, // The Matrix / Hugo Weaving
 
-  const movieActors = await prisma.movie_actor.createManyAndReturn({
-    data: [
-      { movieId: 1, figureId: 3, rank: 'main character' },
-      { movieId: 1, figureId: 4, rank: 'main character' },
-      { movieId: 1, figureId: 5, rank: 'side character' },
+      { movieId: 5, figureId: 14, role: 'main character' }, // Silver Linings Playbook / Bradley Cooper
 
-      { movieId: 2, figureId: 10, rank: 'main character' },
-      { movieId: 2, figureId: 11, rank: 'side character' },
-      { movieId: 2, figureId: 12, rank: 'side character' },
-      { movieId: 2, figureId: 13, rank: 'side character' },
+      { movieId: 6, figureId: 14, role: 'main character' }, // American Sniper / Bradley Cooper
+      { movieId: 6, figureId: 15, role: 'director' }, // American Sniper / Clint Eastwood
+
+      { movieId: 7, figureId: 15, role: 'director' }, // Million Dollar Baby / Clint Eastwood
+      { movieId: 7, figureId: 15, role: 'main character' }, // Million Dollar Baby / Clint Eastwood
+
+      { movieId: 8, figureId: 14, role: 'director' }, // A Star Is Born / Bradley Cooper
+      { movieId: 8, figureId: 14, role: 'main character' }, // A Star Is Born / Bradley Cooper
+      { movieId: 8, figureId: 16, role: 'main character' }, // A Star Is Born / Lady Gaga
     ],
   });
 
@@ -254,10 +297,57 @@ async function main() {
         text: "Best film of the Star Wars saga. By......a.........MILE. I know biased fanboys of the painfully average, outdated original trilogy will cluelessly cry about this, but yes, The Force Awakens is the most well made film of the Star Wars saga. This film has all the goodness of the original movies, characters who are easily likable, incredible effects, John Williams' rousing musical score and a great time at the cinema, enjoyable with our families and friends. But there are things which are even better than the original movies. Interaction between the lead characters is so natural, you got to commend the writers and the director J J Abrams for their amazing work.",
         createdAt: new Date('2024-12-03'),
       },
+
+      {
+        publicId: 'kLm9nOp1',
+        movieId: 5,
+        userId: 3,
+        score: '7.5',
+        text: 'A refreshing take on mental health issues with stellar performances from Cooper and Lawrence. While the plot sometimes feels a bit contrived, the chemistry between the leads makes up for it.',
+        createdAt: new Date('2013-01-15'),
+      },
+      {
+        publicId: 'qRs2tUv3',
+        movieId: 5,
+        userId: 1,
+        score: '8.0',
+        text: 'Bradley Cooper and Jennifer Lawrence deliver powerful performances in this unconventional romantic comedy. The film tackles mental health with both sensitivity and humor. A great balance of drama and light moments.',
+        createdAt: new Date('2013-02-28'),
+      },
+      {
+        publicId: 'wXy4zAb5',
+        movieId: 5,
+        userId: 7,
+        score: '7.0',
+        text: 'Good performances but somewhat predictable story arc. Worth watching for the acting alone.',
+        createdAt: new Date('2013-03-12'),
+      },
+      {
+        publicId: 'cDe5fGh6',
+        movieId: 5,
+        userId: 9,
+        score: '8.5',
+        text: "One of the best romantic comedies of the decade. It's honest, raw, and surprisingly deep in its portrayal of mental illness. Cooper and Lawrence are simply magnetic together.",
+        createdAt: new Date('2013-05-20'),
+      },
+      {
+        publicId: 'iJk7mNo8',
+        movieId: 5,
+        userId: 4,
+        score: '7.5',
+        text: 'A quirky, heartfelt film that manages to be both entertaining and thought-provoking. The dance competition subplot feels a bit forced, but the character development is excellent.',
+        createdAt: new Date('2013-06-04'),
+      },
     ],
   });
 
-  return figures.length + movieProducers.length + movieActors.length + movies.length + users.length + ratings.length;
+  return {
+    figures: figures.length,
+    movieFigures: movieFigures.length,
+    movies: movies.length,
+    users: users.length,
+    ratings: ratings.length,
+  };
 }
 
 main()
