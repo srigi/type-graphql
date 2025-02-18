@@ -10,6 +10,7 @@ schemaPromise
     return http.createServer(
       createYoga({
         graphqlEndpoint: '/graphql',
+        graphiql: { useGETForQueries: false, method: 'POST' },
         healthCheckEndpoint: '/health',
         schema,
       }),

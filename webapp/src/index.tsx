@@ -5,6 +5,7 @@ import { Client, Provider as UrqlProvider, cacheExchange, fetchExchange } from '
 import { Layout } from './ui/Layout';
 import { IndexPage } from './pages';
 import { MovieDetailPage } from './pages/movieDetail';
+import { NotFound } from './ui/NotFound';
 import './index.css';
 
 const client = new Client({
@@ -18,6 +19,7 @@ render(
       <Routes>
         <Route element={<Layout />}>
           <Route path="/movie/:publicId" element={<MovieDetailPage />} />
+          <Route path="/movie" element={<NotFound />} />
           <Route path="/" element={<IndexPage />} />
         </Route>
       </Routes>

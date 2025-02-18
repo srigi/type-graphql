@@ -6,7 +6,7 @@ export function Layout() {
   return (
     <>
       <Navbar />
-      <main className="container flex flex-col gap-4 mb-32">
+      <main className="container flex flex-col flex-1 gap-4">
         <Outlet />
       </main>
     </>

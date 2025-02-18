@@ -1,5 +1,8 @@
 import { Field, ID, ObjectType } from 'type-graphql';
 
+import { Rating } from '~/Rating/Rating';
+import { MovieCount } from './MovieCount';
+
 @ObjectType()
 export class Movie {
   @Field((type) => ID)
@@ -9,8 +12,16 @@ export class Movie {
   name!: string;
 
   @Field((type) => String)
-  slug!: string;
+  releasedIn!: string;
 
   @Field((type) => String)
-  released!: string;
+  story!: string;
+
+  @Field((type) => Number)
+  avgRating!: number;
+
+  ratings?: Rating[];
+
+  @Field((type) => MovieCount, { nullable: true })
+  _count?: MovieCount | null;
 }

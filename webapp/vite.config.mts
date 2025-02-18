@@ -13,6 +13,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '~gql': path.resolve(__dirname, 'src/.gql'),
+      '~': path.resolve(__dirname, 'src'),
     },
   },
   server: {

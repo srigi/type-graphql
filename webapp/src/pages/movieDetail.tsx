@@ -1,16 +1,63 @@
+import dayjs from 'dayjs';
 import { useParams } from 'react-router-dom';
+import { useQuery } from 'urql';
+
+import { MultilineText } from '~/ui/MultilineText';
+import { NotFound } from '~/ui/NotFound';
+import { useDelayedLoader } from '~/hooks/useDelayedLoader';
+import { graphql } from '~gql';
+
+const movieQuery = graphql(`
+  query Movie($publicId: String!) {
+    movie(publicId: $publicId) {
+      publicId
+      name
+      releasedIn
+      story
+      avgRating
+    }
+  }
+`);
 
 export function MovieDetailPage() {
   const { publicId } = useParams();
-  return (
-    <main class="container flex flex-col gap-4 my-4">
-      <h1 className="text-7xl font-bold">Movie {publicId}</h1>
-      <div class="bg-gray-500 h-80 flex items-center justify-center text-6xl">hero</div>
+  if (publicId == null) {
+    return <NotFound />;
+  }
 
-      <div class="grid grid-cols-3 gap-4">
-        <div class="bg-gray-400 h-60 flex items-center justify-center text-6xl">Movie {publicId} thumbnail</div>
-        <div class="bg-gray-400 h-60 flex items-center justify-center text-6xl">Movie {publicId} thumbnail</div>
+  const [{ data, fetching }] = useQuery({
+    query: movieQuery,
+    variables: { publicId },
+  });
+  const { renderLoader } = useDelayedLoader(fetching);
+  if (fetching) {
+    return renderLoader();
+  }
+
+  if (data?.movie == null) {
+    return <NotFound />;
+  }
+
+  return (
+    <>
+      <div className="bg-gray-500 flex gap-8 min-h-80 p-8">
+        <section className="flex-1 flex flex-col justify-between">
+          <div>
+            <h1 className="text-5xl font-bold">
+              <MultilineText text={data.movie.name} />
+            </h1>
+            {dayjs(data.movie.releasedIn).format('YYYY')}
+          </div>
+
+          <data value={data.movie.avgRating}>{data.movie.avgRating}/10</data>
+        </section>
+        <aside className="flex-1 text-lg">{data.movie.story}</aside>
       </div>
-    </main>
+
+      <div className="grid grid-cols-3 gap-4">
+        <div className="bg-gray-400 h-60 flex items-center justify-center text-6xl">Movie {publicId} thumbnail</div>
+        <div className="bg-gray-400 h-60 flex items-center justify-center text-6xl">Movie {publicId} thumbnail</div>
+      </div>
+    </>
   );
 }

@@ -14,10 +14,17 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 scalar DateTimeISO
 
 type Movie {
+  _count: MovieCount
+  avgRating: Float!
   name: String!
   publicId: ID!
-  released: String!
-  slug: String!
+  ratings: [Rating!]!
+  releasedIn: String!
+  story: String!
+}
+
+type MovieCount {
+  rating: Int!
 }
 
 type Mutation {
@@ -31,10 +38,18 @@ enum PayloadType {
 }
 
 type Query {
-  movie(withPublicId: String, withSlug: String): Movie
+  movie(publicId: String!): Movie
   movies(skip: Int! = 0, take: Int! = 25): [Movie!]!
   recipe(withId: String, withTitle: String): Recipe
   recipes(skip: Int! = 0, take: Int! = 25): [Recipe!]!
+}
+
+type Rating {
+  createdAt: Int!
+  id: Int!
+  movie: Movie!
+  publicId: String!
+  score: Int!
 }
 
 type Recipe {

@@ -12,7 +12,8 @@
     "paths": {
       "react": ["./node_modules/preact/compat/"],
       "react-dom": ["./node_modules/preact/compat/"],
-      "~gql": ["./src/.gql/"]
+      "~gql": ["./src/.gql/"],
+      "~/*": ["./src/*"]
     },
     "skipLibCheck": true,
     "strict": true,

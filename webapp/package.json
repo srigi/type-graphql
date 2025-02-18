@@ -3,11 +3,13 @@
   "version": "0.0.1",
   "scripts": {
     "codegen": "graphql-codegen",
+    "codegen:watch": "graphql-codegen --watch",
     "dev": "vite",
     "tsc": "tsc -noEmit"
   },
   "dependencies": {
-    "preact": "~10.25",
+    "dayjs": "~1.11",
+    "preact": "~10.26",
     "react-router-dom": "~7.1",
     "urql": "~4.2"
   },
@@ -15,6 +17,7 @@
     "@graphql-codegen/cli": "~5.0",
     "@graphql-codegen/client-preset": "~4.6",
     "@graphql-typed-document-node/core": "~3.2",
+    "@parcel/watcher": "~2.5",
     "@preact/preset-vite": "~2.10",
     "@tailwindcss/vite": "~4.0",
     "graphql": "~16.10",
