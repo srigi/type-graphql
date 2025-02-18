@@ -40,8 +40,8 @@ export function MovieDetailPage() {
 
   return (
     <>
-      <div className="bg-gray-500 flex gap-8 min-h-80 p-8">
-        <section className="flex-1 flex flex-col justify-between">
+      <div className="flex min-h-80 gap-8 bg-gray-500 p-8">
+        <section className="flex flex-1 flex-col justify-between">
           <div>
             <h1 className="text-5xl font-bold">
               <MultilineText text={data.movie.name} />
@@ -55,8 +55,8 @@ export function MovieDetailPage() {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-gray-400 h-60 flex items-center justify-center text-6xl">Movie {publicId} thumbnail</div>
-        <div className="bg-gray-400 h-60 flex items-center justify-center text-6xl">Movie {publicId} thumbnail</div>
+        <div className="flex h-60 items-center justify-center bg-gray-400 text-6xl">Movie {publicId} thumbnail</div>
+        <div className="flex h-60 items-center justify-center bg-gray-400 text-6xl">Movie {publicId} thumbnail</div>
       </div>
     </>
   );

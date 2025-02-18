@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "@types/node": "^22",
-    "prettier": "~3.5",
+    "prettier": "~3.4",
     "tsx": "~4.19",
     "typescript": "~5.7"
   },
