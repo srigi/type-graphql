@@ -1,11 +1,11 @@
 import type { GraphQLResolveInfo } from 'graphql';
 import { Args, ArgumentValidationError, FieldResolver, Info, Query, Resolver, Root } from 'type-graphql';
 
-import { RangeArgs } from '~/common/args.range';
 import { prisma } from '~/lib/db';
 import { transformCountFieldIntoSelectRelationsCount, transformInfoIntoPrismaArgs } from '~/lib/gqlHelpers';
+import { RangeArgs } from '~/common/args.range';
 import { Movie } from './Movie';
-import { Rating } from '~/Rating/Rating';
+import { UserReview } from '~/UserReview/UserReview';
 import { FindMovieArgs } from './args.findMovie';
 
 @Resolver(Movie)
@@ -33,16 +33,14 @@ export class MovieResolver {
     return Object.assign(new Movie(), movie);
   }
 
-  @FieldResolver((type) => [Rating])
-  async ratings(@Root() movie: Movie, @Info() info: GraphQLResolveInfo): Promise<Omit<Rating, 'movie'>[]> {
+  @FieldResolver((type) => [UserReview])
+  async userReviews(@Root() movie: Movie, @Info() info: GraphQLResolveInfo): Promise<Omit<UserReview, 'movie' | 'user'>[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
 
-    return prisma.movie
-      .findUniqueOrThrow({
-        where: { publicId: movie.publicId },
-      })
-      .rating({
-        ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
-      });
+    return prisma.userReview.findMany({
+      where: { movie: { publicId: movie.publicId } },
+      orderBy: { createdAt: 'desc' },
+      ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
+    });
   }
 }
