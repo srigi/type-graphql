@@ -3,15 +3,14 @@ import path from 'node:path';
 import { buildSchema } from 'type-graphql';
 
 import { MovieResolver } from '~/Movie/resolver';
-import { RatingResolver } from '~/Rating/resolver';
-import { RecipeResolver } from '~/Recipe/resolver';
+import { UserReviewResolver } from '~/UserReview/resolver';
 import { pubSub } from '~/pubsub';
 
 async function createSchema() {
   return buildSchema({
     emitSchemaFile: path.resolve(__dirname, '../.out/schema.graphql'),
     pubSub,
-    resolvers: [MovieResolver, RatingResolver, RecipeResolver],
+    resolvers: [MovieResolver, UserReviewResolver],
   });
 }
 

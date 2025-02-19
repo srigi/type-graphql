@@ -36,13 +36,13 @@ model Movie {
   name       String
   releasedIn String
   story      String
-  avgRating  Decimal
+  avgScore   Decimal
 
-  rating      Rating[]
+  userReviews UserReview[]
   movieFigure movie_figure[]
 }
 
-model Rating {
+model UserReview {
   id        Int      @id @default(autoincrement())
   publicId  String   @unique()
   movieId   Int
@@ -64,5 +64,5 @@ model User {
   username  String   @unique()
   createdAt DateTime @default(now())
 
-  rating Rating[]
+  userReviews UserReview[]
 }

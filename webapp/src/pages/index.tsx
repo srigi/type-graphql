@@ -12,7 +12,7 @@ const moviesQuery = graphql(`
       publicId
       name
       releasedIn
-      avgRating
+      avgScore
     }
   }
 `);
@@ -33,13 +33,13 @@ export function IndexPage() {
         {data != null &&
           data.movies.map((movie) => (
             <div class="h-86 bg-gray-400">
-              <Link className="flex h-full flex-col justify-between p-4 hover:underline" to={`movie/${movie.publicId}`}>
+              <Link className="flex h-full flex-col justify-between p-4 hover:underline" to={`/movie/${movie.publicId}`}>
                 <h3 className="font-[BunkenSansPro] text-2xl font-bold">
                   <MultilineText text={movie.name} />
                 </h3>
                 <section className="flex justify-between">
                   {dayjs(movie.releasedIn).format('YYYY')}
-                  <data value={movie.avgRating}>{movie.avgRating}/10</data>
+                  <data value={movie.avgScore}>{movie.avgScore}/10</data>
                 </section>
               </Link>
             </div>

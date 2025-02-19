@@ -1,6 +1,8 @@
 import { Field, ID, ObjectType } from 'type-graphql';
 
-import { Rating } from '~/Rating/Rating';
+import { Prisma } from '~prisma/client';
+import { Decimal } from '~/common/scalars';
+import { UserReview } from '~/UserReview/UserReview';
 import { MovieCount } from './MovieCount';
 
 @ObjectType()
@@ -17,11 +19,11 @@ export class Movie {
   @Field((type) => String)
   story!: string;
 
-  @Field((type) => Number)
-  avgRating!: number;
-
-  ratings?: Rating[];
+  @Field((type) => Decimal)
+  avgScore!: Prisma.Decimal;
 
   @Field((type) => MovieCount, { nullable: true })
   _count?: MovieCount | null;
+
+  userReviews!: UserReview[];
 }
