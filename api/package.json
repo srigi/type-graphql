@@ -15,7 +15,7 @@
     "graphql": "~16.10",
     "graphql-fields": "~2.0",
     "graphql-scalars": "~1.24",
-    "graphql-yoga": "~5.11",
+    "graphql-yoga": "~5.13",
     "reflect-metadata": "~0.2",
     "type-graphql": "2.0.0-rc.2"
   },
