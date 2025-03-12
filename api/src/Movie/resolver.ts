@@ -4,6 +4,7 @@ import { Args, ArgumentValidationError, FieldResolver, Info, Query, Resolver, Ro
 import { prisma } from '~/lib/db';
 import { transformCountFieldIntoSelectRelationsCount, transformInfoIntoPrismaArgs } from '~/lib/gqlHelpers';
 import { RangeArgs } from '~/common/args.range';
+import { Figure } from '~/Figure/Figure';
 import { Movie } from './Movie';
 import { UserReview } from '~/UserReview/UserReview';
 import { FindMovieArgs } from './args.findMovie';
@@ -31,6 +32,27 @@ export class MovieResolver {
     }
 
     return Object.assign(new Movie(), movie);
+  }
+
+  @FieldResolver((type) => [Figure])
+  async figures(@Root() movie: Movie, @Info() info: GraphQLResolveInfo): Promise<Figure[]> {
+    const figures = await prisma.figure.findMany({
+      where: {
+        movieFigure: {
+          some: {
+            movie: { publicId: movie.publicId },
+          },
+        },
+      },
+      include: {
+        movieFigure: {
+          where: { movie: { publicId: movie.publicId } },
+          select: { role: true },
+        },
+      },
+    });
+
+    return figures.map((f) => Object.assign(new Figure(), f, { role: f.movieFigure[0].role }));
   }
 
   @FieldResolver((type) => [UserReview])

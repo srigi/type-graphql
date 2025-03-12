@@ -6,9 +6,19 @@
 """GraphQL Scalar representing the Prisma.Decimal type"""
 scalar Decimal
 
+type Figure {
+  birthday: String!
+  country: String!
+  name: String!
+  publicId: String!
+  role: String!
+  slug: String!
+}
+
 type Movie {
   _count: MovieCount
   avgScore: Decimal!
+  figures: [Figure!]!
   name: String!
   publicId: ID!
   releasedIn: String!
