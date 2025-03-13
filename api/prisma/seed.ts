@@ -3,6 +3,15 @@ import { PrismaClient } from '~prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
+  const cloudImages = await prisma.cloudImage.createManyAndReturn({
+    data: [
+      { publicId: 'poster.sshr_cpwd9g', alt: 'The Shawshank Redemption movie poster', AR: 0.75 },
+      { publicId: 'hero.sshr_hoev0x', alt: 'The Shawshank Redemption movie hero', AR: 2.31 },
+      { publicId: 'poster.swfa_beppq7', alt: 'Star Wars - The Force Awakens movie poster', AR: 0.53 },
+      { publicId: 'hero.swfa_cbpltv', alt: 'Star Wars - The Force Awakens movie hero', AR: 1.91 },
+    ],
+  });
+
   const figures = await prisma.figure.createManyAndReturn({
     data: [
       { publicId: 'b0Do4wLg', name: 'Frank Darabont', slug: 'frank-darabont', birthday: '1959-01-28', country: 'France' },
@@ -96,22 +105,31 @@ The Force Awakens`,
     ],
   });
 
+  const movieImages = await prisma.movie_image.createManyAndReturn({
+    data: [
+      { movieId: 1, cloudImageId: 1, role: 'poster' },
+      { movieId: 1, cloudImageId: 2, role: 'hero' },
+      { movieId: 4, cloudImageId: 3, role: 'poster' },
+      { movieId: 4, cloudImageId: 4, role: 'hero' },
+    ],
+  });
+
   const movieFigures = await prisma.movie_figure.createManyAndReturn({
     data: [
       { movieId: 1, figureId: 1, role: 'director' }, // The Shawshank Redemption / Frank Darabont
       { movieId: 1, figureId: 2, role: 'director of photography' }, // The Shawshank Redemption / Roger Deakins
       { movieId: 1, figureId: 3, role: 'main character' }, // The Shawshank Redemption / Tim Robbins
       { movieId: 1, figureId: 4, role: 'main character' }, // The Shawshank Redemption / Morgan Freeman
-      { movieId: 1, figureId: 5, role: 'side character' }, // The Shawshank Redemption / Bob Gunton
+      { movieId: 1, figureId: 5, role: 'supporting character' }, // The Shawshank Redemption / Bob Gunton
 
       { movieId: 2, figureId: 6, role: 'director' }, // The Matrix / Lana Wachowski
       { movieId: 2, figureId: 7, role: 'director' }, // The Matrix / Lilly Wachowski
       { movieId: 2, figureId: 8, role: 'director of photography' }, // The Matrix / Bill Pope
       { movieId: 2, figureId: 9, role: 'music director' }, // The Matrix / Don Davis
       { movieId: 2, figureId: 10, role: 'main character' }, // The Matrix / Keanu Reeves
-      { movieId: 2, figureId: 11, role: 'side character' }, // The Matrix / Laurence Fishburne
-      { movieId: 2, figureId: 12, role: 'side character' }, // The Matrix / Carrie-Anne Moss
-      { movieId: 2, figureId: 13, role: 'side character' }, // The Matrix / Hugo Weaving
+      { movieId: 2, figureId: 11, role: 'supporting character' }, // The Matrix / Laurence Fishburne
+      { movieId: 2, figureId: 12, role: 'supporting character' }, // The Matrix / Carrie-Anne Moss
+      { movieId: 2, figureId: 13, role: 'supporting character' }, // The Matrix / Hugo Weaving
 
       { movieId: 5, figureId: 14, role: 'main character' }, // Silver Linings Playbook / Bradley Cooper
 
@@ -342,6 +360,7 @@ The Force Awakens`,
   });
 
   return {
+    cloudImages: cloudImages.length,
     figures: figures.length,
     movieFigures: movieFigures.length,
     movies: movies.length,

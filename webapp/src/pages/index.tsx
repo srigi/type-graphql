@@ -3,6 +3,7 @@ import { useState } from 'preact/hooks';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'urql';
 
+import { CloudImage } from '~/ui/CloudImage';
 import { MultilineText } from '~/ui/MultilineText';
 import { graphql } from '~gql';
 
@@ -13,6 +14,12 @@ const moviesQuery = graphql(`
       name
       releasedIn
       avgScore
+
+      images(role: "poster") {
+        publicId
+        AR
+        alt
+      }
     }
   }
 `);
@@ -26,25 +33,26 @@ export function IndexPage() {
   });
 
   return (
-    <>
-      <div class="flex h-80 items-end justify-start bg-gray-500 p-4 md:w-152">hero</div>
-
-      <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-        {data != null &&
-          data.movies.map((movie) => (
-            <div class="h-86 bg-gray-400">
-              <Link className="flex h-full flex-col justify-between p-4 hover:underline" to={`/movie/${movie.publicId}`}>
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      {data != null &&
+        data.movies.map((movie) => (
+          <div key={movie.publicId} class="h-86 bg-gray-400">
+            <Link className="relative flex h-full flex-col justify-between p-4 hover:underline" to={`/movie/${movie.publicId}`}>
+              {movie.images.length > 0 && (
+                <CloudImage className="absolute inset-0 h-full w-full object-cover" image={movie.images[0]} width={320} />
+              )}
+              <div className="absolute inset-0 flex flex-col justify-between bg-gradient-to-b from-transparent to-black p-4">
                 <h3 className="font-[BunkenSansPro] text-2xl font-bold">
                   <MultilineText text={movie.name} />
                 </h3>
                 <section className="flex justify-between">
-                  {dayjs(movie.releasedIn).format('YYYY')}
-                  <data value={movie.avgScore}>{movie.avgScore}/10</data>
+                  <strong>{dayjs(movie.releasedIn).format('YYYY')}</strong>
+                  <data value={movie.avgScore}>{movie.avgScore}&nbsp;⭐️</data>
                 </section>
-              </Link>
-            </div>
-          ))}
-      </div>
-    </>
+              </div>
+            </Link>
+          </div>
+        ))}
+    </div>
   );
 }

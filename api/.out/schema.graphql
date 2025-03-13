@@ -3,6 +3,13 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type CloudImage {
+  AR: Decimal!
+  alt: String!
+  publicId: String!
+  role: String!
+}
+
 """GraphQL Scalar representing the Prisma.Decimal type"""
 scalar Decimal
 
@@ -19,6 +26,7 @@ type Movie {
   _count: MovieCount
   avgScore: Decimal!
   figures: [Figure!]!
+  images(role: String!): [CloudImage!]!
   name: String!
   publicId: ID!
   releasedIn: String!

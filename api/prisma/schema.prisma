@@ -1,6 +1,6 @@
 datasource db {
   provider = "sqlite"
-  url      = "file:../.data/movies.sqlite3"
+  url      = "file:../.data/db.sqlite3"
 }
 
 generator client {
@@ -40,6 +40,28 @@ model Movie {
 
   userReviews UserReview[]
   movieFigure movie_figure[]
+  movieImage  movie_image[]
+}
+
+model movie_image {
+  movieId      Int
+  cloudImageId Int
+  role         String
+
+  movie Movie      @relation(fields: [movieId], references: [id])
+  image CloudImage @relation(fields: [cloudImageId], references: [id])
+
+  @@id([movieId, cloudImageId])
+}
+
+model CloudImage {
+  id        Int      @id @default(autoincrement())
+  publicId  String   @unique()
+  alt       String
+  AR        Decimal
+  createdAt DateTime @default(now())
+
+  movieImage movie_image[]
 }
 
 model UserReview {
