@@ -63,7 +63,7 @@ export function MovieDetailPage() {
         if (figure.role === 'director') acc.director.push({ name: figure.name, slug: figure.slug });
         if (figure.role === 'director of photography') acc.camera.push({ name: figure.name, slug: figure.slug });
         if (figure.role === 'main character') acc.actors.push({ name: figure.name, slug: figure.slug });
-        if (figure.role === 'side character') acc.actors.push({ name: figure.name, slug: figure.slug });
+        if (figure.role === 'supporting character') acc.actors.push({ name: figure.name, slug: figure.slug });
 
         return acc;
       },

@@ -102,16 +102,16 @@ The Force Awakens`,
       { movieId: 1, figureId: 2, role: 'director of photography' }, // The Shawshank Redemption / Roger Deakins
       { movieId: 1, figureId: 3, role: 'main character' }, // The Shawshank Redemption / Tim Robbins
       { movieId: 1, figureId: 4, role: 'main character' }, // The Shawshank Redemption / Morgan Freeman
-      { movieId: 1, figureId: 5, role: 'side character' }, // The Shawshank Redemption / Bob Gunton
+      { movieId: 1, figureId: 5, role: 'supporting character' }, // The Shawshank Redemption / Bob Gunton
 
       { movieId: 2, figureId: 6, role: 'director' }, // The Matrix / Lana Wachowski
       { movieId: 2, figureId: 7, role: 'director' }, // The Matrix / Lilly Wachowski
       { movieId: 2, figureId: 8, role: 'director of photography' }, // The Matrix / Bill Pope
       { movieId: 2, figureId: 9, role: 'music director' }, // The Matrix / Don Davis
       { movieId: 2, figureId: 10, role: 'main character' }, // The Matrix / Keanu Reeves
-      { movieId: 2, figureId: 11, role: 'side character' }, // The Matrix / Laurence Fishburne
-      { movieId: 2, figureId: 12, role: 'side character' }, // The Matrix / Carrie-Anne Moss
-      { movieId: 2, figureId: 13, role: 'side character' }, // The Matrix / Hugo Weaving
+      { movieId: 2, figureId: 11, role: 'supporting character' }, // The Matrix / Laurence Fishburne
+      { movieId: 2, figureId: 12, role: 'supporting character' }, // The Matrix / Carrie-Anne Moss
+      { movieId: 2, figureId: 13, role: 'supporting character' }, // The Matrix / Hugo Weaving
 
       { movieId: 5, figureId: 14, role: 'main character' }, // Silver Linings Playbook / Bradley Cooper
 
