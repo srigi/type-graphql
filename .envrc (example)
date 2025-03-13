@@ -1,2 +1,3 @@
 export API_BASE_URL=http://localhost:3001
+export CLOUDINARY_CLOUD_NAME=product_environment_cloud_name
 export WEBAPP_ALLOWED_HOSTS=localdev.io

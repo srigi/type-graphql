@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from 'urql';
 
+import { CloudImage } from '~/ui/CloudImage';
 import { MultilineText } from '~/ui/MultilineText';
 import { NotFound } from '~/ui/NotFound';
 import { useDelayedLoader } from '~/hooks/useDelayedLoader';
@@ -15,6 +16,11 @@ const movieQuery = graphql(`
       releasedIn
       story
       avgScore
+      images(role: "hero") {
+        publicId
+        alt
+        AR
+      }
       figures {
         name
         slug
@@ -121,18 +127,22 @@ export function MovieDetailPage() {
 
   return (
     <>
-      <div className="flex min-h-80 gap-8 bg-gray-500 p-8">
-        <section className="flex flex-1 flex-col justify-between">
-          <div>
-            <h1 className="text-5xl font-bold">
-              <MultilineText text={data.movie.name} />
-            </h1>
-            {dayjs(data.movie.releasedIn).format('YYYY')}
-          </div>
+      <div className="relative min-h-120">
+        <CloudImage className="absolute inset-0 h-full w-full object-cover" image={data.movie.images[0]} width={1280} />
 
-          <data value={data.movie.avgScore}>{data.movie.avgScore}/10</data>
-        </section>
-        <aside className="flex-1 text-lg">{data.movie.story}</aside>
+        <div className="absolute inset-0 flex gap-8 bg-gradient-to-b from-transparent to-black p-8">
+          <section className="flex flex-1 flex-col justify-between">
+            <div>
+              <h1 className="text-5xl font-bold">
+                <MultilineText text={data.movie.name} />
+              </h1>
+              {dayjs(data.movie.releasedIn).format('YYYY')}
+            </div>
+
+            <data value={data.movie.avgScore}>{data.movie.avgScore}/10</data>
+          </section>
+          <aside className="flex flex-1 flex-col justify-end text-lg">{data.movie.story}</aside>
+        </div>
       </div>
 
       <div className="flex gap-4 pt-8">
