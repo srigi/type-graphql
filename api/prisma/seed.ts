@@ -3,6 +3,15 @@ import { PrismaClient } from '~prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
+  const cloudImages = await prisma.cloudImage.createManyAndReturn({
+    data: [
+      { publicId: 'poster.sshr_cpwd9g', alt: 'The Shawshank Redemption movie poster', AR: 0.75 },
+      { publicId: 'hero.sshr_hoev0x', alt: 'The Shawshank Redemption movie hero', AR: 2.31 },
+      { publicId: 'poster.swfa_beppq7', alt: 'Star Wars - The Force Awakens movie poster', AR: 0.53 },
+      { publicId: 'hero.swfa_cbpltv', alt: 'Star Wars - The Force Awakens movie hero', AR: 1.91 },
+    ],
+  });
+
   const figures = await prisma.figure.createManyAndReturn({
     data: [
       { publicId: 'b0Do4wLg', name: 'Frank Darabont', slug: 'frank-darabont', birthday: '1959-01-28', country: 'France' },
@@ -93,6 +102,15 @@ The Force Awakens`,
           'Musical romantic drama produced and directed by Bradley Cooper (in his directorial debut) with a screenplay by Cooper, Eric Roth and Will Fetters. It stars Cooper and Lady Gaga in lead roles, with Dave Chappelle, Andrew Dice Clay and Sam Elliott in supporting roles. It follows an alcoholic musician (Cooper) who discovers and falls in love with a young singer (Gaga). It is the fourth American movie made of the story, after the original 1937 romantic drama and its 1954 and 1976 remakes. Principal photography began at the Coachella Valley Music and Arts Festival in April 2017.',
         avgScore: '7.7',
       },
+    ],
+  });
+
+  const movieImages = await prisma.movie_image.createManyAndReturn({
+    data: [
+      { movieId: 1, cloudImageId: 1, role: 'poster' },
+      { movieId: 1, cloudImageId: 2, role: 'hero' },
+      { movieId: 4, cloudImageId: 3, role: 'poster' },
+      { movieId: 4, cloudImageId: 4, role: 'hero' },
     ],
   });
 
@@ -342,6 +360,7 @@ The Force Awakens`,
   });
 
   return {
+    cloudImages: cloudImages.length,
     figures: figures.length,
     movieFigures: movieFigures.length,
     movies: movies.length,
