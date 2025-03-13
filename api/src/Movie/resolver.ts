@@ -4,9 +4,11 @@ import { Args, ArgumentValidationError, FieldResolver, Info, Query, Resolver, Ro
 import { prisma } from '~/lib/db';
 import { transformCountFieldIntoSelectRelationsCount, transformInfoIntoPrismaArgs } from '~/lib/gqlHelpers';
 import { RangeArgs } from '~/common/args.range';
+import { CloudImage } from '~/CloudImage/CloudImage';
 import { Figure } from '~/Figure/Figure';
 import { Movie } from './Movie';
 import { UserReview } from '~/UserReview/UserReview';
+import { ImageMovieRoleArg } from '~/CloudImage/args.imageMovieRole';
 import { FindMovieArgs } from './args.findMovie';
 
 @Resolver(Movie)
@@ -34,8 +36,30 @@ export class MovieResolver {
     return Object.assign(new Movie(), movie);
   }
 
+  @FieldResolver((type) => [CloudImage])
+  async images(@Args(() => ImageMovieRoleArg) { role }: ImageMovieRoleArg, @Root() movie: Movie): Promise<CloudImage[]> {
+    const figures = await prisma.cloudImage.findMany({
+      where: {
+        movieImage: {
+          some: {
+            movie: { publicId: movie.publicId },
+            role: role || undefined,
+          },
+        },
+      },
+      include: {
+        movieImage: {
+          where: { movie: { publicId: movie.publicId } },
+          select: { role: true },
+        },
+      },
+    });
+
+    return figures.map((f) => Object.assign(new Figure(), f, { role: f.movieImage[0].role }));
+  }
+
   @FieldResolver((type) => [Figure])
-  async figures(@Root() movie: Movie, @Info() info: GraphQLResolveInfo): Promise<Figure[]> {
+  async figures(@Root() movie: Movie): Promise<Figure[]> {
     const figures = await prisma.figure.findMany({
       where: {
         movieFigure: {
