@@ -1,7 +1,7 @@
 import { ArgsType, Field } from 'type-graphql';
 
 @ArgsType()
-export class ImageMovieRoleArg {
+export class MovieImageRoleArg {
   @Field((type) => String)
   role!: string;
 }

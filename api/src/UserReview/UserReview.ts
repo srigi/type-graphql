@@ -2,8 +2,6 @@ import { Field, GraphQLTimestamp, ObjectType } from 'type-graphql';
 
 import { Prisma } from '~prisma/client';
 import { Decimal } from '~/common/scalars';
-import { Movie } from '~/Movie/Movie';
-import { User } from '~/User/User';
 
 @ObjectType('UserReview')
 export class UserReview {
@@ -18,7 +16,4 @@ export class UserReview {
 
   @Field((type) => GraphQLTimestamp)
   createdAt!: Date;
-
-  movie!: Movie;
-  user!: User;
 }

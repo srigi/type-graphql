@@ -23,7 +23,7 @@ type Figure {
 }
 
 type Movie {
-  _count: MovieCount
+  _count: MovieCounters
   avgScore: Decimal!
   figures: [Figure!]!
   images(role: String!): [CloudImage!]!
@@ -34,7 +34,7 @@ type Movie {
   userReviews: [UserReview!]!
 }
 
-type MovieCount {
+type MovieCounters {
   userReviews: Int!
 }
 
