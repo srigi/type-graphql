@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useMediaQuery } from 'react-responsive';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from 'urql';
 
@@ -46,10 +47,7 @@ export function MovieDetailPage() {
     return <NotFound />;
   }
 
-  const [{ data, fetching }] = useQuery({
-    query: movieQuery,
-    variables: { publicId },
-  });
+  const [{ data, fetching }] = useQuery({ query: movieQuery, variables: { publicId } });
   const { renderLoader } = useDelayedLoader(fetching);
   if (fetching) {
     return renderLoader();
@@ -58,6 +56,20 @@ export function MovieDetailPage() {
   if (data?.movie == null) {
     return <NotFound />;
   }
+
+  const heroWidth = (() => {
+    const isSmScreen = useMediaQuery({ query: '(max-width: 767px)' });
+    const isLgScreen = useMediaQuery({ query: '(min-width: 1024px)' });
+    const isXlScreen = useMediaQuery({ query: '(min-width: 1280px)' });
+    const isXxlScreen = useMediaQuery({ query: '(min-width: 1536px)' });
+
+    if (isXxlScreen) return 1504;
+    if (isXlScreen) return 1248;
+    if (isLgScreen) return 992;
+    if (isSmScreen) return 608;
+
+    return 736;
+  })();
 
   function renderFigures(movieFigures: Array<{ name: string; role: string; slug: string }>) {
     const assignments = movieFigures.reduce<{
@@ -128,24 +140,24 @@ export function MovieDetailPage() {
   return (
     <>
       <div className="relative min-h-120">
-        <CloudImage className="absolute inset-0 h-full w-full object-cover" image={data.movie.images[0]} width={1280} />
+        <CloudImage className="absolute inset-0 h-full w-full object-cover" image={data.movie.images[0]} width={heroWidth} />
 
-        <div className="absolute inset-0 flex gap-8 bg-gradient-to-b from-transparent to-black p-8">
-          <section className="flex flex-1 flex-col justify-between">
-            <div>
-              <h1 className="text-5xl font-bold">
-                <MultilineText text={data.movie.name} />
-              </h1>
-              {dayjs(data.movie.releasedIn).format('YYYY')}
-            </div>
+        <div className="absolute inset-0 grid grid-cols-2 grid-rows-[1fr_1fr_auto] gap-8 bg-gradient-to-b from-transparent to-black p-8 text-lg lg:grid-rows-2">
+          <h1 className="col-span-2 text-3xl font-bold lg:col-span-1 xl:text-5xl">
+            <MultilineText text={data.movie.name} />
+          </h1>
 
-            <data value={data.movie.avgScore}>{data.movie.avgScore}/10</data>
-          </section>
-          <aside className="flex flex-1 flex-col justify-end text-lg">{data.movie.story}</aside>
+          <p className="col-span-2 self-end lg:order-4 lg:col-span-1 xl:text-xl">{data.movie.story}</p>
+
+          <strong className="self-end lg:order-3">{dayjs(data.movie.releasedIn).format('YYYY')}</strong>
+
+          <data className="self-end justify-self-end lg:order-2 lg:self-start lg:justify-self-end">{data.movie.avgScore}&nbsp;⭐️</data>
         </div>
       </div>
 
-      <div className="flex gap-4 pt-8">
+      <div className="flex flex-col gap-16 pt-8 lg:flex-row lg:gap-4">
+        <div className="flex-1/3 px-8 text-xl lg:pr-0">{renderFigures(data.movie.figures)}</div>
+
         <div className="flex flex-2/3 flex-col gap-4">
           <h2 className="text-3xl font-bold">User reviews</h2>
           <ul className="flex flex-1 flex-col gap-4">
@@ -163,7 +175,6 @@ export function MovieDetailPage() {
             ))}
           </ul>
         </div>
-        <div className="flex-1/3 p-4 pt-16 text-xl">{renderFigures(data.movie.figures)}</div>
       </div>
     </>
   );

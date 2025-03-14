@@ -10,6 +10,7 @@
   "dependencies": {
     "dayjs": "~1.11",
     "preact": "~10.26",
+    "react-responsive": "~10.0",
     "react-router-dom": "~7.3",
     "urql": "~4.2"
   },
