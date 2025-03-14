@@ -140,7 +140,9 @@ export function MovieDetailPage() {
   return (
     <>
       <div className="relative min-h-120">
-        <CloudImage className="absolute inset-0 h-full w-full object-cover" image={data.movie.images[0]} width={heroWidth} />
+        {data.movie.images.length > 0 && (
+          <CloudImage className="absolute inset-0 h-full w-full object-cover" image={data.movie.images[0]} width={heroWidth} />
+        )}
 
         <div className="absolute inset-0 grid grid-cols-2 grid-rows-[1fr_1fr_auto] gap-8 bg-gradient-to-b from-transparent to-black p-8 text-lg lg:grid-rows-2">
           <h1 className="col-span-2 text-3xl font-bold lg:col-span-1 xl:text-5xl">
