@@ -40,6 +40,7 @@ async function main() {
       {
         publicId: 'Fm5Wzak4',
         name: 'The Shawshank Redemption',
+        slug: 'the-shawshank-redemption',
         releasedIn: '1994-09-23',
         story:
           "Chronicles the experiences of a formerly successful banker as a prisoner in the gloomy jailhouse of Shawshank after being found guilty of a crime he did not commit. The film portrays the man's unique way of dealing with his new, torturous life; along the way he befriends a number of fellow prisoners, most notably a wise long-term inmate named Red.",
@@ -48,6 +49,7 @@ async function main() {
       {
         publicId: 'xRgP9aeT',
         name: 'The Matrix',
+        slug: 'the-matrix',
         releasedIn: '1999-03-31',
         story:
           'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.',
@@ -56,6 +58,7 @@ async function main() {
       {
         publicId: 'mawknLWF',
         name: 'Pelíšky',
+        slug: 'pelisky',
         releasedIn: '1999-04-08',
         story:
           'Two families, Sebkovi and Krausovi, are celebrating christmas, but not everyone is in a good mood. Teenage kids think their fathers are totaly stupid, fathers are sure their children are nothing more than rebels, hating anything they say.',
@@ -65,6 +68,7 @@ async function main() {
         publicId: 'J3NzhVqI',
         name: `Star Wars: Episode VII
 The Force Awakens`,
+        slug: 'star-wars-episode-vii-the-force-awakens',
         releasedIn: '2015-12-16',
         story:
           'As a new threat to the galaxy rises, Rey, a desert scavenger, and Finn, an ex-stormtrooper, must join Han Solo and Chewbacca to search for the one hope of restoring peace.',
@@ -73,6 +77,7 @@ The Force Awakens`,
       {
         publicId: '5DqkWYtQ6s',
         name: 'Silver Linings Playbook',
+        slug: 'silver-linings-playbook',
         releasedIn: '2012-11-16',
         story:
           'After a stint in a mental institution, former teacher Pat Solitano moves back in with his parents and tries to reconcile with his ex-wife. Things get more challenging when Pat meets Tiffany',
@@ -81,6 +86,7 @@ The Force Awakens`,
       {
         publicId: 'UOVc5DqkWY',
         name: 'American Sniper',
+        slug: 'american-sniper',
         releasedIn: '2014-12-25',
         story:
           "A biographical war drama film directed and co-produced by Clint Eastwood and written and executive-produced by Jason Hall, based on the memoir of the same name by Chris Kyle with Scott McEwen and Jim DeFelice. The film follows the life of Kyle, who became the deadliest marksman in U.S. military history with 255 kills from four tours in the Iraq War, 160 of which were officially confirmed by the Department of Defense.[5] While Kyle was celebrated for his military successes, his tours of duty took a heavy toll on his personal and family life. It stars Bradley Cooper as Kyle and Sienna Miller as his wife Taya, with Luke Grimes, Jake McDorman, Cory Hardrict, Kevin Lacz, Navid Negahban, and Keir O'Donnell in supporting roles.",
@@ -89,6 +95,7 @@ The Force Awakens`,
       {
         publicId: '5Mu7oPmMbo',
         name: 'Million Dollar Baby',
+        slug: 'million-dollar-baby',
         releasedIn: '2004-12-15',
         story:
           'American sports drama film starring Hilary Swank. It is directed, co-produced, scored by and starring Clint Eastwood from a screenplay written by Paul Haggis, based on stories from the 2000 collection Rope Burns: Stories from the Corner by F.X. Toole, the pen name of fight manager and cutman Jerry Boyd. It also stars Morgan Freeman. The film follows Margaret "Maggie" Fitzgerald (Swank), an underdog amateur boxer who is helped by an underappreciated boxing trainer (Eastwood) to achieve her dream of becoming a professional.',
@@ -97,6 +104,7 @@ The Force Awakens`,
       {
         publicId: 'wLDejMW2CyFD',
         name: 'A Star Is Born',
+        slug: 'a-star-is-born',
         releasedIn: '2018-10-05',
         story:
           'Musical romantic drama produced and directed by Bradley Cooper (in his directorial debut) with a screenplay by Cooper, Eric Roth and Will Fetters. It stars Cooper and Lady Gaga in lead roles, with Dave Chappelle, Andrew Dice Clay and Sam Elliott in supporting roles. It follows an alcoholic musician (Cooper) who discovers and falls in love with a young singer (Gaga). It is the fourth American movie made of the story, after the original 1937 romantic drama and its 1954 and 1976 remakes. Principal photography began at the Coachella Valley Music and Arts Festival in April 2017.',

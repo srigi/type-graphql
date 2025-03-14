@@ -17,16 +17,20 @@ export class MovieResolver {
   }
 
   @Query((returns) => Movie, { nullable: true })
-  async movie(@Args(() => FindMovieArgs) { publicId }: FindMovieArgs, @Info() info: GraphQLResolveInfo): Promise<Movie | undefined> {
-    const { _count } = transformInfoIntoPrismaArgs(info);
+  async movie(@Args(() => FindMovieArgs) { publicId, slug }: FindMovieArgs, @Info() info: GraphQLResolveInfo): Promise<Movie | undefined> {
+    if (!publicId && !slug) {
+      throw new ArgumentValidationError([{ property: 'slug', constraints: { presence: 'Either a slug or publicId must be provided' } }]);
+    }
 
+    const { _count } = transformInfoIntoPrismaArgs(info);
+    const condition = slug ? { slug } : { publicId };
     const movie = await prisma.movie.findUnique({
       omit: { id: true },
-      where: { publicId },
+      where: condition,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
     if (movie == null) {
-      throw new ArgumentValidationError([{ property: 'withPublicId', constraints: { presence: 'Movie not found' } }]);
+      throw new ArgumentValidationError([{ property: JSON.stringify(condition), constraints: { presence: 'Movie not found' } }]);
     }
 
     return Object.assign(new Movie(), movie);

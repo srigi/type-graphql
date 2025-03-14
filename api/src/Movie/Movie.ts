@@ -13,6 +13,9 @@ export class Movie {
   name!: string;
 
   @Field((type) => String)
+  slug!: string;
+
+  @Field((type) => String)
   releasedIn!: string;
 
   @Field((type) => String)

@@ -12,6 +12,7 @@ const moviesQuery = graphql(`
   query Movies($skip: Int!, $take: Int!) {
     movies(skip: $skip, take: $take) {
       publicId
+      slug
       name
       releasedIn
       avgScore
@@ -37,7 +38,7 @@ export function IndexPage() {
       {data != null &&
         data.movies.map((movie) => (
           <div key={movie.publicId} class="h-86 bg-gray-400">
-            <Link className="relative flex h-full flex-col justify-between p-4 hover:underline" to={`/movie/${movie.publicId}`}>
+            <Link className="relative flex h-full flex-col justify-between p-4 hover:underline" to={`/movie/${movie.slug}`}>
               {movie.images.length > 0 && (
                 <CloudImage className="absolute inset-0 h-full w-full object-cover" image={movie.images[0]} width={thumbnailWidth} />
               )}

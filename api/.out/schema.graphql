@@ -30,6 +30,7 @@ type Movie {
   name: String!
   publicId: ID!
   releasedIn: String!
+  slug: String!
   story: String!
   userReviews: [UserReview!]!
 }
@@ -39,7 +40,7 @@ type MovieCounters {
 }
 
 type Query {
-  movie(publicId: String!): Movie
+  movie(publicId: String, slug: String): Movie
   movies(skip: Int! = 0, take: Int! = 25): [Movie!]!
 }
 
