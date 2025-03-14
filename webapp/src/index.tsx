@@ -18,7 +18,7 @@ render(
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/movie/:publicId" element={<MovieDetailPage />} />
+          <Route path="/movie/:slug" element={<MovieDetailPage />} />
           <Route path="/movie" element={<NotFound />} />
           <Route path="/" element={<IndexPage />} />
         </Route>

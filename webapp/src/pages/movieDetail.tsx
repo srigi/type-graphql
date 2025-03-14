@@ -10,8 +10,8 @@ import { useDelayedLoader } from '~/hooks/useDelayedLoader';
 import { graphql } from '~gql';
 
 const movieQuery = graphql(`
-  query Movie($publicId: String!) {
-    movie(publicId: $publicId) {
+  query Movie($slug: String!) {
+    movie(slug: $slug) {
       publicId
       name
       releasedIn
@@ -42,12 +42,12 @@ const movieQuery = graphql(`
 `);
 
 export function MovieDetailPage() {
-  const { publicId } = useParams();
-  if (publicId == null) {
+  const { slug } = useParams();
+  if (slug == null) {
     return <NotFound />;
   }
 
-  const [{ data, fetching }] = useQuery({ query: movieQuery, variables: { publicId } });
+  const [{ data, fetching }] = useQuery({ query: movieQuery, variables: { slug } });
   const { renderLoader } = useDelayedLoader(fetching);
   if (fetching) {
     return renderLoader();
