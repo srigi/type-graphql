@@ -139,13 +139,13 @@ export function MovieDetailPage() {
 
   return (
     <>
-      <div className="relative min-h-120">
+      <div className="relative min-h-120 overflow-hidden rounded-xl">
         {data.movie.images.length > 0 && (
           <CloudImage className="absolute inset-0 h-full w-full object-cover" image={data.movie.images[0]} width={heroWidth} />
         )}
 
-        <div className="absolute inset-0 grid grid-cols-2 grid-rows-[1fr_1fr_auto] gap-8 bg-gradient-to-b from-transparent to-black p-8 text-lg lg:grid-rows-2">
-          <h1 className="col-span-2 text-3xl font-bold lg:col-span-1 xl:text-5xl">
+        <div className="absolute inset-0 grid grid-cols-2 grid-rows-[1fr_1fr_auto] gap-8 bg-gradient-to-b from-transparent to-gray-900 p-8 text-lg lg:grid-rows-2">
+          <h1 className="col-span-2 text-3xl font-bold [text-shadow:_1px_2px_5px_black] lg:col-span-1 xl:text-5xl">
             <MultilineText text={data.movie.name} />
           </h1>
 
@@ -161,17 +161,17 @@ export function MovieDetailPage() {
         <div className="flex-1/3 px-8 text-xl lg:pr-0">{renderFigures(data.movie.figures)}</div>
 
         <div className="flex flex-2/3 flex-col gap-4">
-          <h2 className="text-3xl font-bold">User reviews</h2>
+          <h2 className="px-2 text-3xl font-bold">User reviews</h2>
           <ul className="flex flex-1 flex-col gap-4">
             {data.movie.userReviews.map((r) => (
-              <li key={r.publicId} className="-p4 flex flex-col gap-4 bg-gray-400 p-4">
+              <li key={r.publicId} className="-p4 flex flex-col gap-4 rounded-xl bg-gray-700 p-4">
                 <header className="flex justify-between gap-4">
                   <Link to={`/user/${r.user.publicId}`}>
                     <strong>{r.user.username}</strong>
                   </Link>
-                  <span>{dayjs(r.createdAt).format('DD/MM/YYYY')}</span>
+                  <span>{dayjs(r.createdAt).format('D.M.YYYY')}</span>
                 </header>
-                <data value={r.score}>{r.score}/10</data>
+                <data value={r.score}>{r.score}&nbsp;⭐️</data>
                 <p>{r.text}</p>
               </li>
             ))}

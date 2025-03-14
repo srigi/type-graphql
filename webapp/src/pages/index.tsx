@@ -37,13 +37,13 @@ export function IndexPage() {
     <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
       {data != null &&
         data.movies.map((movie) => (
-          <div key={movie.publicId} class="h-86 bg-gray-400">
+          <div key={movie.publicId} class="h-86 overflow-hidden rounded-xl bg-gray-700">
             <Link className="relative flex h-full flex-col justify-between p-4 hover:underline" to={`/movie/${movie.slug}`}>
               {movie.images.length > 0 && (
                 <CloudImage className="absolute inset-0 h-full w-full object-cover" image={movie.images[0]} width={thumbnailWidth} />
               )}
-              <div className="absolute inset-0 flex flex-col justify-between bg-gradient-to-b from-transparent to-black p-4">
-                <h3 className="font-[BunkenSansPro] text-2xl font-bold">
+              <div className="absolute inset-0 flex flex-col justify-between bg-gradient-to-b from-transparent to-gray-900 p-4">
+                <h3 className="font-[BunkenSansPro] text-2xl font-bold [text-shadow:_1px_2px_5px_black]">
                   <MultilineText text={movie.name} />
                 </h3>
                 <section className="flex justify-between">
