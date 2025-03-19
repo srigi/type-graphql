@@ -3,9 +3,9 @@ import { useMediaQuery } from 'react-responsive';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from 'urql';
 
-import { CloudImage } from '~/ui/CloudImage';
-import { MultilineText } from '~/ui/MultilineText';
-import { NotFound } from '~/ui/NotFound';
+import { CloudImage } from '~/components/CloudImage';
+import { Nl2br } from '~/components/Nl2br';
+import { NotFound } from '~/components/NotFound';
 import { useDelayedLoader } from '~/hooks/useDelayedLoader';
 import { graphql } from '~gql';
 
@@ -146,7 +146,7 @@ export function MovieDetailPage() {
 
         <div className="absolute inset-0 grid grid-cols-2 grid-rows-[1fr_1fr_auto] gap-8 bg-gradient-to-b from-transparent to-gray-900 p-8 text-lg lg:grid-rows-2">
           <h1 className="col-span-2 text-3xl font-bold [text-shadow:_1px_2px_5px_black] lg:col-span-1 xl:text-5xl">
-            <MultilineText text={data.movie.name} />
+            <Nl2br text={data.movie.name} />
           </h1>
 
           <p className="col-span-2 self-end lg:order-4 lg:col-span-1 xl:text-xl">{data.movie.story}</p>

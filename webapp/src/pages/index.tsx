@@ -4,8 +4,8 @@ import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'urql';
 
-import { CloudImage } from '~/ui/CloudImage';
-import { MultilineText } from '~/ui/MultilineText';
+import { CloudImage } from '~/components/CloudImage';
+import { Nl2br } from '~/components/Nl2br';
 import { graphql } from '~gql';
 
 const moviesQuery = graphql(`
@@ -44,7 +44,7 @@ export function IndexPage() {
               )}
               <div className="absolute inset-0 flex flex-col justify-between bg-gradient-to-b from-transparent to-gray-900 p-4">
                 <h3 className="font-[BunkenSansPro] text-2xl font-bold [text-shadow:_1px_2px_5px_black]">
-                  <MultilineText text={movie.name} />
+                  <Nl2br text={movie.name} />
                 </h3>
                 <section className="flex justify-between">
                   <strong>{dayjs(movie.releasedIn).format('YYYY')}</strong>

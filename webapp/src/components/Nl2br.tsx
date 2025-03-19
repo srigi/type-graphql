@@ -1,6 +1,6 @@
 import { Fragment } from 'preact/jsx-runtime';
 
-export function MultilineText({ text }: { text: string }) {
+export function Nl2br({ text }: { text: string }) {
   const lines = text.split('\n');
   return lines.map((line, i) => (
     <Fragment key={i}>

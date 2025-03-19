@@ -2,10 +2,10 @@ import { render } from 'preact';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Client, Provider as UrqlProvider, cacheExchange, fetchExchange } from 'urql';
 
-import { Layout } from './ui/Layout';
-import { IndexPage } from './pages';
+import { Layout } from '~/components/Layout';
+import { NotFound } from '~/components/NotFound';
+import { IndexPage } from './pages/index';
 import { MovieDetailPage } from './pages/movieDetail';
-import { NotFound } from './ui/NotFound';
 import './index.css';
 
 const client = new Client({
