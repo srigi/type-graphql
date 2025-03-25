@@ -39,6 +39,10 @@ type MovieCounters {
   userReviews: Int!
 }
 
+type Mutation {
+  signIn(publicId: String!): User!
+}
+
 type Query {
   movie(publicId: String, slug: String): Movie
   movies(skip: Int! = 0, take: Int! = 25): [Movie!]!
