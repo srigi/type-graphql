@@ -6,7 +6,7 @@ import { Movie } from '../Movie';
 
 @Resolver(Movie)
 export class MovieFiguresResolver {
-  @FieldResolver((type) => [Figure])
+  @FieldResolver((returns) => [Figure])
   async figures(@Root() movie: Movie): Promise<Figure[]> {
     const figures = await prisma.figure.findMany({
       where: {

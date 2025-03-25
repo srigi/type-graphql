@@ -3,6 +3,12 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input AddReviewInput {
+  moviePublicId: String!
+  score: Decimal!
+  text: String!
+}
+
 type CloudImage {
   AR: Decimal!
   alt: String!
@@ -37,6 +43,11 @@ type Movie {
 
 type MovieCounters {
   userReviews: Int!
+}
+
+type Mutation {
+  addReview(userReview: AddReviewInput!): UserReview!
+  signIn(publicId: String!): User!
 }
 
 type Query {

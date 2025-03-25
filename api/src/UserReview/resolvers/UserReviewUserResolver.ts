@@ -7,7 +7,7 @@ import { UserReview } from '../UserReview';
 
 @Resolver(UserReview)
 export class UserReviewUserResolver {
-  @FieldResolver((type) => User)
+  @FieldResolver((returns) => User)
   async user(@Root() userReview: UserReview, @Info() info: GraphQLResolveInfo): Promise<User> {
     return prisma.userReview
       .findUniqueOrThrow({
