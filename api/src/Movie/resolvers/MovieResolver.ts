@@ -11,9 +11,7 @@ import { FindMovieArgs } from '../args/FindMovie';
 export class MovieResolver {
   @Query((returns) => [Movie])
   async movies(@Args(() => RangeArgs) { skip, take }: RangeArgs): Promise<Movie[]> {
-    return (await prisma.movie.findMany({ skip, take: take || 25, orderBy: { releasedIn: 'desc' } })).map((movie) =>
-      Object.assign(new Movie(), movie),
-    );
+    return await prisma.movie.findMany({ skip, take: take || 25, orderBy: { releasedIn: 'desc' } });
   }
 
   @Query((returns) => Movie, { nullable: true })
@@ -33,6 +31,6 @@ export class MovieResolver {
       throw new ArgumentValidationError([{ property: JSON.stringify(condition), constraints: { presence: 'Movie not found' } }]);
     }
 
-    return Object.assign(new Movie(), movie);
+    return movie;
   }
 }

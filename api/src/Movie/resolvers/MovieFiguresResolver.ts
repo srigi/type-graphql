@@ -24,6 +24,6 @@ export class MovieFiguresResolver {
       },
     });
 
-    return figures.map((f) => Object.assign(new Figure(), f, { role: f.movieFigure[0].role }));
+    return figures.map((f) => ({ ...f, role: f.movieFigure[0].role }));
   }
 }

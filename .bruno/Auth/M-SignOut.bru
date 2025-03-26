@@ -1,7 +1,7 @@
 meta {
-  name: M:SignIn
+  name: M:SignOut
   type: graphql
-  seq: 1
+  seq: 2
 }
 
 post {
@@ -11,14 +11,8 @@ post {
 }
 
 body:graphql {
-  mutation SignIn($publicId: String!) {
-    signIn(publicId: $publicId) {
-      authToken
-      user {
-        publicId
-        username
-      }
-    }
+  mutation SignOut {
+    signOut
   }
   
 }
