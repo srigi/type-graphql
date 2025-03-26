@@ -23,10 +23,16 @@ const signInMutation = graphql(`
     }
   }
 `);
+const signOutMutation = graphql(`
+  mutation SignOut {
+    signOut
+  }
+`);
 
 export function Navbar() {
   const [{ data, fetching, error }] = useQuery({ query: allUsersQuery, variables: { skip: 0, take: 25 } });
   const [, signIn] = useMutation(signInMutation);
+  const [, signOut] = useMutation(signOutMutation);
   const { user, setUser } = useContext(AuthContext);
 
   return (
@@ -38,7 +44,19 @@ export function Navbar() {
 
       {fetching != null && data == null && <small>loading...</small>}
       {user ? (
-        <div className="px-8 py-2">Signed as {user.username}</div>
+        <details className="relative inline-block rounded-t-2xl bg-black">
+          <summary className="px-8 py-2">Signed as {user.username}</summary>
+          <ul className="absolute right-0 z-10 rounded-2xl rounded-tr-none bg-black px-10 py-4">
+            <li className="w-full py-2">
+              <button
+                className="w-full rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+                onClick={() => signOut({}).then(() => setUser(null))}
+              >
+                Sign-out
+              </button>
+            </li>
+          </ul>
+        </details>
       ) : (
         data != null && (
           <details className="relative inline-block rounded-t-2xl bg-black">
