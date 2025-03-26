@@ -1,0 +1,1 @@
+export { MovieRatingArgs } from './MovieRatingArgs';
