@@ -53,6 +53,7 @@ type Mutation {
 type Query {
   movie(publicId: String, slug: String): Movie
   movies(skip: Int! = 0, take: Int! = 25): [Movie!]!
+  users(skip: Int! = 0, take: Int! = 25): [User!]!
 }
 
 """

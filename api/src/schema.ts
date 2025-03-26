@@ -8,6 +8,7 @@ import { MovieResolver } from '~/Movie/resolvers/MovieResolver';
 import { MovieFiguresResolver } from '~/Movie/resolvers/MovieFiguresResolver';
 import { MovieImageResolver } from '~/Movie/resolvers/MovieImageResolver';
 import { MovieUserReviewsResolver } from '~/Movie/resolvers/MovieUserReviewsResolver';
+import { UserResolver } from '~/User/resolvers/UserResolver';
 import { AddUserReviewResolver } from '~/UserReview/resolvers/AddUserReviewResolver';
 import { UserReviewUserResolver } from '~/UserReview/resolvers/UserReviewUserResolver';
 import { pubSub } from '~/pubsub';
@@ -23,6 +24,7 @@ async function createSchema() {
       MovieFiguresResolver,
       MovieImageResolver,
       MovieUserReviewsResolver,
+      UserResolver,
       AddUserReviewResolver,
       UserReviewUserResolver,
     ],
