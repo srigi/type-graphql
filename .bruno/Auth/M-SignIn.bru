@@ -1,0 +1,36 @@
+meta {
+  name: M:SignIn
+  type: graphql
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/graphql
+  body: graphql
+  auth: none
+}
+
+body:graphql {
+  mutation SignIn($publicId: String!) {
+    signIn(publicId: $publicId) {
+      publicId
+      username
+    }
+  }
+  
+}
+
+body:graphql:vars {
+  {
+    "publicId": "xRgP9aeT"
+  }
+}
+
+script:post-response {
+  const cookies = res.getHeader('set-cookie');
+  const bearerToken = cookies[0]
+    .split(';')[0]
+    .split('=')[1];
+  
+  bru.setVar('authToken', bearerToken);
+}

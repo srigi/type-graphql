@@ -1,0 +1,40 @@
+meta {
+  name: M:AddUserReview
+  type: graphql
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/graphql
+  body: graphql
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authToken}}
+}
+
+body:graphql {
+  mutation AddUserReivew($userReview: AddReviewInput!) {
+    addReview(userReview: $userReview) {
+      publicId
+      score
+      text
+      createdAt
+      user {
+        username
+      }
+    }
+  }
+  
+}
+
+body:graphql:vars {
+  {
+    "userReview": {
+      "moviePublicId": "UOVc5DqkWY",
+      "score": "9.0",
+      "text": "Fantastic - Views On The War Aside, A Great Movie\nI spent 27 years in the US Army, was in Operation Desert Storm (the original), was vehemently opposed to the wars in Iraq and Afghanistan, and thought this movie was one of the best military/war movies I've ever seen. The realism was there, Bradley Cooper was phenomenal, the angst of a soldier during battle was portrayed brilliantly, the decisions we ask kids to make are real and they were realistically shown on screen, and as this film makes clear--war isn't a walk in the park. Anybody who thinks Bradley Cooper is a flash in the pan is sadly mistaken; this guy is the real thing."
+    }
+  }
+}

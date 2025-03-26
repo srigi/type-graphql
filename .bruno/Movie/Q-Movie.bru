@@ -1,0 +1,30 @@
+meta {
+  name: Q:Movie
+  type: graphql
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/graphql
+  body: graphql
+  auth: none
+}
+
+body:graphql {
+  query Movie {
+    movie(slug: "the-matrix") {
+      publicId
+      name
+      releasedIn
+      avgScore
+      userReviews {
+        score
+        createdAt
+        user {
+          username
+        }
+      }
+    }
+  }
+  
+}
