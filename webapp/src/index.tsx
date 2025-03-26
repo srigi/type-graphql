@@ -10,6 +10,7 @@ import './index.css';
 
 const client = new Client({
   exchanges: [cacheExchange, fetchExchange],
+  fetchOptions: { credentials: 'include' },
   url: `${process.env.API_BASE_URL}/graphql`,
 });
 
