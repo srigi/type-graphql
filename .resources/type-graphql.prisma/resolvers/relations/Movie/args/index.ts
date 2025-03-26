@@ -1,1 +1,0 @@
-export { MovieRatingArgs } from './MovieRatingArgs';

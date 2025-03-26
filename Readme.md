@@ -94,4 +94,4 @@ Server is using Sqlite3 database located at [`api/.data`](./api/.data) in this p
 
 TypeGraphQL&nbsp;Prisma is a Prisma generator that auto-generates models & resolvers from prisma schema. However it is not compatible with latest Prisma&nbsp;v6.x. To stay on the edge of the latest TypeGraphQL&nbsp;&&nbsp;Prisma, this project will not utilize the TypeGraphQL&nbsp;Prisma!
 
-However there are example sources from TypeGraphQL&nbsp;Prisma generator in [`.resources`](./.resources/type-graphql.prisma/) folder. You can refer to these examples as an inspiration to writing your own models & resolvers.
+However there are example sources from TypeGraphQL&nbsp;Prisma generator in [**typegraphql-prisma** branch](https://github.com/srigi/type-graphql/tree/typegraphql-prisma). You can refer to these examples as an inspiration to writing your own models & resolvers.
