@@ -1,0 +1,36 @@
+meta {
+  name: M:SignOut
+  type: graphql
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/graphql
+  body: graphql
+  auth: none
+}
+
+body:graphql {
+  mutation SignOut {
+    signOut
+  }
+  
+}
+
+body:graphql:vars {
+  {
+    "publicId": "xRgP9aeT"
+  }
+}
+
+script:post-response {
+  const cookies = res.getHeader('set-cookie');
+  if (cookies != null) {
+    const bearerToken = cookies[0]
+      .split(';')[0]
+      .split('=')[1];
+  
+    bru.setVar('authToken', bearerToken);  
+  }
+  
+}

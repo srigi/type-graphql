@@ -4,6 +4,7 @@ import { buildSchema } from 'type-graphql';
 
 import { authChecker } from '~/Auth/authChecker';
 import { SignInResolver } from '~/Auth/resolvers/SignInResolver';
+import { SignOutResolver } from '~/Auth/resolvers/SignOutResolver';
 import { WhoamiResolver } from '~/Auth/resolvers/WhoamiResolver';
 import { MovieResolver } from '~/Movie/resolvers/MovieResolver';
 import { MovieFiguresResolver } from '~/Movie/resolvers/MovieFiguresResolver';
@@ -21,6 +22,7 @@ async function createSchema() {
     pubSub,
     resolvers: [
       SignInResolver,
+      SignOutResolver,
       WhoamiResolver,
       MovieResolver,
       MovieFiguresResolver,
