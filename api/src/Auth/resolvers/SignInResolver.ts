@@ -3,31 +3,38 @@ import { sign } from 'jsonwebtoken';
 import { ServerResponse } from 'node:http';
 import { ArgumentValidationError, Resolver, Mutation, Arg, Ctx } from 'type-graphql';
 
-import { User } from '~/User/User';
 import { prisma } from '~/lib/db';
 import { env } from '~/lib/env';
+import { SignInResponse } from '../SignInResponse';
 
-@Resolver(User)
+const JWT_VALIDITY = 60 * 60 * 12;
+
+@Resolver(SignInResponse)
 export class SignInResolver {
-  @Mutation((returns) => User)
-  async signIn(@Arg('publicId', () => String) publicId: string, @Ctx() ctx: any): Promise<User> {
+  @Mutation((returns) => SignInResponse)
+  async signIn(@Arg('publicId', () => String) publicId: string, @Ctx() ctx: { res: ServerResponse }): Promise<SignInResponse> {
     const user = await prisma.user.findUnique({ where: { publicId } });
     if (user == null) {
       throw new ArgumentValidationError([{ property: 'publicId', constraints: { presence: 'User with provided publicId does not exist' } }]);
     }
 
-    const token = sign({ username: user.username }, env.API_JWT_SECRET, {
+    const authToken = sign({ username: user.username }, env.API_JWT_SECRET, {
       algorithm: 'HS256',
-      subject: publicId,
+      expiresIn: JWT_VALIDITY,
       issuer: env.API_BASE_URL,
-      expiresIn: '1h',
+      subject: publicId,
     });
 
-    (ctx.res as ServerResponse).setHeader(
+    ctx.res.setHeader(
       'Set-Cookie',
-      serialize('bearer', token, { httpOnly: true, secure: true, sameSite: 'strict', maxAge: 3600 }),
+      serialize('bearer', authToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict',
+        maxAge: JWT_VALIDITY,
+      }),
     );
 
-    return user;
+    return { user, authToken };
   }
 }

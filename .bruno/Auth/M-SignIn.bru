@@ -13,8 +13,11 @@ post {
 body:graphql {
   mutation SignIn($publicId: String!) {
     signIn(publicId: $publicId) {
-      publicId
-      username
+      authToken
+      user {
+        publicId
+        username
+      }
     }
   }
   
@@ -28,9 +31,12 @@ body:graphql:vars {
 
 script:post-response {
   const cookies = res.getHeader('set-cookie');
-  const bearerToken = cookies[0]
-    .split(';')[0]
-    .split('=')[1];
+  if (cookies != null) {
+    const bearerToken = cookies[0]
+      .split(';')[0]
+      .split('=')[1];
   
-  bru.setVar('authToken', bearerToken);
+    bru.setVar('authToken', bearerToken);  
+  }
+  
 }
