@@ -26,6 +26,6 @@ export class MovieImageResolver {
       },
     });
 
-    return cloudImages.map((ci) => Object.assign(new CloudImage(), ci, { role: ci.movieImage[0].role }));
+    return cloudImages.map((ci) => ({ ...ci, role: ci.movieImage[0].role }));
   }
 }

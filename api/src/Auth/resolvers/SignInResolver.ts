@@ -1,14 +1,14 @@
-import { ArgumentValidationError, Resolver, Mutation, Arg, Ctx } from 'type-graphql';
 import { serialize } from 'cookie';
 import { sign } from 'jsonwebtoken';
+import { ServerResponse } from 'node:http';
+import { ArgumentValidationError, Resolver, Mutation, Arg, Ctx } from 'type-graphql';
 
+import { User } from '~/User/User';
 import { prisma } from '~/lib/db';
 import { env } from '~/lib/env';
-import { User } from '../User';
-import { ServerResponse } from 'node:http';
 
 @Resolver(User)
-export class UserSignInResolver {
+export class SignInResolver {
   @Mutation((returns) => User)
   async signIn(@Arg('publicId', () => String) publicId: string, @Ctx() ctx: any): Promise<User> {
     const user = await prisma.user.findUnique({ where: { publicId } });

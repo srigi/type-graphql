@@ -8,7 +8,7 @@ import { AddReviewInput } from '../inputs/AddReview';
 import { UserReview } from '../UserReview';
 
 @Resolver(UserReview)
-export class UserReviewAddReviewResolver {
+export class AddUserReviewResolver {
   @Authorized()
   @Mutation((returns) => UserReview)
   async addReview(
