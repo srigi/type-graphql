@@ -21,14 +21,28 @@ export class AddUserReviewResolver {
     }
 
     try {
-      return await prisma.userReview.create({
-        data: {
-          publicId: getRandomString(9),
-          movieId: movie.id,
-          userId: ctx.user!.id,
-          score,
-          text,
-        },
+      return await prisma.$transaction(async (tx) => {
+        const userReview = await tx.userReview.create({
+          data: {
+            publicId: getRandomString(9),
+            movieId: movie.id,
+            userId: ctx.user!.id,
+            score,
+            text,
+          },
+        });
+
+        await tx.$executeRaw`
+          UPDATE "Movie"
+          SET "avgScore" = (
+            SELECT ROUND(AVG("score"), 1)
+            FROM "UserReview"
+            WHERE "movieId" = ${movie.id}
+          )
+          WHERE "id" = ${movie.id}
+        `;
+
+        return userReview;
       });
     } catch (err) {
       if (

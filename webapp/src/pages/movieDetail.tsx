@@ -1,8 +1,11 @@
 import dayjs from 'dayjs';
+import { useContext } from 'preact/hooks';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useParams } from 'react-router-dom';
-import { useQuery } from 'urql';
+import { useQuery, useMutation } from 'urql';
 
+import { AuthContext } from '~/contexts/AuthContext';
+import { AddReviewForm } from '~/components/forms/AddReviewForm';
 import { CloudImage } from '~/components/CloudImage';
 import { Nl2br } from '~/components/Nl2br';
 import { NotFound } from '~/components/NotFound';
@@ -40,6 +43,16 @@ const movieQuery = graphql(`
     }
   }
 `);
+const addReviewMutation = graphql(`
+  mutation AddReview($userReview: AddReviewInput!) {
+    addReview(userReview: $userReview) {
+      publicId
+      score
+      text
+      createdAt
+    }
+  }
+`);
 
 export function MovieDetailPage() {
   const { slug } = useParams();
@@ -47,7 +60,10 @@ export function MovieDetailPage() {
     return <NotFound />;
   }
 
+  const { user } = useContext(AuthContext);
   const [{ data, fetching }] = useQuery({ query: movieQuery, variables: { slug } });
+  const [, addReview] = useMutation(addReviewMutation);
+
   const { renderLoader } = useDelayedLoader(fetching);
   if (fetching) {
     return renderLoader();
@@ -161,6 +177,35 @@ export function MovieDetailPage() {
         <div className="flex-1/3 px-8 text-xl lg:pr-0">{renderFigures(data.movie.figures)}</div>
 
         <div className="flex flex-2/3 flex-col gap-4">
+          <h2 className="px-2 text-3xl font-bold">Add your review</h2>
+
+          {user ? (
+            data.movie.userReviews.some((review) => review.user?.publicId === user?.publicId) ? (
+              <div className="rounded-xl bg-gray-700 p-4 text-center">
+                <p className="text-lg">You have already reviewed this movie.</p>
+              </div>
+            ) : (
+              <AddReviewForm
+                onSubmit={(review) => {
+                  if (data?.movie) {
+                    addReview({
+                      userReview: {
+                        moviePublicId: data.movie.publicId,
+                        text: review.text,
+                        score: review.score,
+                      },
+                    });
+                  }
+                }}
+              />
+            )
+          ) : (
+            <div className="rounded-xl bg-gray-700 p-4 text-center">
+              <p className="mb-2 text-lg font-bold">Sign-in to review</p>
+              <p>You need to be signed in to leave a review for this movie.</p>
+            </div>
+          )}
+
           <h2 className="px-2 text-3xl font-bold">User reviews</h2>
           <ul className="flex flex-1 flex-col gap-4">
             {data.movie.userReviews.map((r) => (
