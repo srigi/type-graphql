@@ -16,6 +16,11 @@ type CloudImage {
   role: String!
 }
 
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.This scalar is serialized to a string in ISO 8601 format and parsed from a string in ISO 8601 format.
+"""
+scalar DateTimeISO
+
 """GraphQL Scalar representing the Prisma.Decimal type"""
 scalar Decimal
 
@@ -63,6 +68,10 @@ type SignInResponse {
   user: User!
 }
 
+type Subscription {
+  userReviewAdded(moviePublicId: String!): UserReviewNotification!
+}
+
 """
 The javascript `Date` as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
 """
@@ -80,4 +89,10 @@ type UserReview {
   score: Decimal!
   text: String!
   user: User!
+}
+
+type UserReviewNotification {
+  publishedAt: DateTimeISO!
+  type: DateTimeISO!
+  userReview: UserReview!
 }
