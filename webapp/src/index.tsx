@@ -1,6 +1,7 @@
+import { createClient as createSSEClient } from 'graphql-sse';
 import { render } from 'preact';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Client, Provider as UrqlProvider, cacheExchange, fetchExchange } from 'urql';
+import { Client, Provider as UrqlProvider, cacheExchange, fetchExchange, subscriptionExchange } from 'urql';
 
 import { Layout } from '~/components/Layout';
 import { NotFound } from '~/components/NotFound';
@@ -8,8 +9,21 @@ import { IndexPage } from './pages/index';
 import { MovieDetailPage } from './pages/movieDetail';
 import './index.css';
 
+const sseClient = createSSEClient({
+  url: `${process.env.API_BASE_URL}/graphql`,
+});
 const client = new Client({
-  exchanges: [cacheExchange, fetchExchange],
+  exchanges: [
+    cacheExchange,
+    fetchExchange,
+    subscriptionExchange({
+      forwardSubscription: ({ query, variables }) => ({
+        subscribe: (sink) => ({
+          unsubscribe: sseClient.subscribe({ query: query!, variables }, sink),
+        }),
+      }),
+    }),
+  ],
   fetchOptions: { credentials: 'include' },
   url: `${process.env.API_BASE_URL}/graphql`,
 });

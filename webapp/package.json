@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "dayjs": "~1.11",
+    "graphql-sse": "~2.5",
     "preact": "~10.26",
     "react-responsive": "~10.0",
     "react-router-dom": "~7.3",

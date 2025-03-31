@@ -2,13 +2,14 @@ import dayjs from 'dayjs';
 import { useContext } from 'preact/hooks';
 import { useMediaQuery } from 'react-responsive';
 import { Link, useParams } from 'react-router-dom';
-import { useQuery, useMutation } from 'urql';
+import { useQuery, useMutation, useSubscription } from 'urql';
 
 import { AuthContext } from '~/contexts/AuthContext';
 import { AddReviewForm } from '~/components/forms/AddReviewForm';
 import { CloudImage } from '~/components/CloudImage';
 import { Nl2br } from '~/components/Nl2br';
 import { NotFound } from '~/components/NotFound';
+import { NewReviewNotification } from '~/components/NewReviewNotification';
 import { useDelayedLoader } from '~/hooks/useDelayedLoader';
 import { graphql } from '~gql';
 
@@ -53,6 +54,21 @@ const addReviewMutation = graphql(`
     }
   }
 `);
+const newUserReviewSubscription = graphql(`
+  subscription UserReviewsUpdates($moviePublicId: String!) {
+    userReviewAdded(moviePublicId: $moviePublicId) {
+      publishedAt
+      userReview {
+        score
+        text
+        user {
+          publicId
+          username
+        }
+      }
+    }
+  }
+`);
 
 export function MovieDetailPage() {
   const { slug } = useParams();
@@ -63,6 +79,17 @@ export function MovieDetailPage() {
   const { user } = useContext(AuthContext);
   const [{ data, fetching }] = useQuery({ query: movieQuery, variables: { slug } });
   const [, addReview] = useMutation(addReviewMutation);
+  const [newUserReviews] = useSubscription(
+    {
+      query: newUserReviewSubscription,
+      variables: { moviePublicId: data?.movie?.publicId || '' },
+      pause: data?.movie?.publicId == null,
+    },
+    (prev: any[] = [], data: { userReviewAdded: { publishedAt: string; userReview: { score: string; text: string } } }) => [
+      ...prev,
+      data.userReviewAdded,
+    ],
+  );
 
   const { renderLoader } = useDelayedLoader(fetching);
   if (fetching) {
@@ -207,6 +234,17 @@ export function MovieDetailPage() {
           )}
 
           <h2 className="px-2 text-3xl font-bold">User reviews</h2>
+
+          {newUserReviews?.data && newUserReviews.data.length > 0 && (
+            <div className="flex flex-col-reverse gap-4">
+              {[...newUserReviews.data]
+                .filter((notification) => user?.publicId !== notification.userReview.user.publicId)
+                .map((notification, index) => (
+                  <NewReviewNotification key={`new-review-${index}`} notification={notification} />
+                ))}
+            </div>
+          )}
+
           <ul className="flex flex-1 flex-col gap-4">
             {data.movie.userReviews.map((r) => (
               <li key={r.publicId} className="-p4 flex flex-col gap-4 rounded-xl bg-gray-700 p-4">
