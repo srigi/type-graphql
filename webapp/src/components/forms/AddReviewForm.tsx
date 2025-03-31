@@ -1,26 +1,26 @@
 import { Fragment, useState } from 'preact/compat';
 
 type AddReviewFormProps = {
-  onSubmit?: (review: { text: string; score: string }) => void;
+  onSubmit?: (review: { text: string; score: number }) => void;
 };
 
 export function AddReviewForm({ onSubmit }: AddReviewFormProps) {
-  const [newReview, setNewReview] = useState({ text: '', score: '0' });
+  const [newReview, setNewReview] = useState({ text: '', score: 0 });
+  const isFormValid = newReview.text.trim() !== '' && newReview.score >= 1;
 
-  const isFormValid = newReview.text.trim() !== '' && parseInt(newReview.score) >= 1;
-
-  const handleSubmit = (e: Event) => {
+  function handleSubmit(e: Event) {
     e.preventDefault();
+
     if (onSubmit && isFormValid) {
       onSubmit(newReview);
     }
-  };
+  }
 
   return (
     <form className="flex flex-col gap-4 rounded-xl bg-gray-700 p-4" onSubmit={handleSubmit}>
-      <div className="star-rating">
+      <div className="flex justify-end gap-2 text-xl">
         {[...Array(10)].map((_, idx) => {
-          const val = `${10 - idx}`;
+          const val = idx + 1;
           return (
             <Fragment key={idx}>
               <input
@@ -32,7 +32,7 @@ export function AddReviewForm({ onSubmit }: AddReviewFormProps) {
                 checked={newReview.score === val}
                 onChange={() => setNewReview({ ...newReview, score: val })}
               />
-              <label htmlFor={`star${val}`} className="cursor-pointer">
+              <label htmlFor={`star${val}`} className="cursor-pointer text-[#ffd700]">
                 {newReview.score >= val ? '★' : '☆'}
               </label>
             </Fragment>
@@ -49,11 +49,11 @@ export function AddReviewForm({ onSubmit }: AddReviewFormProps) {
       />
 
       <button
-        type="submit"
         className={`self-end rounded-lg px-4 py-2 font-bold disabled:cursor-not-allowed! disabled:opacity-50 ${
           isFormValid ? 'bg-blue-600 hover:bg-blue-700' : 'cursor-not-allowed bg-gray-500'
         }`}
         disabled={!isFormValid}
+        type="submit"
       >
         Submit Review
       </button>

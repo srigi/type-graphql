@@ -219,7 +219,7 @@ export function MovieDetailPage() {
                       userReview: {
                         moviePublicId: data.movie.publicId,
                         text: review.text,
-                        score: review.score,
+                        score: `${review.score}`,
                       },
                     });
                   }
