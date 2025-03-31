@@ -1,7 +1,7 @@
 import { createPubSub } from '@graphql-yoga/subscription';
 
-//import type { Topic as RecipeNotificationTopic, Payload as RecipeNotificationPayload } from '~/Recipe/subscription';
+import type { Topic as UserReview, NotificationPayload as UserReviewNotificationPayload } from '~/UserReview/UserReviewNotification';
 
 export const pubSub = createPubSub<{
-  //[RecipeNotificationTopic.NOTIFICATIONS]: [RecipeNotificationPayload];
+  [UserReview.NOTIFICATIONS]: [string, UserReviewNotificationPayload];
 }>();

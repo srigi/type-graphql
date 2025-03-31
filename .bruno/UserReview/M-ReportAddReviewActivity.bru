@@ -1,0 +1,28 @@
+meta {
+  name: M:ReportAddReviewActivity
+  type: graphql
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/graphql
+  body: graphql
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authToken}}
+}
+
+body:graphql {
+  mutation ReportAddReviewActivity($moviePublicId: ID!) {
+    reportAddReviewActivity(moviePublicId: $moviePublicId)
+  }
+  
+}
+
+body:graphql:vars {
+  {
+    "moviePublicId": "5"
+  }
+}

@@ -1,11 +1,23 @@
-import { ArgumentValidationError, Authorized, Ctx, Resolver, Mutation, Arg } from 'type-graphql';
+import {
+  Arg,
+  ArgumentValidationError,
+  Authorized,
+  Ctx,
+  Mutation,
+  Resolver,
+  Root,
+  Subscription,
+  type SubscribeResolverData,
+} from 'type-graphql';
 
 import { Context } from '~/Auth/Context';
-import { Prisma } from '~prisma/client';
 import { prisma } from '~/lib/db';
+import { Prisma } from '~prisma/client';
 import { getRandomString } from '~/lib/utils';
+import { pubSub } from '~/pubsub';
 import { AddReviewInput } from '../inputs/AddReview';
 import { UserReview } from '../UserReview';
+import { NotificationPayload, Topic, UserReviewNotification } from '../UserReviewNotification';
 
 @Resolver(UserReview)
 export class AddUserReviewResolver {
@@ -21,8 +33,8 @@ export class AddUserReviewResolver {
     }
 
     try {
-      return await prisma.$transaction(async (tx) => {
-        const userReview = await tx.userReview.create({
+      const userReview = await prisma.$transaction(async (tx) => {
+        const row = await tx.userReview.create({
           data: {
             publicId: getRandomString(9),
             movieId: movie.id,
@@ -42,8 +54,11 @@ export class AddUserReviewResolver {
           WHERE "id" = ${movie.id}
         `;
 
-        return userReview;
+        return row;
       });
+      pubSub.publish(Topic.NOTIFICATIONS, moviePublicId, { publishedAt: new Date(), userReview });
+
+      return userReview;
     } catch (err) {
       if (
         err instanceof Prisma.PrismaClientKnownRequestError &&
@@ -57,5 +72,13 @@ export class AddUserReviewResolver {
 
       throw err;
     }
+  }
+
+  @Subscription((returns) => UserReviewNotification, {
+    topics: Topic.NOTIFICATIONS,
+    topicId: ({ args }: SubscribeResolverData<any, { moviePublicId: string }>) => args.moviePublicId,
+  })
+  userReviewAdded(@Arg('moviePublicId', () => String) moviePublicId: string, @Root() payload: NotificationPayload): UserReviewNotification {
+    return { ...payload, type: 'userReviewAdded' };
   }
 }
