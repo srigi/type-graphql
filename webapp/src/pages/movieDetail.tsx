@@ -7,6 +7,7 @@ import { useQuery, useMutation, useSubscription } from 'urql';
 import { AuthContext } from '~/contexts/AuthContext';
 import { AddReviewForm } from '~/components/forms/AddReviewForm';
 import { CloudImage } from '~/components/CloudImage';
+import { Figures } from '~/components/Figures';
 import { Nl2br } from '~/components/Nl2br';
 import { NotFound } from '~/components/NotFound';
 import { NewReviewNotification } from '~/components/NewReviewNotification';
@@ -114,72 +115,6 @@ export function MovieDetailPage() {
     return 736;
   })();
 
-  function renderFigures(movieFigures: Array<{ name: string; role: string; slug: string }>) {
-    const assignments = movieFigures.reduce<{
-      director: Array<{ name: string; slug: string }>;
-      camera: Array<{ name: string; slug: string }>;
-      actors: Array<{ name: string; slug: string }>;
-    }>(
-      (acc, figure) => {
-        if (figure.role === 'director') acc.director.push({ name: figure.name, slug: figure.slug });
-        if (figure.role === 'director of photography') acc.camera.push({ name: figure.name, slug: figure.slug });
-        if (figure.role === 'main character') acc.actors.push({ name: figure.name, slug: figure.slug });
-        if (figure.role === 'supporting character') acc.actors.push({ name: figure.name, slug: figure.slug });
-
-        return acc;
-      },
-      { director: [], camera: [], actors: [] },
-    );
-
-    return (
-      <dl className="grid grid-cols-[8rem_1fr] items-start justify-start gap-4">
-        {assignments.director.length > 0 && (
-          <>
-            <dt>Director:</dt>
-            <dd>
-              {assignments.director.map((d, idx) => (
-                <span key={idx}>
-                  <strong>{d.name}</strong>
-                  {idx !== assignments.director.length - 1 && ', '}
-                </span>
-              ))}
-            </dd>
-          </>
-        )}
-
-        {assignments.camera.length > 0 && (
-          <>
-            <dt>Camera:</dt>
-            <dd>
-              {assignments.camera.map((c, idx) => (
-                <span key={idx}>
-                  <strong>{c.name}</strong>
-                  {idx !== assignments.camera.length - 1 && ', '}
-                </span>
-              ))}
-            </dd>
-          </>
-        )}
-
-        {assignments.actors.length > 0 && (
-          <>
-            <dt>Cast:</dt>
-            <dd>
-              {assignments.actors.map((a, idx) => (
-                <span key={idx}>
-                  <strong>
-                    <Link to={`/figure/${a.slug}`}>{a.name}</Link>
-                  </strong>
-                  {idx !== assignments.actors.length - 1 && ', '}
-                </span>
-              ))}
-            </dd>
-          </>
-        )}
-      </dl>
-    );
-  }
-
   return (
     <>
       <div className="relative min-h-120 overflow-hidden rounded-xl">
@@ -201,7 +136,9 @@ export function MovieDetailPage() {
       </div>
 
       <div className="flex flex-col gap-16 pt-8 lg:flex-row lg:gap-4">
-        <div className="flex-1/3 px-8 text-xl lg:pr-0">{renderFigures(data.movie.figures)}</div>
+        <div className="flex-1/3 px-8 text-xl lg:pr-0">
+          <Figures movieFigures={data.movie.figures} />
+        </div>
 
         <div className="flex flex-2/3 flex-col gap-4">
           <h2 className="px-2 text-3xl font-bold">Add your review</h2>
