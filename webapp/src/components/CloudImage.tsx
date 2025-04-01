@@ -5,7 +5,7 @@ function computeHeight(width: number, ratio: number) {
 }
 
 function cloudinaryLoader(src: string, width: number, quality: number) {
-  return `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/${[
+  return `https://res.cloudinary.com/${process.env.WEBAPP_CLOUDINARY_CLOUD_NAME}/image/upload/${[
     'f_auto',
     'c_limit',
     `w_${width}`,

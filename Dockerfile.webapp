@@ -19,9 +19,9 @@ COPY --from=dependencies /app/webapp/node_modules ./webapp/node_modules
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY webapp ./webapp
 ARG API_BASE_URL
-ARG CLOUDINARY_CLOUD_NAME
+ARG WEBAPP_CLOUDINARY_CLOUD_NAME
 ENV API_BASE_URL=$API_BASE_URL \
-	CLOUDINARY_CLOUD_NAME=$CLOUDINARY_CLOUD_NAME \
+WEBAPP_CLOUDINARY_CLOUD_NAME=$WEBAPP_CLOUDINARY_CLOUD_NAME \
 	PNPM_HOME="/pnpm"
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
 	corepack enable pnpm \

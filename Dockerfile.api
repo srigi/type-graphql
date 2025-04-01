@@ -21,10 +21,10 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY api ./api
 ARG API_BASE_URL
 ARG API_JWT_SECRET
-ARG PRISMA_BINARY_TARGET
+ARG API_PRISMA_BINARY_TARGET
 ENV API_BASE_URL=$API_BASE_URL \
 	API_JWT_SECRET=$API_JWT_SECRET \
-	PRISMA_BINARY_TARGET=$PRISMA_BINARY_TARGET \
+	API_PRISMA_BINARY_TARGET=$API_PRISMA_BINARY_TARGET \
 	PNPM_HOME="/pnpm"
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
 	corepack enable pnpm \

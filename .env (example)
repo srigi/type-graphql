@@ -1,7 +1,9 @@
 ARCH=amd64
+FLY_ACCESS_TOKEN=""
+
 API_BASE_URL=http://localhost:3001
 API_JWT_SECRET=secret
-CLOUDINARY_CLOUD_NAME=product_environment_cloud_name
-FLY_ACCESS_TOKEN=""
-PRISMA_BINARY_TARGET='["native", "linux-musl-arm64-openssl-3.0.x", "linux-musl-openssl-3.0.x"]'
+API_PRISMA_BINARY_TARGET='["native", "linux-musl-arm64-openssl-3.0.x", "linux-musl-openssl-3.0.x"]'
+
 WEBAPP_ALLOWED_HOSTS=localdev.io
+WEBAPP_CLOUDINARY_CLOUD_NAME=product_environment_cloud_name

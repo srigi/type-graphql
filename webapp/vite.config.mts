@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   define: {
     'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL),
-    'process.env.CLOUDINARY_CLOUD_NAME': JSON.stringify(process.env.CLOUDINARY_CLOUD_NAME),
+    'process.env.WEBAPP_CLOUDINARY_CLOUD_NAME': JSON.stringify(process.env.WEBAPP_CLOUDINARY_CLOUD_NAME),
   },
   plugins: [preact(), tailwindcss()],
   root: 'src',
