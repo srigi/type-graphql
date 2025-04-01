@@ -30,8 +30,9 @@ export class SignInResolver {
       serialize('bearer', authToken, {
         httpOnly: true,
         secure: true,
-        sameSite: 'strict',
+        sameSite: 'none',
         maxAge: JWT_VALIDITY,
+        partitioned: true,
       }),
     );
 
