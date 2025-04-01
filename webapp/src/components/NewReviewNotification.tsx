@@ -1,22 +1,24 @@
 import { useState, useEffect } from 'preact/hooks';
 import dayjs from 'dayjs';
 
-type UserReviewNotification = {
+type UserReviewNotificationData = {
   publishedAt: string;
   userReview: {
     score: string;
     text: string;
     user: {
+      publicId: string; // Added publicId for filtering
       username: string;
     };
   };
 };
 
-interface NewReviewNotificationProps {
-  notification: UserReviewNotification;
+interface SingleNotificationProps {
+  notification: UserReviewNotificationData;
 }
 
-export function NewReviewNotification({ notification }: NewReviewNotificationProps) {
+// Renamed the original component to handle a single notification item
+function SingleNotification({ notification }: SingleNotificationProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -41,7 +43,7 @@ export function NewReviewNotification({ notification }: NewReviewNotificationPro
         >
           <div className="flex items-center gap-2">
             <span className="text-xl">🎬</span>
-            <p className="font-bold">A new user-review added</p>
+            <p className="font-bold">A new user-review added by {notification.userReview.user.username}</p>
           </div>
         </div>
       ) : (
@@ -55,5 +57,28 @@ export function NewReviewNotification({ notification }: NewReviewNotificationPro
         </li>
       )}
     </>
+  );
+}
+
+interface NewReviewNotificationProps {
+  notifications: UserReviewNotificationData[];
+  currentUserPublicId?: string; // Optional publicId of the current user
+}
+
+// This is the main exported component that handles the list
+export function NewReviewNotification({ notifications, currentUserPublicId }: NewReviewNotificationProps) {
+  const filteredNotifications = notifications.filter((notification) => currentUserPublicId !== notification.userReview.user.publicId);
+
+  if (filteredNotifications.length === 0) {
+    return null; // Don't render anything if there are no relevant notifications
+  }
+
+  return (
+    <div className="flex flex-col-reverse gap-4">
+      {filteredNotifications.map((notification, index) => (
+        // Use publicId or a combination for a more stable key if available, otherwise index is fallback
+        <SingleNotification key={`new-review-${notification.userReview.user.publicId}-${index}`} notification={notification} />
+      ))}
+    </div>
   );
 }

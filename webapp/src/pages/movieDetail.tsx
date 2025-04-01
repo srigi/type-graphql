@@ -173,13 +173,7 @@ export function MovieDetailPage() {
           <h2 className="px-2 text-3xl font-bold">User reviews</h2>
 
           {newUserReviews?.data && newUserReviews.data.length > 0 && (
-            <div className="flex flex-col-reverse gap-4">
-              {[...newUserReviews.data]
-                .filter((notification) => user?.publicId !== notification.userReview.user.publicId)
-                .map((notification, index) => (
-                  <NewReviewNotification key={`new-review-${index}`} notification={notification} />
-                ))}
-            </div>
+            <NewReviewNotification notifications={newUserReviews.data} currentUserPublicId={user?.publicId} />
           )}
 
           <ul className="flex flex-1 flex-col gap-4">
