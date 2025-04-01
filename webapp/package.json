@@ -2,6 +2,7 @@
   "name": "webapp",
   "version": "0.0.1",
   "scripts": {
+    "build": "vite build --outDir ../.dist",
     "codegen": "graphql-codegen",
     "codegen:watch": "graphql-codegen --watch",
     "dev": "vite",

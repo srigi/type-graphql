@@ -18,3 +18,18 @@ services:
       - type: bind
         source: ./api/.data
         target: /app/api/.data
+
+  webapp:
+    image: registry.fly.io/type-graphql:$ARCH
+    build:
+      context: .
+      dockerfile: Dockerfile.webapp
+      args:
+        API_BASE_URL: $API_BASE_URL
+        CLOUDINARY_CLOUD_NAME: $CLOUDINARY_CLOUD_NAME
+      platforms:
+        - linux/$ARCH
+    env_file:
+      - ./.env
+    ports:
+      - '3000:3000'
