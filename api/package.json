@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "build:schema": "tsx src/schema.ts",
+    "build": "tsc && tsc-alias",
     "db:seed": "tsx prisma/seed.ts",
     "dev": "tsx --watch-path src src/server.ts",
     "tsc": "tsc -noEmit",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@types/graphql-fields": "^1.3",
     "@types/jsonwebtoken": "~9.0",
-    "prisma": "~6.5"
+    "prisma": "~6.5",
+    "tsc-alias": "~1.8"
   }
 }

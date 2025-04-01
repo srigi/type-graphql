@@ -1,0 +1,20 @@
+services:
+  api:
+    image: registry.fly.io/type-graphql-api:$ARCH
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+      args:
+        API_BASE_URL: $API_BASE_URL
+        API_JWT_SECRET: $API_JWT_SECRET
+        PRISMA_BINARY_TARGET: $PRISMA_BINARY_TARGET
+      platforms:
+        - linux/$ARCH
+    env_file:
+      - ./.env
+    ports:
+      - '3001:3001'
+    volumes:
+      - type: bind
+        source: ./api/.data
+        target: /app/api/.data

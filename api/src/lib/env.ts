@@ -9,4 +9,5 @@ export const env = {
   API_BASE_URL: process.env.API_BASE_URL,
   API_JWT_SECRET: process.env.API_JWT_SECRET,
   API_SCHEMA_NOEMIT: process.env.API_SCHEMA_NOEMIT,
+  isDev: process.env.NODE_ENV !== 'production',
 };
