@@ -1,0 +1,37 @@
+# fly.toml app configuration file generated for type-graphql-api on 2025-04-01T09:36:37+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+app = 'type-graphql-api'
+primary_region = 'ams'
+
+[build]
+  image = 'registry.fly.io/type-graphql-api:amd64'
+
+[deploy]
+  strategy = 'immediate'
+
+[env]
+  # only Fly.io specific ENVs!
+  API_BASE_URL='https://type-graphql-api.fly.dev'
+
+[processes]
+  api = 'node api/src/server.js'
+
+[http_service]
+  processes = ['api']
+  internal_port = 3001
+  force_https = true
+  auto_stop_machines = 'suspend'
+  auto_start_machines = true
+  [http_service.http_options]
+    idle_timeout = 90
+
+[mounts]
+  source = 'type_graphql_api'
+  destination = '/app/api/.data'
+
+[[vm]]
+  cpus = 1
+  cpu_kind = 'shared'
+  memory = '256mb'

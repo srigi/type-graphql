@@ -1,0 +1,10 @@
+.bruno
+.vscode
+api/.data
+api/.out
+api/node_modules
+api/prisma/client
+my_resources
+node_modules
+webapp/node_modules
+.env (example)

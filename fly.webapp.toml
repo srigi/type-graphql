@@ -1,0 +1,22 @@
+app = 'type-graphql'
+primary_region = 'ams'
+
+[build]
+  image = 'registry.fly.io/type-graphql:amd64'
+
+[deploy]
+  strategy = 'immediate'
+
+[http_service]
+  processes = ['app']
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = 'suspend'
+  auto_start_machines = true
+  [http_service.http_options]
+    idle_timeout = 90
+
+[[vm]]
+  cpus = 1
+  cpu_kind = 'shared'
+  memory = '256mb'

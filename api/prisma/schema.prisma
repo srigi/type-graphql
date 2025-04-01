@@ -4,8 +4,9 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "./client"
+  binaryTargets = env("PRISMA_BINARY_TARGET")
+  provider      = "prisma-client-js"
+  output        = "./client"
 }
 
 model Figure {
