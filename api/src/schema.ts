@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import path from 'node:path';
 import { buildSchema } from 'type-graphql';
 
+import { env } from '~/lib/env';
 import { authChecker } from '~/Auth/authChecker';
 import { SignInResolver } from '~/Auth/resolvers/SignInResolver';
 import { SignOutResolver } from '~/Auth/resolvers/SignOutResolver';
@@ -18,7 +19,7 @@ import { pubSub } from '~/pubsub';
 async function createSchema() {
   return buildSchema({
     authChecker,
-    emitSchemaFile: path.resolve(__dirname, '../.out/schema.graphql'),
+    ...(env.API_SCHEMA_NOEMIT == null && { emitSchemaFile: path.resolve(__dirname, '../.out/schema.graphql') }),
     pubSub,
     resolvers: [
       SignInResolver,
