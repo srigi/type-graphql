@@ -3,6 +3,7 @@ import {
   ArgumentValidationError,
   Authorized,
   Ctx,
+  Int,
   Mutation,
   Resolver,
   Root,
@@ -17,7 +18,9 @@ import { getRandomString } from '~/lib/utils';
 import { pubSub } from '~/pubsub';
 import { AddReviewInput } from '../inputs/AddReview';
 import { UserReview } from '../UserReview';
-import { NotificationPayload, Topic, UserReviewNotification } from '../UserReviewNotification';
+import { Topic } from '../notifications/Topic';
+import { UserReviewNotification, type UserReviewNotificationPayload } from '../notifications/UserReviewNotification';
+import { UserTypingEvent, UserTypingNotification, type UserTypingNotificationPayload } from '../notifications/UserTypingNotification';
 
 @Resolver(UserReview)
 export class AddUserReviewResolver {
@@ -78,7 +81,42 @@ export class AddUserReviewResolver {
     topics: Topic.NOTIFICATIONS,
     topicId: ({ args }: SubscribeResolverData<any, { moviePublicId: string }>) => args.moviePublicId,
   })
-  userReviewAdded(@Arg('moviePublicId', () => String) moviePublicId: string, @Root() payload: NotificationPayload): UserReviewNotification {
+  userReviewAdded(
+    @Arg('moviePublicId', () => String) moviePublicId: string,
+    @Root() payload: UserReviewNotificationPayload,
+  ): UserReviewNotification {
     return { ...payload, type: 'userReviewAdded' };
+  }
+
+  @Authorized()
+  @Mutation((returns) => Int)
+  async userTyping(
+    @Arg('moviePublicId', () => String) moviePublicId: string,
+    @Arg('event', () => UserTypingEvent) event: UserTypingEvent,
+    @Ctx() ctx: Context,
+  ): Promise<number> {
+    pubSub.publish(Topic.USER_TYPING, moviePublicId, {
+      publishedAt: new Date(),
+      moviePublicId,
+      userPublicId: ctx.user!.publicId,
+      username: ctx.user!.username,
+      event,
+    });
+
+    return 1; // success
+  }
+
+  @Subscription((returns) => UserTypingNotification, {
+    topics: Topic.USER_TYPING,
+    topicId: ({ args }: SubscribeResolverData<any, { moviePublicId: string }>) => args.moviePublicId,
+    filter: ({ args, payload }: { args: { userPublicId: string }; payload: UserTypingNotificationPayload }) =>
+      args.userPublicId !== payload.userPublicId, // Don't notify the user who triggered it
+  })
+  userTypingUpdates(
+    @Arg('moviePublicId', () => String) moviePublicId: string,
+    @Arg('userPublicId', () => String) userPublicId: string,
+    @Root() payload: UserTypingNotificationPayload,
+  ): UserTypingNotification {
+    return payload;
   }
 }

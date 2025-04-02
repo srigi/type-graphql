@@ -54,6 +54,7 @@ type Mutation {
   addReview(userReview: AddReviewInput!): UserReview!
   signIn(publicId: String!): SignInResponse!
   signOut: Int!
+  userTyping(event: UserTypingEvent!, moviePublicId: String!): Int!
 }
 
 type Query {
@@ -70,6 +71,7 @@ type SignInResponse {
 
 type Subscription {
   userReviewAdded(moviePublicId: String!): UserReviewNotification!
+  userTypingUpdates(moviePublicId: String!, userPublicId: String!): UserTypingNotification!
 }
 
 """
@@ -95,4 +97,18 @@ type UserReviewNotification {
   publishedAt: DateTimeISO!
   type: DateTimeISO!
   userReview: UserReview!
+}
+
+"""The type of user typing event"""
+enum UserTypingEvent {
+  STARTED
+  STOPPED
+}
+
+type UserTypingNotification {
+  event: UserTypingEvent!
+  moviePublicId: String!
+  publishedAt: DateTimeISO!
+  userPublicId: String!
+  username: String!
 }
