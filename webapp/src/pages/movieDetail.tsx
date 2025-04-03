@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useContext } from 'preact/hooks';
 import { useParams } from 'react-router-dom';
-import { useQuery, useMutation, useSubscription } from 'urql';
+import { useQuery, useMutation } from 'urql';
 
 import { AuthContext } from '~/contexts/AuthContext';
 import { AddReviewForm } from '~/components/forms/AddReviewForm';
@@ -9,7 +9,6 @@ import { CloudImage } from '~/components/CloudImage';
 import { Figures } from '~/components/Figures';
 import { Nl2br } from '~/components/Nl2br';
 import { NotFound } from '~/components/NotFound';
-import { NewReviewNotification } from '~/components/NewReviewNotification';
 import { UserReviewsList } from '~/components/UserReviewsList';
 import { useDelayedLoader } from '~/hooks/useDelayedLoader';
 import { useHeroWidth } from '~/hooks/useHeroWidth';
@@ -56,21 +55,6 @@ const addReviewMutation = graphql(`
     }
   }
 `);
-const newUserReviewSubscription = graphql(`
-  subscription UserReviewsUpdates($moviePublicId: String!) {
-    userReviewAdded(moviePublicId: $moviePublicId) {
-      publishedAt
-      userReview {
-        score
-        text
-        user {
-          publicId
-          username
-        }
-      }
-    }
-  }
-`);
 
 export function MovieDetailPage() {
   const { slug } = useParams();
@@ -82,17 +66,6 @@ export function MovieDetailPage() {
   const { user } = useContext(AuthContext);
   const [{ data, fetching }] = useQuery({ query: movieQuery, variables: { slug } });
   const [, addReview] = useMutation(addReviewMutation);
-  const [newUserReviews] = useSubscription(
-    {
-      query: newUserReviewSubscription,
-      variables: { moviePublicId: data?.movie?.publicId || '' },
-      pause: data?.movie?.publicId == null,
-    },
-    (prev: any[] = [], data: { userReviewAdded: { publishedAt: string; userReview: { score: string; text: string } } }) => [
-      ...prev,
-      data.userReviewAdded,
-    ],
-  );
 
   const { renderLoader } = useDelayedLoader(fetching);
   if (fetching) {
@@ -158,13 +131,7 @@ export function MovieDetailPage() {
             </div>
           )}
 
-          <h2 className="px-2 text-3xl font-bold">User reviews</h2>
-
-          {newUserReviews?.data && newUserReviews.data.length > 0 && (
-            <NewReviewNotification notifications={newUserReviews.data} currentUserPublicId={user?.publicId} />
-          )}
-
-          <UserReviewsList userReviews={data.movie.userReviews} />
+          <UserReviewsList movie={data.movie} currentUserPublicId={user?.publicId} />
         </div>
       </div>
     </>
