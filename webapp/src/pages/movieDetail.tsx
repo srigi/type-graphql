@@ -1,17 +1,14 @@
-import dayjs from 'dayjs';
 import { useContext } from 'preact/hooks';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from 'urql';
 
 import { AuthContext } from '~/contexts/AuthContext';
 import { AddReviewForm } from '~/components/forms/AddReviewForm';
-import { CloudImage } from '~/components/CloudImage';
 import { Figures } from '~/components/Figures';
-import { Nl2br } from '~/components/Nl2br';
 import { NotFound } from '~/components/NotFound';
+import { MovieHero } from '~/components/MovieHero';
 import { UserReviewsList } from '~/components/UserReviewsList';
 import { useDelayedLoader } from '~/hooks/useDelayedLoader';
-import { useHeroWidth } from '~/hooks/useHeroWidth';
 import { graphql } from '~gql';
 
 const movieQuery = graphql(`
@@ -62,7 +59,6 @@ export function MovieDetailPage() {
     return <NotFound />;
   }
 
-  const heroWidth = useHeroWidth();
   const { user } = useContext(AuthContext);
   const [{ data, fetching }] = useQuery({ query: movieQuery, variables: { slug } });
   const [, addReview] = useMutation(addReviewMutation);
@@ -78,23 +74,7 @@ export function MovieDetailPage() {
 
   return (
     <>
-      <div className="relative min-h-120 overflow-hidden rounded-xl">
-        {data.movie.images.length > 0 && (
-          <CloudImage className="absolute inset-0 h-full w-full object-cover" image={data.movie.images[0]} width={heroWidth} />
-        )}
-
-        <div className="absolute inset-0 grid grid-cols-2 grid-rows-[1fr_1fr_auto] gap-8 bg-gradient-to-b from-transparent to-gray-900 p-8 text-lg lg:grid-rows-2">
-          <h1 className="col-span-2 text-3xl font-bold [text-shadow:_1px_2px_5px_black] lg:col-span-1 xl:text-5xl">
-            <Nl2br text={data.movie.name} />
-          </h1>
-
-          <p className="col-span-2 self-end lg:order-4 lg:col-span-1 xl:text-xl">{data.movie.story}</p>
-
-          <strong className="self-end lg:order-3">{dayjs(data.movie.releasedIn).format('YYYY')}</strong>
-
-          <data className="self-end justify-self-end lg:order-2 lg:self-start lg:justify-self-end">{data.movie.avgScore}&nbsp;⭐️</data>
-        </div>
-      </div>
+      <MovieHero movie={data.movie} />
 
       <div className="flex flex-col gap-16 pt-8 lg:flex-row lg:gap-4">
         <div className="flex-1/3 px-8 text-xl lg:pr-0">
