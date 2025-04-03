@@ -51,7 +51,6 @@ export function MovieDetailPage() {
 
   const { user } = useContext(AuthContext);
   const [{ data, fetching }] = useQuery({ query: movieQuery, variables: { slug } });
-
   const { renderLoader } = useDelayedLoader(fetching);
   if (fetching) {
     return renderLoader();
@@ -71,15 +70,16 @@ export function MovieDetailPage() {
         </div>
 
         <div className="flex flex-2/3 flex-col gap-4">
-          <h2 className="px-2 text-3xl font-bold">Add your review</h2>
-
           {user ? (
             data.movie.userReviews.some((review) => review.user?.publicId === user?.publicId) ? (
               <div className="rounded-xl bg-gray-700 p-4 text-center">
                 <p className="text-lg">You have already reviewed this movie.</p>
               </div>
             ) : (
-              <AddReviewForm moviePublicId={data.movie.publicId} />
+              <>
+                <h2 className="px-2 text-3xl font-bold">Add your review</h2>
+                <AddReviewForm moviePublicId={data.movie.publicId} />
+              </>
             )
           ) : (
             <div className="rounded-xl bg-gray-700 p-4 text-center">
