@@ -1,13 +1,8 @@
 import { Field, ObjectType } from 'type-graphql';
 
-import { Movie } from '~/Movie/Movie';
-import { UserReview } from './UserReview';
+import { UserReview } from '~/UserReview/UserReview';
 
-export const enum Topic {
-  NOTIFICATIONS = 'NOTIFICATIONS',
-}
-
-export interface NotificationPayload {
+export interface UserReviewNotificationPayload {
   publishedAt: Date;
   userReview: UserReview;
 }
