@@ -1,18 +1,50 @@
 import { Fragment, useState } from 'preact/compat';
+import { useMutation } from 'urql';
+
+import { AddReviewMutation } from '~gql/graphql';
+import { graphql } from '~gql';
+
+const addReviewMutation = graphql(`
+  mutation AddReview($userReview: AddReviewInput!) {
+    addReview(userReview: $userReview) {
+      publicId
+      score
+      text
+      createdAt
+      user {
+        publicId
+        username
+      }
+    }
+  }
+`);
 
 type AddReviewFormProps = {
-  onSubmit?: (review: { text: string; score: number }) => void;
+  moviePublicId: string;
+  onSubmitted?: (newReview: AddReviewMutation['addReview']) => void;
 };
 
-export function AddReviewForm({ onSubmit }: AddReviewFormProps) {
+export function AddReviewForm({ moviePublicId, onSubmitted }: AddReviewFormProps) {
   const [newReview, setNewReview] = useState({ text: '', score: 0 });
   const isFormValid = newReview.text.trim() !== '' && newReview.score >= 1;
+
+  const [, addReview] = useMutation(addReviewMutation);
+  const [, userTyping] = useMutation(userTypingMutation);
 
   function handleSubmit(e: Event) {
     e.preventDefault();
 
-    if (onSubmit && isFormValid) {
-      onSubmit(newReview);
+    if (isFormValid) {
+      addReview({
+        userReview: {
+          moviePublicId: moviePublicId,
+          text: newReview.text,
+          score: `${newReview.score}`,
+        },
+      }).then((res) => {
+        setNewReview({ text: '', score: 0 }); // clear the form after submission
+        if (res.data?.addReview != null && onSubmitted != null) onSubmitted(res.data.addReview);
+      });
     }
   }
 
@@ -46,6 +78,7 @@ export function AddReviewForm({ onSubmit }: AddReviewFormProps) {
         placeholder="Write your review..."
         value={newReview.text}
         onChange={(ev) => setNewReview({ ...newReview, text: ev.currentTarget.value })}
+        onKeyDown={handleTyping}
       />
 
       <button

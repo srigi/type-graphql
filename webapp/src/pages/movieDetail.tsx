@@ -1,6 +1,6 @@
 import { useContext } from 'preact/hooks';
 import { useParams } from 'react-router-dom';
-import { useQuery, useMutation } from 'urql';
+import { useQuery } from 'urql';
 
 import { AuthContext } from '~/contexts/AuthContext';
 import { AddReviewForm } from '~/components/forms/AddReviewForm';
@@ -42,16 +42,6 @@ const movieQuery = graphql(`
     }
   }
 `);
-const addReviewMutation = graphql(`
-  mutation AddReview($userReview: AddReviewInput!) {
-    addReview(userReview: $userReview) {
-      publicId
-      score
-      text
-      createdAt
-    }
-  }
-`);
 
 export function MovieDetailPage() {
   const { slug } = useParams();
@@ -61,7 +51,6 @@ export function MovieDetailPage() {
 
   const { user } = useContext(AuthContext);
   const [{ data, fetching }] = useQuery({ query: movieQuery, variables: { slug } });
-  const [, addReview] = useMutation(addReviewMutation);
 
   const { renderLoader } = useDelayedLoader(fetching);
   if (fetching) {
@@ -90,19 +79,7 @@ export function MovieDetailPage() {
                 <p className="text-lg">You have already reviewed this movie.</p>
               </div>
             ) : (
-              <AddReviewForm
-                onSubmit={(review) => {
-                  if (data?.movie) {
-                    addReview({
-                      userReview: {
-                        moviePublicId: data.movie.publicId,
-                        text: review.text,
-                        score: `${review.score}`,
-                      },
-                    });
-                  }
-                }}
-              />
+              <AddReviewForm moviePublicId={data.movie.publicId} />
             )
           ) : (
             <div className="rounded-xl bg-gray-700 p-4 text-center">
