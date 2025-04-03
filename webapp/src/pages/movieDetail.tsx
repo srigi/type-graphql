@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { useContext } from 'preact/hooks';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useSubscription } from 'urql';
 
 import { AuthContext } from '~/contexts/AuthContext';
@@ -10,6 +10,7 @@ import { Figures } from '~/components/Figures';
 import { Nl2br } from '~/components/Nl2br';
 import { NotFound } from '~/components/NotFound';
 import { NewReviewNotification } from '~/components/NewReviewNotification';
+import { UserReviewsList } from '~/components/UserReviewsList';
 import { useDelayedLoader } from '~/hooks/useDelayedLoader';
 import { useHeroWidth } from '~/hooks/useHeroWidth';
 import { graphql } from '~gql';
@@ -163,20 +164,7 @@ export function MovieDetailPage() {
             <NewReviewNotification notifications={newUserReviews.data} currentUserPublicId={user?.publicId} />
           )}
 
-          <ul className="flex flex-1 flex-col gap-4">
-            {data.movie.userReviews.map((r) => (
-              <li key={r.publicId} className="-p4 flex flex-col gap-4 rounded-xl bg-gray-700 p-4">
-                <header className="flex justify-between gap-4">
-                  <Link to={`/user/${r.user.publicId}`}>
-                    <strong>{r.user.username}</strong>
-                  </Link>
-                  <span>{dayjs(r.createdAt).format('D.M.YYYY')}</span>
-                </header>
-                <data value={r.score}>{r.score}&nbsp;⭐️</data>
-                <p>{r.text}</p>
-              </li>
-            ))}
-          </ul>
+          <UserReviewsList userReviews={data.movie.userReviews} />
         </div>
       </div>
     </>
