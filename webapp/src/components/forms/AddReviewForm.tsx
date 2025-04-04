@@ -1,14 +1,10 @@
-import { Fragment, useState, useRef, useEffect } from 'preact/compat';
+import { Fragment, useState } from 'preact/compat';
 import { useMutation } from 'urql';
 
-import { AddReviewMutation, UserTypingEvent } from '~gql/graphql';
+import { AddReviewMutation } from '~gql/graphql';
+import { useTypingNotification } from '~/hooks/useTypingNotification';
 import { graphql } from '~gql';
 
-const userTypingMutation = graphql(`
-  mutation UserTyping($moviePublicId: String!, $event: UserTypingEvent!) {
-    userTyping(moviePublicId: $moviePublicId, event: $event)
-  }
-`);
 const addReviewMutation = graphql(`
   mutation AddReview($userReview: AddReviewInput!) {
     addReview(userReview: $userReview) {
@@ -31,45 +27,9 @@ type AddReviewFormProps = {
 
 export function AddReviewForm({ moviePublicId, onSubmitted }: AddReviewFormProps) {
   const [newReview, setNewReview] = useState({ text: '', score: 0 });
-  const [isTyping, setIsTyping] = useState(false);
-  const typingTimeoutRef = useRef<number | null>(null);
   const isFormValid = newReview.text.trim() !== '' && newReview.score >= 1;
-
+  const handleTyping = useTypingNotification(moviePublicId);
   const [, addReview] = useMutation(addReviewMutation);
-  const [, userTyping] = useMutation(userTypingMutation);
-
-  // Clear typing timeout when component unmounts
-  useEffect(() => {
-    return () => {
-      if (typingTimeoutRef.current) {
-        window.clearTimeout(typingTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  function handleTyping(ev: Event) {
-    const event = ev as KeyboardEvent;
-    // Ignore whitespace and meta keys
-    if (event.key === ' ' || event.metaKey || event.ctrlKey || event.altKey) {
-      return;
-    }
-
-    if (!isTyping) {
-      setIsTyping(true);
-      userTyping({ moviePublicId, event: UserTypingEvent.Started });
-    }
-
-    // Reset the timeout on each keystroke
-    if (typingTimeoutRef.current) {
-      window.clearTimeout(typingTimeoutRef.current);
-    }
-
-    // Set a timeout to detect when user stops typing
-    typingTimeoutRef.current = window.setTimeout(() => {
-      setIsTyping(false);
-      userTyping({ moviePublicId, event: UserTypingEvent.Stopped });
-    }, 10000); // inactivity timeout to be considered "stopped typing"
-  }
 
   function handleSubmit(e: Event) {
     e.preventDefault();
