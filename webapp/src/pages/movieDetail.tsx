@@ -50,7 +50,7 @@ export function MovieDetailPage() {
   }
 
   const { user } = useContext(AuthContext);
-  const [{ data, fetching }] = useQuery({ query: movieQuery, variables: { slug } });
+  const [{ data, fetching }, refetch] = useQuery({ query: movieQuery, variables: { slug } });
   const { renderLoader } = useDelayedLoader(fetching);
   if (fetching) {
     return renderLoader();
@@ -78,7 +78,7 @@ export function MovieDetailPage() {
             ) : (
               <>
                 <h2 className="px-2 text-3xl font-bold">Add your review</h2>
-                <AddReviewForm moviePublicId={data.movie.publicId} />
+                <AddReviewForm moviePublicId={data.movie.publicId} onSubmitted={() => refetch({ requestPolicy: 'cache-and-network' })} />
               </>
             )
           ) : (
