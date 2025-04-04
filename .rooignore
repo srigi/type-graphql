@@ -2,9 +2,8 @@
 .bruno
 .vscode
 api/.data
-api/.out
 api/node_modules
-api/prisma/client
+api/prisma/client/**/*.js
 my_resources
 node_modules
 webapp/.dist
