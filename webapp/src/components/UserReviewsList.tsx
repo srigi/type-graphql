@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useEffect, useState } from 'preact/hooks';
 import { Link } from 'react-router-dom';
 import { useSubscription } from 'urql';
 
@@ -36,6 +37,7 @@ type Props = {
 };
 
 export function UserReviewsList({ movie: { publicId: moviePublicId, userReviews }, currentUserPublicId }: Props) {
+  const [typingUsers, setTypingUsers] = useState<string[]>([]);
   const [userReviewTypingEvents] = useSubscription(
     {
       query: userReviewTypingSubscription,
@@ -45,6 +47,7 @@ export function UserReviewsList({ movie: { publicId: moviePublicId, userReviews 
     },
     (prev: any[] = [], data: { userTypingUpdates: UserTypingNotification }) => [...prev, data.userTypingUpdates],
   );
+  const rawTypingEvents: UserTypingNotification[] = userReviewTypingEvents?.data || [];
   const [newUserReviews] = useSubscription(
     {
       query: newUserReviewSubscription,
@@ -54,15 +57,26 @@ export function UserReviewsList({ movie: { publicId: moviePublicId, userReviews 
     (prev: any[] = [], data: { userReviewAdded: UserReviewNotification }) => [...prev, data.userReviewAdded],
   );
 
-  // Determine which users are currently typing
-  const rawTypingEvents: UserTypingNotification[] = userReviewTypingEvents?.data || [];
-  const latestEventsByUser: Record<string, UserTypingNotification> = {};
-  for (const event of rawTypingEvents) {
-    latestEventsByUser[event.username] = event; // keep overwriting with newer events for the same user
-  }
-  const typingUsers = Object.values(latestEventsByUser)
-    .filter((event) => event.event === 'STARTED')
-    .map((event) => event.username); // get just the usernames
+  useEffect(() => {
+    const newTypingUsers: string[] = [];
+
+    for (const event of rawTypingEvents) {
+      const { username, event: evtType } = event;
+
+      if (evtType === 'STARTED') {
+        if (!newTypingUsers.includes(username)) {
+          newTypingUsers.push(username);
+        }
+      } else if (evtType === 'STOPPED') {
+        const idx = newTypingUsers.indexOf(username);
+        if (idx !== -1) {
+          newTypingUsers.splice(idx, 1);
+        }
+      }
+    }
+
+    setTypingUsers(newTypingUsers);
+  }, [rawTypingEvents]);
 
   return (
     <>
