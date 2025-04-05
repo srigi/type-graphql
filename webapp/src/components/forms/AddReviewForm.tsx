@@ -27,6 +27,7 @@ type AddReviewFormProps = {
 
 export function AddReviewForm({ moviePublicId, onSubmitted }: AddReviewFormProps) {
   const [newReview, setNewReview] = useState({ text: '', score: 0 });
+  const [error, setError] = useState<string | null>(null);
   const isFormValid = newReview.text.trim() !== '' && newReview.score >= 1;
   const handleTyping = useTypingNotification(moviePublicId);
   const [, addReview] = useMutation(addReviewMutation);
@@ -35,16 +36,26 @@ export function AddReviewForm({ moviePublicId, onSubmitted }: AddReviewFormProps
     e.preventDefault();
 
     if (isFormValid) {
+      setError(null);
       addReview({
         userReview: {
           moviePublicId: moviePublicId,
           text: newReview.text,
           score: `${newReview.score}`,
         },
-      }).then((res) => {
-        setNewReview({ text: '', score: 0 }); // clear the form after submission
-        if (res.data?.addReview != null && onSubmitted != null) onSubmitted(res.data.addReview);
-      });
+      })
+        .then((res) => {
+          if (res.error != null) {
+            setError(res.error.message);
+            return;
+          }
+          if (res.data?.addReview != null && onSubmitted != null) {
+            onSubmitted(res.data.addReview);
+          }
+        })
+        .catch((error) => {
+          setError(error.message || 'An unexpected error occurred');
+        });
     }
   }
 
@@ -81,15 +92,18 @@ export function AddReviewForm({ moviePublicId, onSubmitted }: AddReviewFormProps
         onKeyDown={handleTyping}
       />
 
-      <button
-        className={`self-end rounded-lg px-4 py-2 font-bold disabled:cursor-not-allowed! disabled:opacity-50 ${
-          isFormValid ? 'bg-blue-600 hover:bg-blue-700' : 'cursor-not-allowed bg-gray-500'
-        }`}
-        disabled={!isFormValid}
-        type="submit"
-      >
-        Submit Review
-      </button>
+      <section className="flex items-center justify-between pl-4">
+        {error && <p className="text-red-500">{error}</p>}
+        <button
+          className={`rounded-lg px-4 py-2 font-bold disabled:cursor-not-allowed! disabled:opacity-50 ${
+            isFormValid ? 'bg-blue-600 hover:bg-blue-700' : 'cursor-not-allowed bg-gray-500'
+          }`}
+          disabled={!isFormValid}
+          type="submit"
+        >
+          Submit Review
+        </button>
+      </section>
     </form>
   );
 }
