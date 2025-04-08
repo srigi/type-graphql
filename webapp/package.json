@@ -6,6 +6,8 @@
     "codegen": "graphql-codegen",
     "codegen:watch": "graphql-codegen --watch",
     "dev": "vite",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "tsc": "tsc -noEmit"
   },
   "dependencies": {
