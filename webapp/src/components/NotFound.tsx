@@ -6,7 +6,7 @@ export function NotFound() {
         <p className="text-3xl font-bold">
           OOPS! Something went wrong
           <br />
-          We can't find the page you're looking for.
+          We can&apos;t find the page you&apos;re looking for.
         </p>
         <a href="/" className="rounded-md bg-[#ed1e25] px-8 py-2 text-2xl font-bold">
           Back home

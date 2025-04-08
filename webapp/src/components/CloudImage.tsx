@@ -1,5 +1,3 @@
-import { forwardRef } from 'preact/compat';
-
 function computeHeight(width: number, ratio: number) {
   return Math.floor((width / ratio) * 100) / 100;
 }
