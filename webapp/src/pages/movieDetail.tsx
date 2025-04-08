@@ -44,14 +44,15 @@ const movieQuery = graphql(`
 `);
 
 export function MovieDetailPage() {
+  const { user } = useContext(AuthContext);
   const { slug } = useParams();
+  const [{ data, fetching }, refetch] = useQuery({ query: movieQuery, variables: { slug: slug || '' }, pause: slug == null });
+  const { renderLoader } = useDelayedLoader(fetching);
+
   if (slug == null) {
     return <NotFound />;
   }
 
-  const { user } = useContext(AuthContext);
-  const [{ data, fetching }, refetch] = useQuery({ query: movieQuery, variables: { slug } });
-  const { renderLoader } = useDelayedLoader(fetching);
   if (fetching) {
     return renderLoader();
   }

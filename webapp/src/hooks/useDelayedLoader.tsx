@@ -17,8 +17,10 @@ export function useDelayedLoader(isFetching: boolean, loader: VNode = <div>Loadi
     }
 
     return () => {
-      timer != null && clearTimeout(timer);
       setShowLoader(false);
+      if (timer != null) {
+        clearTimeout(timer);
+      }
     };
   }, [isFetching, delay]);
 

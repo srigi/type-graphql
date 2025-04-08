@@ -45,19 +45,19 @@ export function UserReviewsList({ movie: { publicId: moviePublicId, userReviews 
       variables: { moviePublicId: moviePublicId ?? '', userPublicId: currentUserPublicId ?? '' },
       pause: !moviePublicId || !currentUserPublicId,
     },
-    (prev: any[] = [], data: { userTypingUpdates: UserTypingNotification }) => [...prev, data.userTypingUpdates],
+    (prev: UserTypingNotification[] = [], data: { userTypingUpdates: UserTypingNotification }) => [...prev, data.userTypingUpdates],
   );
-  const rawTypingEvents: UserTypingNotification[] = userReviewTypingEvents?.data || [];
   const [newUserReviews] = useSubscription(
     {
       query: newUserReviewSubscription,
       variables: { moviePublicId },
       pause: !moviePublicId, // Pause if moviePublicId is missing
     },
-    (prev: any[] = [], data: { userReviewAdded: UserReviewNotification }) => [...prev, data.userReviewAdded],
+    (prev: UserReviewNotification[] = [], data: { userReviewAdded: UserReviewNotification }) => [...prev, data.userReviewAdded],
   );
 
   useEffect(() => {
+    const rawTypingEvents: UserTypingNotification[] = userReviewTypingEvents?.data || [];
     const newTypingUsers: string[] = [];
 
     for (const event of rawTypingEvents) {
@@ -76,7 +76,7 @@ export function UserReviewsList({ movie: { publicId: moviePublicId, userReviews 
     }
 
     setTypingUsers(newTypingUsers);
-  }, [rawTypingEvents]);
+  }, [userReviewTypingEvents?.data]);
 
   return (
     <>

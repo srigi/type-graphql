@@ -34,10 +34,10 @@ export function IndexPage() {
   const thumbnailWidth = isSmScreen ? 296 : 238;
 
   return (
-    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
       {data != null &&
         data.movies.map((movie) => (
-          <div key={movie.publicId} class="h-86 overflow-hidden rounded-xl bg-gray-700">
+          <div key={movie.publicId} className="h-86 overflow-hidden rounded-xl bg-gray-700">
             <Link className="relative flex h-full flex-col justify-between p-4 hover:underline" to={`/movie/${movie.slug}`}>
               {movie.images.length > 0 && (
                 <CloudImage className="absolute inset-0 h-full w-full object-cover" image={movie.images[0]} width={thumbnailWidth} />
