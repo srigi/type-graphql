@@ -1,6 +1,5 @@
 .aider*
 .bruno
-.vscode
 api/.data
 api/node_modules
 api/prisma/client/**/*.js
