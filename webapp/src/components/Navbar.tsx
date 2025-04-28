@@ -1,5 +1,5 @@
 import { useContext } from 'preact/hooks';
-import { useQuery, useMutation } from 'urql';
+import { useQuery, useMutation } from '@urql/preact';
 
 import { AuthContext } from '~/contexts/AuthContext';
 import { graphql } from '~gql';

@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { useState } from 'preact/hooks';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
-import { useQuery } from 'urql';
+import { useQuery } from '@urql/preact';
 
 import { CloudImage } from '~/components/CloudImage';
 import { Nl2br } from '~/components/Nl2br';

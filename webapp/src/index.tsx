@@ -1,7 +1,7 @@
 import { createClient as createSSEClient } from 'graphql-sse';
 import { render } from 'preact';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Client, Provider as UrqlProvider, cacheExchange, fetchExchange, subscriptionExchange } from 'urql';
+import { Client, Provider as UrqlProvider, cacheExchange, fetchExchange, subscriptionExchange } from '@urql/preact';
 
 import { Layout } from '~/components/Layout';
 import { NotFound } from '~/components/NotFound';

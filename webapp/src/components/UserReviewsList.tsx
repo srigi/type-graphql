@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'preact/hooks';
 import { Link } from 'react-router-dom';
-import { useSubscription } from 'urql';
+import { useSubscription } from '@urql/preact';
 
 import { NewReviewNotification } from '~/components/NewReviewNotification';
 import { MovieQuery, UserReviewNotification, UserTypingNotification } from '~gql/graphql';

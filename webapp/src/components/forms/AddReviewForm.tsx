@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'preact/compat';
-import { useMutation } from 'urql';
+import { useMutation } from '@urql/preact';
 
 import { AddReviewMutation } from '~gql/graphql';
 import { useTypingNotification } from '~/hooks/useTypingNotification';

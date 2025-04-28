@@ -1,7 +1,7 @@
 import { createContext } from 'preact';
 import type { JSX } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
-import { useQuery } from 'urql';
+import { useQuery } from '@urql/preact';
 
 import { graphql } from '~gql';
 

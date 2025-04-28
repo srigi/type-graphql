@@ -1,6 +1,6 @@
 import { useContext } from 'preact/hooks';
 import { useParams } from 'react-router-dom';
-import { useQuery } from 'urql';
+import { useQuery } from '@urql/preact';
 
 import { AuthContext } from '~/contexts/AuthContext';
 import { AddReviewForm } from '~/components/forms/AddReviewForm';

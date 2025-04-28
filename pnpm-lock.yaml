@@ -99,6 +99,9 @@ importers:
 
   webapp:
     dependencies:
+      '@urql/preact':
+        specifier: ~4.1
+        version: 4.1.2(@urql/core@5.1.1(graphql@16.11.0))(preact@10.26.5)
       dayjs:
         specifier: ~1.11
         version: 1.11.13
@@ -114,9 +117,6 @@ importers:
       react-router-dom:
         specifier: ~7.5
         version: 7.5.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      urql:
-        specifier: ~4.2
-        version: 4.2.2(@urql/core@5.1.1(graphql@16.11.0))(react@19.1.0)
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ~5.0
@@ -1214,6 +1214,12 @@ packages:
 
   '@urql/core@5.1.1':
     resolution: {integrity: sha512-aGh024z5v2oINGD/In6rAtVKTm4VmQ2TxKQBAtk2ZSME5dunZFcjltw4p5ENQg+5CBhZ3FHMzl0Oa+rwqiWqlg==}
+
+  '@urql/preact@4.1.2':
+    resolution: {integrity: sha512-aFV+TFipAlM4IsEgjJFMghqIPQ/FkSDd+xqYNBHnC7fZghPu8Kzv+EfE/8wzowt8YkzItKrFA2sfKvLVJa47AA==}
+    peerDependencies:
+      '@urql/core': ^5.0.0
+      preact: '>= 10.0.0'
 
   '@whatwg-node/cookie-store@0.2.3':
     resolution: {integrity: sha512-LPDv38Hv+RrVA8o7x4YOjQx4qhqOs3Lm8aPTsPrQCUF3MxXEUBEYcUqD5wRTaTxzQEd7ZXbDEnXBLDECFoOfjg==}
@@ -3247,12 +3253,6 @@ packages:
   urlpattern-polyfill@10.0.0:
     resolution: {integrity: sha512-H/A06tKD7sS1O1X2SshBVeA5FLycRpjqiBeqGKmBwBDBy28EnRjORxTNe269KSSr5un5qyWi1iL61wLxpd+ZOg==}
 
-  urql@4.2.2:
-    resolution: {integrity: sha512-3GgqNa6iF7bC4hY/ImJKN4REQILcSU9VKcKL8gfELZM8mM5BnLH1BsCc8kBdnVGD1LIFOs4W3O2idNHhON1r0w==}
-    peerDependencies:
-      '@urql/core': ^5.0.0
-      react: '>= 16.8.0'
-
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
@@ -4630,6 +4630,12 @@ snapshots:
       wonka: 6.3.5
     transitivePeerDependencies:
       - graphql
+
+  '@urql/preact@4.1.2(@urql/core@5.1.1(graphql@16.11.0))(preact@10.26.5)':
+    dependencies:
+      '@urql/core': 5.1.1(graphql@16.11.0)
+      preact: 10.26.5
+      wonka: 6.3.5
 
   '@whatwg-node/cookie-store@0.2.3':
     dependencies:
@@ -6874,12 +6880,6 @@ snapshots:
       punycode: 2.3.1
 
   urlpattern-polyfill@10.0.0: {}
-
-  urql@4.2.2(@urql/core@5.1.1(graphql@16.11.0))(react@19.1.0):
-    dependencies:
-      '@urql/core': 5.1.1(graphql@16.11.0)
-      react: 19.1.0
-      wonka: 6.3.5
 
   util-deprecate@1.0.2: {}
 

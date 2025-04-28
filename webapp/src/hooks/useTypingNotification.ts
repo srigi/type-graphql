@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'preact/compat';
-import { useMutation } from 'urql';
+import { useMutation } from '@urql/preact';
 
 import { UserTypingEvent } from '~gql/graphql';
 import { graphql } from '~gql';
