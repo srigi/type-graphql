@@ -1,5 +1,5 @@
 import { useContext } from 'preact/hooks';
-import { useParams } from 'react-router-dom';
+import { useRoute } from 'preact-iso';
 import { useQuery } from '@urql/preact';
 
 import { AuthContext } from '~/contexts/AuthContext';
@@ -45,11 +45,11 @@ const movieQuery = graphql(`
 
 export function MovieDetailPage() {
   const { user } = useContext(AuthContext);
-  const { slug } = useParams();
-  const [{ data, fetching }, refetch] = useQuery({ query: movieQuery, variables: { slug: slug || '' }, pause: slug == null });
+  const { params } = useRoute();
+  const [{ data, fetching }, refetch] = useQuery({ query: movieQuery, variables: { slug: params.slug || '' }, pause: params.slug == null });
   const { renderLoader } = useDelayedLoader(fetching);
 
-  if (slug == null) {
+  if (params.slug == null) {
     return <NotFound />;
   }
 

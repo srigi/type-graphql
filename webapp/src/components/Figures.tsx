@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 interface Figure {
   name: string;
   role: string;
@@ -64,7 +62,7 @@ export function Figures({ movieFigures }: FiguresProps) {
             {assignments.actors.map((a, idx) => (
               <span key={idx}>
                 <strong>
-                  <Link to={`/figure/${a.slug}`}>{a.name}</Link>
+                  <a href={`/figure/${a.slug}`}>{a.name}</a>
                 </strong>
                 {idx !== assignments.actors.length - 1 && ', '}
               </span>

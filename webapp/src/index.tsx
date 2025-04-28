@@ -1,6 +1,6 @@
 import { createClient as createSSEClient } from 'graphql-sse';
 import { render } from 'preact';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ErrorBoundary, LocationProvider, Router, Route } from 'preact-iso';
 import { Client, Provider as UrqlProvider, cacheExchange, fetchExchange, subscriptionExchange } from '@urql/preact';
 
 import { Layout } from '~/components/Layout';
@@ -30,15 +30,17 @@ const client = new Client({
 
 render(
   <UrqlProvider value={client}>
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/movie/:slug" element={<MovieDetailPage />} />
-          <Route path="/movie" element={<NotFound />} />
-          <Route path="/" element={<IndexPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <LocationProvider>
+      <ErrorBoundary>
+        <Layout>
+          <Router>
+            <Route path="/movie/:slug" component={MovieDetailPage} />
+            <Route path="/" component={IndexPage} />
+            <Route default component={NotFound} />
+          </Router>
+        </Layout>
+      </ErrorBoundary>
+    </LocationProvider>
   </UrqlProvider>,
   document.getElementById('app')!,
 );

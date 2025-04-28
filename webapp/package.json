@@ -15,8 +15,8 @@
     "dayjs": "~1.11",
     "graphql-sse": "~2.5",
     "preact": "~10.26",
-    "react-responsive": "~10.0",
-    "react-router-dom": "~7.5"
+    "preact-iso": "~2.9",
+    "react-responsive": "~10.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "~5.0",

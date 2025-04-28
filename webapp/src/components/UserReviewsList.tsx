@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'preact/hooks';
-import { Link } from 'react-router-dom';
 import { useSubscription } from '@urql/preact';
 
 import { NewReviewNotification } from '~/components/NewReviewNotification';
@@ -102,9 +101,9 @@ export function UserReviewsList({ movie: { publicId: moviePublicId, userReviews 
           {userReviews.map((r) => (
             <li key={r.publicId} className="-p4 flex flex-col gap-4 rounded-xl bg-gray-700 p-4">
               <header className="flex justify-between gap-4">
-                <Link to={`/user/${r.user.publicId}`}>
+                <a href={`/user/${r.user.publicId}`}>
                   <strong>{r.user.username}</strong>
-                </Link>
+                </a>
                 <span>{dayjs(r.createdAt).format('D.M.YYYY')}</span>
               </header>
               <data value={r.score}>{r.score}&nbsp;⭐️</data>

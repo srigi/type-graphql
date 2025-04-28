@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import { useState } from 'preact/hooks';
 import { useMediaQuery } from 'react-responsive';
-import { Link } from 'react-router-dom';
 import { useQuery } from '@urql/preact';
 
 import { CloudImage } from '~/components/CloudImage';
@@ -38,7 +37,7 @@ export function IndexPage() {
       {data != null &&
         data.movies.map((movie) => (
           <div key={movie.publicId} className="h-86 overflow-hidden rounded-xl bg-gray-700">
-            <Link className="relative flex h-full flex-col justify-between p-4 hover:underline" to={`/movie/${movie.slug}`}>
+            <a className="relative flex h-full flex-col justify-between p-4 hover:underline" href={`/movie/${movie.slug}`}>
               {movie.images.length > 0 && (
                 <CloudImage className="absolute inset-0 h-full w-full object-cover" image={movie.images[0]} width={thumbnailWidth} />
               )}
@@ -51,7 +50,7 @@ export function IndexPage() {
                   <data value={movie.avgScore}>{movie.avgScore}&nbsp;⭐️</data>
                 </section>
               </div>
-            </Link>
+            </a>
           </div>
         ))}
     </div>
