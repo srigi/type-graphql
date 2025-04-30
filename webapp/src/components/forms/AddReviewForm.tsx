@@ -1,7 +1,8 @@
-import { Fragment, useState } from 'preact/compat';
+import { useState } from 'preact/compat';
 import { useMutation } from '@urql/preact';
 
 import { AddReviewMutation } from '~gql/graphql';
+import { StarRatingItem } from '~/components/StarRatingItem';
 import { useTypingNotification } from '~/hooks/useTypingNotification';
 import { graphql } from '~gql';
 
@@ -62,25 +63,9 @@ export function AddReviewForm({ moviePublicId, onSubmitted }: AddReviewFormProps
   return (
     <form className="flex flex-col gap-4 rounded-xl bg-gray-700 p-4" onSubmit={handleSubmit}>
       <div className="flex justify-end gap-2 text-xl">
-        {[...Array(10)].map((_, idx) => {
-          const val = idx + 1;
-          return (
-            <Fragment key={idx}>
-              <input
-                type="checkbox"
-                id={`star${val}`}
-                name="rating"
-                value={val}
-                className="hidden"
-                checked={newReview.score === val}
-                onChange={() => setNewReview({ ...newReview, score: val })}
-              />
-              <label htmlFor={`star${val}`} className="cursor-pointer text-[#ffd700]">
-                {newReview.score >= val ? '★' : '☆'}
-              </label>
-            </Fragment>
-          );
-        })}
+        {[...Array(10)].map((_, idx) => (
+          <StarRatingItem key={idx} val={idx + 1} score={newReview.score} onChange={(score) => setNewReview({ ...newReview, score })} />
+        ))}
       </div>
 
       <textarea
