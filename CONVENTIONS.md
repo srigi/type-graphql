@@ -1,10 +1,13 @@
 # type-graphql
 
-- this is a monorepo project managed by pnpm
+This is a monorepo project managed by pnpm
+
+## PNPM
+
 - there are two packages: api, webapp
-- to run NPM script of the package from the root of the project use syntax `pnpm api <script>` or `pnpm webapp <script>`
-- don't attempt to start services of api or webapp!
-- you can check if TypeScript sources compiles by running `tsc` NPM script in the package(s)
+- always run NPM scripts from the root of the project
+- run package's specific NPM script using syntax `pnpm api <script>` or `pnpm webapp <script>`
+- both packages supports `tsc` NPM script to do scoped typecheck
 
 ## api
 
@@ -15,6 +18,13 @@
 - you can regenerate the Prisma client by running `prisma generate` NPM script
 - find/generate any GraphQL resolver in `src/<MODEL>/resolvers`
 - if not sure, look at the existing code for the structure of the api code
+- try to use aliased imports primarily. The definition of TypeScript import aliases is (note it is relative to `<project_root>/api` folder):
+  ```json
+  "paths": {
+    "~/*": ["./src/*"],
+    "~prisma/*": ["./prisma/*"]
+  },
+  ```
 
 ## webapp
 
@@ -51,3 +61,13 @@
 - find/generate any Preact component in `src/components`
 - find/generate React-router page in `src/pages`
 - if not sure, look at the existing code for the structure of the webapp code
+- try to use aliased imports primarily. The definition of TypeScript import aliases is (note it is relative to `<project_root>/webapp` folder):
+  ```json
+  "paths": {
+    "react": ["./node_modules/preact/compat/"],
+    "react-dom": ["./node_modules/preact/compat/"],
+    "~gql": ["./src/.gql/"],
+    "~gql/*": ["./src/.gql/*"],
+    "~/*": ["./src/*"]
+  },
+  ```
