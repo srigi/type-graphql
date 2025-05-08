@@ -1,10 +1,13 @@
 # type-graphql
 
-- this is a monorepo project managed by pnpm
+This is a monorepo project managed by pnpm
+
+## PNPM
+
 - there are two packages: api, webapp
-- to run NPM script of the package from the root of the project use syntax `pnpm api <script>` or `pnpm webapp <script>`
-- don't attempt to start services of api or webapp!
-- you can check if TypeScript sources compiles by running `tsc` NPM script in the package(s)
+- always run NPM scripts from the root of the project
+- run package's specific NPM script using syntax `pnpm api <script>` or `pnpm webapp <script>`
+- both packages supports `tsc` NPM script to do scoped typecheck
 
 ## api
 
