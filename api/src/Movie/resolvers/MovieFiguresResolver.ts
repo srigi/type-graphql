@@ -4,7 +4,7 @@ import { prisma } from '~/lib/db';
 import { Movie } from '../Movie';
 import { MovieFigure } from '../MovieFigure';
 
-@Resolver(Movie)
+@Resolver(MovieFigure)
 export class MovieFiguresResolver {
   @FieldResolver((returns) => [MovieFigure])
   async figures(@Root() movie: Movie): Promise<MovieFigure[]> {

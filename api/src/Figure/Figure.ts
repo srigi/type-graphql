@@ -1,5 +1,7 @@
 import { Field, ObjectType } from 'type-graphql';
 
+import { FigureMovie } from './FigureMovie';
+
 @ObjectType('Figure')
 export class Figure {
   @Field((type) => String)
@@ -16,4 +18,7 @@ export class Figure {
 
   @Field((type) => String)
   country!: string;
+
+  @Field((type) => [FigureMovie], { nullable: true })
+  movies?: FigureMovie[];
 }
