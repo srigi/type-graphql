@@ -27,10 +27,24 @@ scalar Decimal
 type Figure {
   birthday: String!
   country: String!
+  movies(orderBy: String): [FigureMovie!]
   name: String!
   publicId: String!
+  slug: String!
+}
+
+type FigureMovie {
+  _count: MovieCounters
+  avgScore: Decimal!
+  figures: [MovieFigure!]!
+  images(role: String!): [CloudImage!]!
+  name: String!
+  publicId: ID!
+  releasedIn: String!
   role: String!
   slug: String!
+  story: String!
+  userReviews: [UserReview!]!
 }
 
 type Movie {
@@ -53,7 +67,7 @@ type MovieCounters {
 type MovieFigure {
   birthday: String!
   country: String!
-  movies: [Movie!]
+  movies(orderBy: String): [FigureMovie!]
   name: String!
   publicId: String!
   role: String!
@@ -68,6 +82,7 @@ type Mutation {
 }
 
 type Query {
+  figure(publicId: String, slug: String): Figure
   movie(publicId: String, slug: String): Movie
   movies(skip: Int! = 0, take: Int! = 25): [Movie!]!
   users(skip: Int! = 0, take: Int! = 25): [User!]!

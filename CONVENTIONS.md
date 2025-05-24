@@ -25,6 +25,31 @@ This is a monorepo project managed by pnpm
     "~prisma/*": ["./prisma/*"]
   },
   ```
+- if using any TypeScript decorators (in resolvers for example), always use long variant that explicitly declares the type:
+
+  - do:
+
+  ```ts
+  @Args(() => OrderByArgs) { orderBy }: OrderByArgs = {},
+  ```
+
+  - don't:
+
+  ```ts
+  @Args() { orderBy }: OrderByArgs = {},
+  ```
+
+- when implementing orderBy parameters, validate that the direction is either 'asc' or 'desc' (lowercase):
+  ```ts
+  if (orderBy) {
+    const [field, direction] = orderBy.split('.');
+    if (direction !== 'asc' && direction !== 'desc') {
+      throw new ArgumentValidationError([
+        { property: 'orderBy', constraints: { enum: `Direction must be either asc or desc, but received ${direction}` } },
+      ]);
+    }
+  }
+  ```
 
 ## webapp
 

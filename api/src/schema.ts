@@ -7,6 +7,8 @@ import { authChecker } from '~/Auth/authChecker';
 import { SignInResolver } from '~/Auth/resolvers/SignInResolver';
 import { SignOutResolver } from '~/Auth/resolvers/SignOutResolver';
 import { WhoamiResolver } from '~/Auth/resolvers/WhoamiResolver';
+import { FigureResolver } from '~/Figure/resolvers/FigureResolver';
+import { FigureMoviesResolver } from '~/Figure/resolvers/FigureMoviesResolver';
 import { MovieResolver } from '~/Movie/resolvers/MovieResolver';
 import { MovieFiguresResolver } from '~/Movie/resolvers/MovieFiguresResolver';
 import { MovieImageResolver } from '~/Movie/resolvers/MovieImageResolver';
@@ -25,6 +27,8 @@ async function createSchema() {
       SignInResolver,
       SignOutResolver,
       WhoamiResolver,
+      FigureResolver,
+      FigureMoviesResolver,
       MovieResolver,
       MovieFiguresResolver,
       MovieImageResolver,
