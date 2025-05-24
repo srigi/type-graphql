@@ -36,7 +36,7 @@ type Figure {
 type Movie {
   _count: MovieCounters
   avgScore: Decimal!
-  figures: [Figure!]!
+  figures: [MovieFigure!]!
   images(role: String!): [CloudImage!]!
   name: String!
   publicId: ID!
@@ -48,6 +48,16 @@ type Movie {
 
 type MovieCounters {
   userReviews: Int!
+}
+
+type MovieFigure {
+  birthday: String!
+  country: String!
+  movies: [Movie!]
+  name: String!
+  publicId: String!
+  role: String!
+  slug: String!
 }
 
 type Mutation {

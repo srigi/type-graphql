@@ -1,13 +1,13 @@
 import { FieldResolver, Resolver, Root } from 'type-graphql';
 
 import { prisma } from '~/lib/db';
-import { Figure } from '~/Figure/Figure';
 import { Movie } from '../Movie';
+import { MovieFigure } from '../MovieFigure';
 
 @Resolver(Movie)
 export class MovieFiguresResolver {
-  @FieldResolver((returns) => [Figure])
-  async figures(@Root() movie: Movie): Promise<Figure[]> {
+  @FieldResolver((returns) => [MovieFigure])
+  async figures(@Root() movie: Movie): Promise<MovieFigure[]> {
     const figures = await prisma.figure.findMany({
       where: {
         movieFigure: {

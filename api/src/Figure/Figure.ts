@@ -16,7 +16,4 @@ export class Figure {
 
   @Field((type) => String)
   country!: string;
-
-  @Field((type) => String)
-  role!: string;
 }
