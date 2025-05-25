@@ -1,7 +1,7 @@
 import { ArgsType, Field } from 'type-graphql';
 
 @ArgsType()
-export class FindMovieArgs {
+export class FindByIdentifierArgs {
   @Field((type) => String, { nullable: true })
   publicId?: string;
 

@@ -1,27 +1,24 @@
 import type { GraphQLResolveInfo } from 'graphql';
-import { Args, ArgumentValidationError, Info, Query, Resolver } from 'type-graphql';
+import { Args, Info, Query, Resolver } from 'type-graphql';
 
 import { prisma } from '~/lib/db';
+import { FindByIdentifierArgs } from '~/common/args/FindByIdentifier';
+import { validateAndSelectIdentifier } from '~/common/validators/args';
+import { validateEntityFound } from '~/common/validators/entities';
 import { Figure } from '../Figure';
-import { FindFigureArgs } from '../args/FindFigure';
 
 @Resolver(Figure)
 export class FigureResolver {
   @Query((returns) => Figure, { nullable: true })
-  async figure(@Args(() => FindFigureArgs) { publicId, slug }: FindFigureArgs, @Info() info: GraphQLResolveInfo): Promise<Figure | undefined> {
-    if (!publicId && !slug) {
-      throw new ArgumentValidationError([{ property: 'slug', constraints: { presence: 'Either a slug or publicId must be provided' } }]);
-    }
+  async figure(@Args(() => FindByIdentifierArgs) args: FindByIdentifierArgs, @Info() info: GraphQLResolveInfo): Promise<Figure | undefined> {
+    const condition = validateAndSelectIdentifier(args);
 
-    const condition = slug ? { slug } : { publicId };
     const figure = await prisma.figure.findUnique({
       omit: { id: true },
       where: condition,
     });
-    if (figure == null) {
-      throw new ArgumentValidationError([{ property: JSON.stringify(condition), constraints: { presence: 'Figure not found' } }]);
-    }
 
+    validateEntityFound(figure, condition, 'Figure');
     return figure;
   }
 }

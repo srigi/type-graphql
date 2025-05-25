@@ -1,11 +1,13 @@
 import type { GraphQLResolveInfo } from 'graphql';
-import { Args, ArgumentValidationError, Info, Query, Resolver } from 'type-graphql';
+import { Args, Info, Query, Resolver } from 'type-graphql';
 
 import { prisma } from '~/lib/db';
 import { transformCountFieldIntoSelectRelationsCount, transformInfoIntoPrismaArgs } from '~/lib/gqlHelpers';
 import { RangeArgs } from '~/common/args/Range';
+import { FindByIdentifierArgs } from '~/common/args/FindByIdentifier';
+import { validateAndSelectIdentifier } from '~/common/validators/args';
+import { validateEntityFound } from '~/common/validators/entities';
 import { Movie } from '../Movie';
-import { FindMovieArgs } from '../args/FindMovie';
 
 @Resolver(Movie)
 export class MovieResolver {
@@ -15,21 +17,17 @@ export class MovieResolver {
   }
 
   @Query((returns) => Movie, { nullable: true })
-  async movie(@Args(() => FindMovieArgs) { publicId, slug }: FindMovieArgs, @Info() info: GraphQLResolveInfo): Promise<Movie | undefined> {
-    if (!publicId && !slug) {
-      throw new ArgumentValidationError([{ property: 'slug', constraints: { presence: 'Either a slug or publicId must be provided' } }]);
-    }
-
+  async movie(@Args(() => FindByIdentifierArgs) args: FindByIdentifierArgs, @Info() info: GraphQLResolveInfo): Promise<Movie | undefined> {
+    const condition = validateAndSelectIdentifier(args);
     const { _count } = transformInfoIntoPrismaArgs(info);
-    const condition = slug ? { slug } : { publicId };
+
     const movie = await prisma.movie.findUnique({
       omit: { id: true },
       where: condition,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
-    if (movie == null) {
-      throw new ArgumentValidationError([{ property: JSON.stringify(condition), constraints: { presence: 'Movie not found' } }]);
-    }
+
+    validateEntityFound(movie, condition, 'Movie');
 
     return movie;
   }
