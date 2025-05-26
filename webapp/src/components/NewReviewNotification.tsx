@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'preact/hooks';
-import dayjs from 'dayjs';
+
+import { advancedDayjs } from '~/utils/dateUtils';
 
 type UserReviewNotificationData = {
   publishedAt: string;
@@ -50,7 +51,7 @@ function SingleNotification({ notification }: SingleNotificationProps) {
         <li className="flex flex-col gap-4 rounded-xl bg-gray-700 p-4 opacity-100 transition-opacity duration-300">
           <header className="flex justify-between gap-4">
             <strong>{notification.userReview.user.username}</strong>
-            <span>{dayjs(notification.publishedAt).format('D.M.YYYY')}</span>
+            <span>{advancedDayjs(notification.publishedAt).format('MMM Do, YYYY')}</span>
           </header>
           <data value={notification.userReview.score}>{notification.userReview.score}&nbsp;⭐️</data>
           <p>{notification.userReview.text}</p>

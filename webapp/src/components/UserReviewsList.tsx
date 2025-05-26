@@ -1,9 +1,9 @@
-import dayjs from 'dayjs';
-import { useEffect, useState } from 'preact/hooks';
 import { useSubscription } from '@urql/preact';
+import { useEffect, useState } from 'preact/hooks';
 
 import { NewReviewNotification } from '~/components/NewReviewNotification';
 import { MovieQuery, UserReviewNotification, UserTypingNotification } from '~gql/graphql';
+import { advancedDayjs } from '~/utils/dateUtils';
 import { graphql } from '~gql';
 
 const userReviewTypingSubscription = graphql(`
@@ -104,7 +104,7 @@ export function UserReviewsList({ movie: { publicId: moviePublicId, userReviews 
                 <a href={`/user/${r.user.publicId}`}>
                   <strong>{r.user.username}</strong>
                 </a>
-                <span>{dayjs(r.createdAt).format('D.M.YYYY')}</span>
+                <span>{advancedDayjs(r.createdAt).format('MMM Do, YYYY')}</span>
               </header>
               <data value={r.score}>{r.score}&nbsp;⭐️</data>
               <p>{r.text}</p>
