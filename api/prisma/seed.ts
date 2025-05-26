@@ -14,20 +14,31 @@ async function main() {
 
   const figures = await prisma.figure.createManyAndReturn({
     data: [
-      { publicId: 'b0Do4wLg', name: 'Frank Darabont', slug: 'frank-darabont', birthday: '1959-01-28', country: 'France' },
-      { publicId: 'aD4okL06', name: 'Roger Deakins', slug: 'roger-deakins', birthday: '1949-05-24', country: 'Great Britain' },
-      { publicId: 'nTd74fK4', name: 'Tim Robbins', slug: 'tim-robbins', birthday: '1958-10-16', country: 'USA' },
-      { publicId: 'm7G6f9jJ', name: 'Morgan Freeman', slug: 'morgan-freeman', birthday: '1937-06-01', country: 'USA' },
-      { publicId: 'LyfRxXfQ', name: 'Bob Gunton', slug: 'bob-gunton', birthday: '1945-11-15', country: 'USA' },
+      { publicId: 'b0Do4wLgH', name: 'Frank Darabont', slug: 'frank-darabont', birthday: '1959-01-28', country: 'France' },
+      { publicId: 'aD4okL06n', name: 'Roger Deakins', slug: 'roger-deakins', birthday: '1949-05-24', country: 'Great Britain' },
+      { publicId: 'nTd74fK4j', name: 'Tim Robbins', slug: 'tim-robbins', birthday: '1958-10-16', country: 'USA' },
+      { publicId: 'm7G6f9jJ4', name: 'Morgan Freeman', slug: 'morgan-freeman', birthday: '1937-06-01', country: 'USA' },
+      { publicId: 'LyfRxXfQr', name: 'Bob Gunton', slug: 'bob-gunton', birthday: '1945-11-15', country: 'USA' },
 
-      { publicId: 'Gto71N49', name: 'Lana Wachowski', slug: 'lana-wachowski', birthday: '1965-06-21', country: 'USA' },
-      { publicId: 'oPqBJ1ia', name: 'Lilly Wachowski', slug: 'lilly-wachowski', birthday: '1967-12-29', country: 'USA' },
+      { publicId: 'Gto71N49x', name: 'Lana Wachowski', slug: 'lana-wachowski', birthday: '1965-06-21', country: 'USA' },
+      { publicId: 'oPqBJ1ia5', name: 'Lilly Wachowski', slug: 'lilly-wachowski', birthday: '1967-12-29', country: 'USA' },
       { publicId: 'sIfr40gQJ', name: 'Bill Pope', slug: 'bill-pope', birthday: '1952-06-19', country: 'USA' },
       { publicId: 'Ii7IsEI68', name: 'Don Davis', slug: 'don-davis', birthday: '1957-02-04', country: 'USA' },
       { publicId: 'Y1SzGly1T', name: 'Keanu Reeves', slug: 'keanu-reeves', birthday: '1964-09-02', country: 'Lebanon' },
       { publicId: '7oQJAjr3d', name: 'Laurence Fishburne', slug: 'laurence-fishburne', birthday: '1961-07-30', country: 'USA' },
       { publicId: 'QAlObd8hT', name: 'Carrie-Anne Moss', slug: 'carrie-anne-moss', birthday: '1967-08-21', country: 'Canada' },
       { publicId: 'YTZhbTIBt', name: 'Hugo Weaving', slug: 'hugo-weaving', birthday: '1960-04-04', country: 'Niger' },
+
+      { publicId: 'P2JJO81lV', name: 'J.J. Abrams', slug: 'j-j-abrams', birthday: '1966-06-27', country: 'USA' },
+      { publicId: 'kxlVCiZBX', name: 'Dan Mindel', slug: 'dan-mindel', birthday: '1966-01-01', country: 'USA' },
+      { publicId: '5kIxWomDs', name: 'Daisy Ridley', slug: 'daisy-ridley', birthday: '1992-04-10', country: 'UK' },
+      { publicId: '8XvDlaaIP', name: 'John Boyega', slug: 'john-boyega', birthday: '1987-03-25', country: 'UK' },
+      { publicId: 'UvDlMnjLU', name: 'Oscar Isaac', slug: 'oscar-isaac', birthday: '1979-03-09', country: 'USA' },
+      { publicId: 'av1FYYgMJ', name: 'Adam Driver', slug: 'adam-driver', birthday: '1983-11-19', country: 'USA' },
+      { publicId: 'KLB1QW23V', name: 'Harrison Ford', slug: 'harrison-ford', birthday: '1942-07-13', country: 'USA' },
+      { publicId: '2Rz090WFq', name: 'Mark Hamill', slug: 'mark-hamill', birthday: '1951-09-25', country: 'USA' },
+      { publicId: 'gI0ir2gfi', name: 'Carrie Fisher', slug: 'carrie-fisher', birthday: '1956-10-21', country: 'USA' },
+      { publicId: 'nkwFIZItr', name: 'Andy Serkis', slug: 'andy-serkis', birthday: '1964-05-20', country: 'UK' },
 
       { publicId: 'TcVGxm3y8', name: 'Bradley Cooper', slug: 'bradley-cooper', birthday: '1975-01-05', country: 'USA' },
       { publicId: '8SKQ9cF69', name: 'Clint Eastwood', slug: 'clint-eastwood', birthday: '1930-05-31', country: 'USA' },
@@ -139,17 +150,28 @@ The Force Awakens`,
       { movieId: 2, figureId: 12, role: 'supporting character' }, // The Matrix / Carrie-Anne Moss
       { movieId: 2, figureId: 13, role: 'supporting character' }, // The Matrix / Hugo Weaving
 
-      { movieId: 5, figureId: 14, role: 'main character' }, // Silver Linings Playbook / Bradley Cooper
+      { movieId: 4, figureId: 14, role: 'director' }, // Star Wars: Episode VII / J.J. Abrams
+      { movieId: 4, figureId: 15, role: 'director of photography' }, // Star Wars: Episode VII / Dan Mindel
+      { movieId: 4, figureId: 16, role: 'main character' }, // Star Wars: Episode VII / Daisy Ridley (Rey)
+      { movieId: 4, figureId: 17, role: 'main character' }, // Star Wars: Episode VII / John Boyega (Finn)
+      { movieId: 4, figureId: 18, role: 'main character' }, // Star Wars: Episode VII / Oscar Isaac (Poe Dameron)
+      { movieId: 4, figureId: 19, role: 'main character' }, // Star Wars: Episode VII / Adam Driver (Kylo Ren)
+      { movieId: 4, figureId: 20, role: 'supporting character' }, // Star Wars: Episode VII / Harrison Ford (Han Solo)
+      { movieId: 4, figureId: 21, role: 'supporting character' }, // Star Wars: Episode VII / Mark Hamill (Luke Skywalker)
+      { movieId: 4, figureId: 22, role: 'supporting character' }, // Star Wars: Episode VII / Carrie Fisher (Leia Organa)
+      { movieId: 4, figureId: 23, role: 'supporting character' }, // Star Wars: Episode VII / Andy Serkis (Supreme Leader Snoke)
 
-      { movieId: 6, figureId: 14, role: 'main character' }, // American Sniper / Bradley Cooper
-      { movieId: 6, figureId: 15, role: 'director' }, // American Sniper / Clint Eastwood
+      { movieId: 5, figureId: 24, role: 'main character' }, // Silver Linings Playbook / Bradley Cooper
 
-      { movieId: 7, figureId: 15, role: 'director' }, // Million Dollar Baby / Clint Eastwood
-      { movieId: 7, figureId: 15, role: 'main character' }, // Million Dollar Baby / Clint Eastwood
+      { movieId: 6, figureId: 24, role: 'main character' }, // American Sniper / Bradley Cooper
+      { movieId: 6, figureId: 25, role: 'director' }, // American Sniper / Clint Eastwood
 
-      { movieId: 8, figureId: 14, role: 'director' }, // A Star Is Born / Bradley Cooper
-      { movieId: 8, figureId: 14, role: 'main character' }, // A Star Is Born / Bradley Cooper
-      { movieId: 8, figureId: 16, role: 'main character' }, // A Star Is Born / Lady Gaga
+      { movieId: 7, figureId: 25, role: 'director' }, // Million Dollar Baby / Clint Eastwood
+      { movieId: 7, figureId: 25, role: 'main character' }, // Million Dollar Baby / Clint Eastwood
+
+      { movieId: 8, figureId: 24, role: 'director' }, // A Star Is Born / Bradley Cooper
+      { movieId: 8, figureId: 24, role: 'main character' }, // A Star Is Born / Bradley Cooper
+      { movieId: 8, figureId: 26, role: 'main character' }, // A Star Is Born / Lady Gaga
     ],
   });
 
