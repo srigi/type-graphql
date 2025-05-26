@@ -6,6 +6,7 @@ import { Client, Provider as UrqlProvider, cacheExchange, fetchExchange, subscri
 import { Layout } from '~/components/Layout';
 import { NotFound } from '~/components/NotFound';
 import { IndexPage } from './pages/index';
+import { FigureDetailPage } from './pages/figureDetail';
 import { MovieDetailPage } from './pages/movieDetail';
 import './index.css';
 
@@ -34,6 +35,7 @@ render(
       <ErrorBoundary>
         <Layout>
           <Router>
+            <Route path="/figure/:slug" component={FigureDetailPage} />
             <Route path="/movie/:slug" component={MovieDetailPage} />
             <Route path="/" component={IndexPage} />
             <Route default component={NotFound} />
