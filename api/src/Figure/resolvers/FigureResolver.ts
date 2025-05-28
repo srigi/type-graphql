@@ -1,5 +1,4 @@
-import type { GraphQLResolveInfo } from 'graphql';
-import { Args, Info, Query, Resolver } from 'type-graphql';
+import { Args, Query, Resolver } from 'type-graphql';
 
 import { prisma } from '~/lib/db';
 import { FindByIdentifierArgs } from '~/common/args/FindByIdentifier';
@@ -9,8 +8,8 @@ import { Figure } from '../Figure';
 
 @Resolver(Figure)
 export class FigureResolver {
-  @Query((returns) => Figure, { nullable: true })
-  async figure(@Args(() => FindByIdentifierArgs) args: FindByIdentifierArgs, @Info() info: GraphQLResolveInfo): Promise<Figure | undefined> {
+  @Query(() => Figure, { nullable: true })
+  async figure(@Args(() => FindByIdentifierArgs) args: FindByIdentifierArgs): Promise<Figure | undefined> {
     const condition = validateAndSelectIdentifier(args);
 
     const figure = await prisma.figure.findUnique({

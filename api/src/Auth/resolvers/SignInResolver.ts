@@ -11,7 +11,7 @@ const JWT_VALIDITY = 60 * 60 * 12;
 
 @Resolver(SignInResponse)
 export class SignInResolver {
-  @Mutation((returns) => SignInResponse)
+  @Mutation(() => SignInResponse)
   async signIn(@Arg('publicId', () => String) publicId: string, @Ctx() ctx: { res: ServerResponse }): Promise<SignInResponse> {
     const user = await prisma.user.findUnique({ where: { publicId } });
     if (user == null) {

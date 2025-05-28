@@ -6,7 +6,7 @@ import { prisma } from '~/lib/db';
 
 @Resolver()
 export class WhoamiResolver {
-  @Query((returns) => User, { nullable: true })
+  @Query(() => User, { nullable: true })
   async whoami(@Ctx() ctx: Context): Promise<User | null> {
     // Since this resolver doesn't have @Authorized(), ctx.user won't be populated by authChecker
     if (ctx.jwt != null) {

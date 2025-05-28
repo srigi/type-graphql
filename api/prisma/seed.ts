@@ -392,6 +392,7 @@ The Force Awakens`,
   return {
     cloudImages: cloudImages.length,
     figures: figures.length,
+    movieImages: movieImages.length,
     movieFigures: movieFigures.length,
     movies: movies.length,
     users: users.length,

@@ -8,7 +8,7 @@ import { UserReview } from '~/UserReview/UserReview';
 
 @Resolver(Movie)
 export class MovieUserReviewsResolver {
-  @FieldResolver((returns) => [UserReview])
+  @FieldResolver(() => [UserReview])
   async userReviews(@Root() movie: Movie, @Info() info: GraphQLResolveInfo): Promise<UserReview[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
 

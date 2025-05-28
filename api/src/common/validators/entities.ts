@@ -9,8 +9,6 @@ import { ArgumentValidationError } from 'type-graphql';
  */
 export function validateEntityFound<T>(entity: T | null | undefined, condition: object, entityName: string): asserts entity is T {
   if (entity == null) {
-    throw new ArgumentValidationError([
-      { property: JSON.stringify(condition), constraints: { presence: `${entityName} not found` } }
-    ]);
+    throw new ArgumentValidationError([{ property: JSON.stringify(condition), constraints: { presence: `${entityName} not found` } }]);
   }
 }

@@ -6,6 +6,8 @@
     "build": "tsc && tsc-alias",
     "db:seed": "tsx prisma/seed.ts",
     "dev": "tsx --watch-path src src/server.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "tsc": "tsc -noEmit",
     "prisma": "prisma"
   },

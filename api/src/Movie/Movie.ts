@@ -6,24 +6,24 @@ import { MovieCounters } from './MovieCounters';
 
 @ObjectType()
 export class Movie {
-  @Field((type) => ID)
+  @Field(() => ID)
   publicId!: string;
 
-  @Field((type) => String)
+  @Field(() => String)
   name!: string;
 
-  @Field((type) => String)
+  @Field(() => String)
   slug!: string;
 
-  @Field((type) => String)
+  @Field(() => String)
   releasedIn!: string;
 
-  @Field((type) => String)
+  @Field(() => String)
   story!: string;
 
-  @Field((type) => Decimal)
+  @Field(() => Decimal)
   avgScore!: Prisma.Decimal;
 
-  @Field((type) => MovieCounters, { nullable: true })
+  @Field(() => MovieCounters, { nullable: true })
   _count?: MovieCounters | null;
 }

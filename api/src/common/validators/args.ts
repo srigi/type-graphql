@@ -13,9 +13,7 @@ export interface FindByIdentifierArgs {
  */
 export function validateAndSelectIdentifier({ publicId, slug }: FindByIdentifierArgs) {
   if (!publicId && !slug) {
-    throw new ArgumentValidationError([
-      { property: 'slug', constraints: { presence: 'Either a slug or publicId must be provided' } }
-    ]);
+    throw new ArgumentValidationError([{ property: 'slug', constraints: { presence: 'Either a slug or publicId must be provided' } }]);
   }
 
   return slug ? { slug } : { publicId };
@@ -28,7 +26,7 @@ export function validateAndSelectIdentifier({ publicId, slug }: FindByIdentifier
  */
 export function validateOrderBy(orderBy?: string): void {
   if (orderBy) {
-    const [field, direction] = orderBy.split('.');
+    const [, direction] = orderBy.split('.');
     if (direction !== 'asc' && direction !== 'desc') {
       throw new ArgumentValidationError([
         { property: 'orderBy', constraints: { enum: `Direction must be either asc or desc, but received ${direction}` } },
