@@ -5,19 +5,5 @@
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
-  "roo-cline.allowedCommands": [
-    "git diff",
-    "git log",
-    "git show",
-    "env",
-    "ls",
-    "mkdir",
-    "pwd",
-    "pnpm add",
-    "pnpm lint",
-    "tsc",
-    "pnpm api",
-    "pnpm webapp"
-  ]
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"]
 }

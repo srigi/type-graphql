@@ -1,9 +1,0 @@
-.aider*
-.bruno
-api/.data
-api/node_modules
-api/prisma/client/**/*.js
-my_resources
-node_modules
-webapp/.dist
-webapp/node_modules
