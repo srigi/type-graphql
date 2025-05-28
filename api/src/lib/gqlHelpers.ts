@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { GraphQLResolveInfo } from 'graphql';
 import graphqlFields from 'graphql-fields';
 
@@ -41,7 +42,7 @@ export function transformCountFieldIntoSelectRelationsCount(_count: object) {
     include: {
       _count: {
         select: {
-          ...Object.fromEntries(Object.entries(_count).filter(([_, v]) => v != null)),
+          ...Object.fromEntries(Object.entries(_count).filter(([_k, v]) => v != null)),
         },
       },
     },

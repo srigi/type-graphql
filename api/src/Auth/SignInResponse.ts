@@ -4,9 +4,9 @@ import { User } from '~/User/User';
 
 @ObjectType('SignInResponse')
 export class SignInResponse {
-  @Field((type) => String)
+  @Field(() => String)
   authToken!: string;
 
-  @Field((type) => User)
+  @Field(() => User)
   user!: User;
 }

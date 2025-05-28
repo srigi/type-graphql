@@ -5,15 +5,15 @@ import { Decimal } from '~/common/scalars';
 
 @ObjectType('CloudImage')
 export class CloudImage {
-  @Field((type) => String)
+  @Field(() => String)
   publicId!: string;
 
-  @Field((type) => String)
+  @Field(() => String)
   alt!: string;
 
-  @Field((type) => Decimal)
+  @Field(() => Decimal)
   AR!: Prisma.Decimal;
 
-  @Field((type) => String)
+  @Field(() => String)
   role!: string;
 }

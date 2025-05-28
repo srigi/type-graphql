@@ -25,7 +25,7 @@ import { UserTypingEvent, UserTypingNotification, type UserTypingNotificationPay
 @Resolver(UserReview)
 export class AddUserReviewResolver {
   @Authorized()
-  @Mutation((returns) => UserReview)
+  @Mutation(() => UserReview)
   async addReview(
     @Arg('userReview', () => AddReviewInput) { moviePublicId, score, text }: AddReviewInput,
     @Ctx() ctx: Context,
@@ -77,9 +77,9 @@ export class AddUserReviewResolver {
     }
   }
 
-  @Subscription((returns) => UserReviewNotification, {
+  @Subscription(() => UserReviewNotification, {
     topics: Topic.NOTIFICATIONS,
-    topicId: ({ args }: SubscribeResolverData<any, { moviePublicId: string }>) => args.moviePublicId,
+    topicId: ({ args }: SubscribeResolverData<unknown, { moviePublicId: string }>) => args.moviePublicId,
   })
   userReviewAdded(
     @Arg('moviePublicId', () => String) moviePublicId: string,
@@ -89,7 +89,7 @@ export class AddUserReviewResolver {
   }
 
   @Authorized()
-  @Mutation((returns) => Int)
+  @Mutation(() => Int)
   async userTyping(
     @Arg('moviePublicId', () => String) moviePublicId: string,
     @Arg('event', () => UserTypingEvent) event: UserTypingEvent,
@@ -106,9 +106,9 @@ export class AddUserReviewResolver {
     return 1; // success
   }
 
-  @Subscription((returns) => UserTypingNotification, {
+  @Subscription(() => UserTypingNotification, {
     topics: Topic.USER_TYPING,
-    topicId: ({ args }: SubscribeResolverData<any, { moviePublicId: string }>) => args.moviePublicId,
+    topicId: ({ args }: SubscribeResolverData<unknown, { moviePublicId: string }>) => args.moviePublicId,
     filter: ({ args, payload }: { args: { userPublicId: string }; payload: UserTypingNotificationPayload }) =>
       args.userPublicId !== payload.userPublicId, // Don't notify the user who triggered it
   })

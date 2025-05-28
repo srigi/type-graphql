@@ -9,12 +9,12 @@ export interface UserReviewNotificationPayload {
 
 @ObjectType()
 export class UserReviewNotification {
-  @Field((type) => Date)
+  @Field(() => Date)
   publishedAt!: Date;
 
-  @Field((type) => Date)
+  @Field(() => Date)
   type!: string;
 
-  @Field((type) => UserReview)
+  @Field(() => UserReview)
   userReview!: UserReview;
 }

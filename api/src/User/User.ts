@@ -2,12 +2,12 @@ import { Field, GraphQLTimestamp, ObjectType } from 'type-graphql';
 
 @ObjectType('User')
 export class User {
-  @Field((type) => String)
+  @Field(() => String)
   publicId!: string;
 
-  @Field((type) => String)
+  @Field(() => String)
   username!: string;
 
-  @Field((type) => GraphQLTimestamp)
+  @Field(() => GraphQLTimestamp)
   createdAt!: Date;
 }

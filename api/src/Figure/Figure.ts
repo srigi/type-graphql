@@ -4,21 +4,21 @@ import { FigureMovie } from './FigureMovie';
 
 @ObjectType('Figure')
 export class Figure {
-  @Field((type) => String)
+  @Field(() => String)
   publicId!: string;
 
-  @Field((type) => String)
+  @Field(() => String)
   slug!: string;
 
-  @Field((type) => String)
+  @Field(() => String)
   name!: string;
 
-  @Field((type) => String)
+  @Field(() => String)
   birthday!: string;
 
-  @Field((type) => String)
+  @Field(() => String)
   country!: string;
 
-  @Field((type) => [FigureMovie], { nullable: true })
+  @Field(() => [FigureMovie], { nullable: true })
   movies?: FigureMovie[];
 }

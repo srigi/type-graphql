@@ -7,7 +7,7 @@ import { MovieImageRoleArg } from '../args/MovieImageRole';
 
 @Resolver(Movie)
 export class MovieImageResolver {
-  @FieldResolver((returns) => [CloudImage])
+  @FieldResolver(() => [CloudImage])
   async images(@Args(() => MovieImageRoleArg) { role }: MovieImageRoleArg, @Root() movie: Movie): Promise<CloudImage[]> {
     const cloudImages = await prisma.cloudImage.findMany({
       where: {

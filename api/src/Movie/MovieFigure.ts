@@ -4,6 +4,6 @@ import { Figure } from '~/Figure/Figure';
 
 @ObjectType('MovieFigure')
 export class MovieFigure extends Figure {
-  @Field((type) => String)
+  @Field(() => String)
   role!: string;
 }

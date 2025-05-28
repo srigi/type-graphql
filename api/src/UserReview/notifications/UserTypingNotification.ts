@@ -19,18 +19,18 @@ export interface UserTypingNotificationPayload {
 
 @ObjectType()
 export class UserTypingNotification {
-  @Field((type) => Date)
+  @Field(() => Date)
   publishedAt!: Date;
 
-  @Field((type) => String)
+  @Field(() => String)
   moviePublicId!: string;
 
-  @Field((type) => String)
+  @Field(() => String)
   userPublicId!: string;
 
-  @Field((type) => String)
+  @Field(() => String)
   username!: string;
 
-  @Field((type) => UserTypingEvent)
+  @Field(() => UserTypingEvent)
   event!: UserTypingEvent;
 }

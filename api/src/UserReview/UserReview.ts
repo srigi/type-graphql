@@ -5,15 +5,15 @@ import { Decimal } from '~/common/scalars';
 
 @ObjectType('UserReview')
 export class UserReview {
-  @Field((type) => String)
+  @Field(() => String)
   publicId!: string;
 
-  @Field((type) => Decimal)
+  @Field(() => Decimal)
   score!: Prisma.Decimal;
 
-  @Field((type) => String)
+  @Field(() => String)
   text!: string;
 
-  @Field((type) => GraphQLTimestamp)
+  @Field(() => GraphQLTimestamp)
   createdAt!: Date;
 }

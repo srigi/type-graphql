@@ -11,12 +11,12 @@ import { Movie } from '../Movie';
 
 @Resolver(Movie)
 export class MovieResolver {
-  @Query((returns) => [Movie])
+  @Query(() => [Movie])
   async movies(@Args(() => RangeArgs) { skip, take }: RangeArgs): Promise<Movie[]> {
     return await prisma.movie.findMany({ skip, take: take || 25, orderBy: { releasedIn: 'desc' } });
   }
 
-  @Query((returns) => Movie, { nullable: true })
+  @Query(() => Movie, { nullable: true })
   async movie(@Args(() => FindByIdentifierArgs) args: FindByIdentifierArgs, @Info() info: GraphQLResolveInfo): Promise<Movie | undefined> {
     const condition = validateAndSelectIdentifier(args);
     const { _count } = transformInfoIntoPrismaArgs(info);
